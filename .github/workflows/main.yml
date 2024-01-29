@@ -1,25 +1,33 @@
-name: EAS Build
+name: EAS Build and Test
 on:
   workflow_dispatch:
   push:
     branches:
       - main
+
 jobs:
-  build:
-    name: Install and build
+  build-and-test:
+    name: Install, Test, and Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 18.x
-          cache: npm
+          node-version: '18.x'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
       - name: Setup Expo and EAS
         uses: expo/expo-github-action@v8
         with:
-          eas-version: latest
+          eas-version: 'latest'
           token: ${{ secrets.EXPO_TOKEN }}
-      - name: Install dependencies
-        run: npm ci
+
       - name: Build on EAS
         run: eas build --platform android --non-interactive --no-wait
