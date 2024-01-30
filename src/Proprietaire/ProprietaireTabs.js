@@ -1,23 +1,21 @@
 import React from 'react';
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
 import { NavigationContainer } from '@react-navigation/native';
-import PlantSOS from '../PlantSOS/PlantSOS';
+import Plantsitting from '../Plantssitting/Plantsitting';
+import Plantes from '../Plantes/Plantes';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const BotanisteTabs = () => {
+const ClientTabs = () => {
   const Tab = createMaterialBottomTabNavigator();
 
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator>
-        <Tab.Screen
-          name="PlantSOS"
-          component={PlantSOS}
-          options={{ tabBarLabel: 'PlantSOS', tabBarIcon: () => { return <Icon name="help-box" size={24} />; }, }}
-        />
+        <Tab.Screen name="Plantes" component={Plantes} />
+        <Tab.Screen name="Plantsitting" component={Plantsitting} />
       </Tab.Navigator>
     </NavigationContainer>
   );
 };
 
-export default BotanisteTabs;
+export default ClientTabs;

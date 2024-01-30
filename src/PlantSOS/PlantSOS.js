@@ -1,12 +1,12 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-const ClientTabs = () => {
+const PlantSOS = () => {
   return (
     <Text>
-      Client
+      PlantSOS
     </Text>
   );
 };
 
-export default ClientTabs;
+export default PlantSOS;
