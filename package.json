@@ -7,7 +7,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "jest": {
     "preset": "jest-expo",
@@ -30,7 +31,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@testing-library/react-native": "^12.4.3"
+    "@testing-library/react-native": "^12.4.3",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-native": "^4.1.0"
   },
   "private": true
 }

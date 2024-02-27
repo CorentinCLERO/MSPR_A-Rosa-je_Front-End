@@ -12,20 +12,20 @@ const GardienTabs = () => {
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator>
-        <Tab.Screen 
-        name="Map" 
-        component={Map}
-        options={{ tabBarLabel: 'Map', tabBarIcon: () => { return <Icon name="home-map-marker" size={24} />; }, }}
+        <Tab.Screen
+          name="Map"
+          component={Map}
+          options={{ tabBarLabel: 'Map', tabBarIcon: () => { return <Icon name="home-map-marker" size={24} />; }, }}
         />
-        <Tab.Screen 
-        name="Missions" 
-        component={Missions}
-        options={{ tabBarLabel: 'Missions', tabBarIcon: () => { return <Icon name="calendar-month" size={24} />; }, }}
-         />
-        <Tab.Screen 
-        name="PlantSOS" 
-        component={PlantSOS} 
-        options={{ tabBarLabel: 'PlantSOS', tabBarIcon: () => { return <Icon name="leaf" size={24} />; }, }}
+        <Tab.Screen
+          name="Missions"
+          component={Missions}
+          options={{ tabBarLabel: 'Missions', tabBarIcon: () => { return <Icon name="calendar-month" size={24} />; }, }}
+        />
+        <Tab.Screen
+          name="PlantSOS"
+          component={PlantSOS}
+          options={{ tabBarLabel: 'PlantSOS', tabBarIcon: () => { return <Icon name="leaf" size={24} />; }, }}
         />
       </Tab.Navigator>
     </NavigationContainer>
