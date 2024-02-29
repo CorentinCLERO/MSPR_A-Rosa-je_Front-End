@@ -49,6 +49,9 @@ module.exports = {
     'semi': ['error', 'always'], // Exige l'utilisation de point-virgule à la fin des instructions
     'no-eval': 'error', // Interdit l'utilisation de la fonction eval()
 
+    'react/prop-types': 'off', // Désactive la règle de validation des props
+    'react-native/sort-styles': 'off',
+
     // Règles spécifiques à React Native
     'react-native/no-unused-styles': 2, // Interdit les styles inutilisés dans les feuilles de style React Native
     'react-native/split-platform-components': 2, // Exige l'utilisation de fichiers spécifiques à la plateforme pour les composants
