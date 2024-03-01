@@ -4,4 +4,5 @@ export const colors = {
   warning: 'red',
   success: 'green',
   black: '#000000',
+  white: '#FFFFFF',
 };

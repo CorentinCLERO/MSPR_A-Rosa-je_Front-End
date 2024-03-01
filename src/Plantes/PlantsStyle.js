@@ -22,12 +22,25 @@ export const styles = StyleSheet.create({
   cardLayout: {
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: colors.white,
+    borderRadius: 15,
+    // Ombre pour iOS
+    shadowColor: colors.success,
+    shadowOffset: {
+      width: 4,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    // Ombre pour Android
+    elevation: 15,
   },
   cardImage: {
     flex: 4,
     height: 150,
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
+    borderWidth:  1,
   },
   cardContent: {
     flex: 6,
@@ -53,6 +66,8 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     borderRadius: 50,
     padding: 10,
+    borderWidth: 1,
+    borderColor: colors.black,
   },
   addButton: {
     width: 80,
@@ -60,5 +75,7 @@ export const styles = StyleSheet.create({
     bottom: 20,
     right: '50%',
     transform: [{ translateX: 20 }],
+    borderWidth: 1,
+    borderColor: colors.black,
   },
 });

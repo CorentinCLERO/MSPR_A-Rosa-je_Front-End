@@ -1,50 +1,40 @@
 import React from 'react';
 import Plantes from './Plantes';
-import { render } from '@testing-library/react-native';
+import { render, cleanup } from '@testing-library/react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-const mockPlantList = [
-  {
-    id: 1,
-    name: 'Cactus',
-    variety: 'Saguaro',
-    movable: true,
-    url: 'https://example.com/cactus.jpg'
-  },
-  {
-    id: 2,
-    name: 'Rose',
-    variety: 'Rose rouge',
-    movable: false,
-    url: 'https://example.com/rose.jpg'
-  }
-];
-
 describe('Plantes', () => {
-  it('Plantes exist', () => {
-    const tree = render(
+  let utils;
+
+  const mockPlantList = [
+    { id: 1, name: 'Cactus', variety: 'Saguaro', movable: true, url: 'https://example.com/cactus.jpg' },
+    { id: 2, name: 'Rose', variety: 'Rose rouge', movable: false, url: 'https://example.com/rose.jpg' }
+  ];
+
+  beforeEach(() => {
+    utils = render(
       <SafeAreaProvider>
         <Plantes plantList={mockPlantList} />
       </SafeAreaProvider>
     );
-    expect(tree.toJSON()).toBeTruthy();
+  });
+
+  afterEach(() => {
+    cleanup();
+  });
+
+  it('Plantes exist', () => {
+    expect(utils.toJSON()).toBeTruthy();
   });
 
   it('should display "Vos plantes :"', () => {
-    const { findByText } = render(
-      <SafeAreaProvider>
-        <Plantes plantList={mockPlantList} />
-      </SafeAreaProvider>
-    );
-    expect(findByText('Vos plantes :')).toBeTruthy();
+    const { findByText } = utils;
+    const textElement = findByText('Vos plantes :');
+    expect(textElement).toBeTruthy();
   });
 
   it('displays the plant cards correctly', () => {
-    const { findByText } = render(
-      <SafeAreaProvider>
-        <Plantes plantList={mockPlantList} deletePlant={() => { }} />
-      </SafeAreaProvider>
-    );
+    const { findByText } = utils;
     const plantName = findByText(mockPlantList[0].variety);
     expect(plantName).toBeTruthy();
   });
