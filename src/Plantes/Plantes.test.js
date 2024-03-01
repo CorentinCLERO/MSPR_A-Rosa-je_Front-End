@@ -22,7 +22,11 @@ const mockPlantList = [
 
 describe('Plantes', () => {
   it('Plantes exist', () => {
-    const tree = render(<Plantes plantList={mockPlantList} />);
+    const tree = render(
+      <SafeAreaProvider>
+        <Plantes plantList={mockPlantList} />
+      </SafeAreaProvider>
+    );
     expect(tree.toJSON()).toBeTruthy();
   });
 
