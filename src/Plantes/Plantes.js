@@ -3,9 +3,10 @@ import { Text, View, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { Button, Card, Modal } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors } from '../colors';
-import ModalAddPlant from './ModalAddPlant';
+import ModalPlant from './ModalPlant';
 
-const Plantes = ({ plantList, deletePlant, addPlant }) => {
+const Plantes = (props) => {
+  const { plantList, deletePlant } = props;
   const [canScroll, setCanScroll] = useState(false);
   const [haveScroll, setHaveScroll] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -72,7 +73,7 @@ const Plantes = ({ plantList, deletePlant, addPlant }) => {
       <Button style={styles.addButton} mode="contained" onPress={() => setVisible(true)} buttonColor='#D9D9D9' rippleColor={'#00000040'}>
         <Icon name="plus" color={'#000000'} size={24} />
       </Button>
-      <ModalAddPlant {...{ setVisible, visible }} />
+      <ModalPlant {...props} {...{ setVisible, visible }} />
     </View>
   );
 };

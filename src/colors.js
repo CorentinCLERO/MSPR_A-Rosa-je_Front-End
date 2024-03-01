@@ -3,4 +3,5 @@ export const colors = {
   background: '#FFFFFF',
   warning: 'red',
   success: 'green',
+  black: '#000000',
 };

@@ -3,7 +3,8 @@ import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navig
 import { NavigationContainer } from '@react-navigation/native';
 import Plantsitting from '../Plantssitting/Plantsitting';
 import Plantes from '../Plantes/Plantes';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import PlantSittingSVG from '../../assets/iconesTabs/plantSitting.svg';
+import PlantSVG from '../../assets/iconesTabs/plant.svg';
 
 export const plantListRaw = [
   {
@@ -53,17 +54,32 @@ const ClientTabs = () => {
     setPlantList(currentList => currentList.filter(plant => plant.id !== plantId));
   };
 
-  const addPlants = (newPlant) => {
-    setPlantList(currentList => [...currentList, ...newPlant]);
+  const addPlant = (newPlant) => {
+    setPlantList(currentList => [...[newPlant], ...currentList]);
   };
 
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator>
-        <Tab.Screen name="Plantes">
-          {() => <Plantes {...{ plantList, deletePlant, addPlants }} />}
+        <Tab.Screen
+          name="Plantes"
+          options={{
+            tabBarIcon: ({ color }) => (
+              <PlantSVG fill={color} width="24" height="24" />
+            ),
+          }}
+        >
+          {() => <Plantes {...{ plantList, deletePlant, addPlant }} />}
         </Tab.Screen>
-        <Tab.Screen name="Plantsitting" component={Plantsitting} />
+        <Tab.Screen
+          name="Plantsitting"
+          component={Plantsitting}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <PlantSittingSVG fill={color} width="24" height="24" />
+            ),
+          }}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
