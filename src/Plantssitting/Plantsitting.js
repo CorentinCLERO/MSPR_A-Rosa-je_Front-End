@@ -1,51 +1,85 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Card } from 'react-native-paper';
+import { Button, Card } from 'react-native-paper';
 import { colors } from '../colors';
-import moment from 'moment';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { format } from 'date-fns';
+import ModalPlantSitting from './ModalPlantSitting';
 
 const Plantsitting = (props) => {
-  const { plantSittingList } = props;
+  const { plantSittingList, deletePlantSitting } = props;
+  const [visible, setVisible] = useState(false);
+
   const PlantSittingWaiting = plantSittingList.filter(plantSitting => plantSitting.status === 'En attente');
   const PlantSittingKeep = plantSittingList.filter(plantSitting => plantSitting.status === 'En cours');
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Vos Demandes de Plant-Sitting</Text>
-      <Text style={styles.titlePlant}>Vos Plant-Sitting en cours :</Text>
-      <ScrollView style={styles.containerPlant}>
-        {PlantSittingWaiting.map(plantSitting => (
-          <Card key={plantSitting.id} style={styles.card}>
-            <View style={styles.cardLayout}>
-              <Card.Cover style={styles.cardImage} source={{ uri: plantSitting.plants[0]?.url }} />
-              <Card.Content style={styles.cardContent}>
-                <Text>{plantSitting.reason}</Text>
-                <Text>{plantSitting.description}</Text>
-                <Text>{plantSitting.plants.length + ' plantes'}</Text>
-                <Text>{moment(plantSitting.beginDate).format('l') + ' - ' + moment(plantSitting.endDate).format('l')}</Text>
-                <Text>{plantSitting.status}</Text>
-              </Card.Content>
-            </View>
-          </Card>
-        ))}
-      </ScrollView>
-      <Text style={[styles.titlePlant, styles.titlePlant2]}>Vos demandes de Plant-Sitting :</Text>
-      <ScrollView style={styles.containerPlant}>
-        {PlantSittingKeep.map(plantSitting => (
-          <Card key={plantSitting.id} style={styles.card}>
-            <View style={styles.cardLayout}>
-              <Card.Cover style={styles.cardImage} source={{ uri: plantSitting.plants[0]?.url }} />
-              <Card.Content style={styles.cardContent}>
-                <Text>{plantSitting.reason}</Text>
-                <Text>{plantSitting.description}</Text>
-                <Text>{plantSitting.plants.length + ' plantes'}</Text>
-                <Text>{moment(plantSitting.beginDate).format('l') + ' - ' + moment(plantSitting.endDate).format('l')}</Text>
-                <Text>{plantSitting.status}</Text>
-              </Card.Content>
-            </View>
-          </Card>
-        ))}
-      </ScrollView>
+      <View style={styles.containerPlant}>
+        <Text style={styles.titlePlant}>Vos Plant-Sitting en cours :</Text>
+        <ScrollView style={styles.containerPlantScroll}>
+          {PlantSittingWaiting.map(plantSitting => (
+            <Card key={plantSitting.id} style={styles.card} >
+              <View style={styles.cardLayout}>
+                <Card.Cover style={styles.cardImage} source={{ uri: plantSitting.plants[0]?.url }} />
+                <Card.Content style={styles.cardContent}>
+                  <Text numberOfLines={1} ellipsizeMode='tail'>{plantSitting.reason}</Text>
+                  <Text numberOfLines={1} ellipsizeMode='tail'>{plantSitting.description}</Text>
+                  <Text style={styles.text}>{plantSitting.plants.length + ' plantes'}</Text>
+                  <Text style={styles.text} numberOfLines={1} ellipsizeMode='tail'>{format(plantSitting.beginDate, 'MM/dd/yy') + ' - ' + format(plantSitting.endDate, 'MM/dd/yy')}</Text>
+                  <View style={styles.bottomContainer}>
+                    <Text style={[styles.text, styles.text2]}>{plantSitting.status}</Text>
+                    <Button style={styles.deleteButton} rippleColor={'#f00'} onPress={() => deletePlantSitting(plantSitting.id)}>
+                      <Icon name="delete" color={'#ff5555'} size={24} />
+                    </Button>
+                  </View>
+                </Card.Content>
+              </View>
+            </Card>
+          ))}
+        </ScrollView>
+      </View>
+      <View style={styles.containerPlant}>
+        <Text style={[styles.titlePlant, styles.titlePlant2]}>Vos demandes de Plant-Sitting :</Text>
+        <ScrollView style={styles.containerPlantScroll}>
+          {PlantSittingKeep.map((plantSitting, index) => (
+            <Card
+              key={plantSitting.id}
+              style={[
+                styles.card,
+                index === PlantSittingKeep.length - 1 ? styles.lastCard : {}
+              ]}
+            >
+              <View style={styles.cardLayout}>
+                <Card.Cover style={styles.cardImage} source={{ uri: plantSitting.plants[0]?.url }} />
+                <Card.Content style={styles.cardContent}>
+                  <Text numberOfLines={1} ellipsizeMode='tail'>{plantSitting.reason}</Text>
+                  <Text numberOfLines={1} ellipsizeMode='tail'>{plantSitting.description}</Text>
+                  <Text style={styles.text}>{plantSitting.plants.length + ' plantes'}</Text>
+                  <Text style={styles.text}>{format(plantSitting.beginDate, 'MM/dd/yy') + ' - ' + format(plantSitting.endDate, 'MM/dd/yy')}</Text>
+                  <View style={styles.bottomContainer}>
+                    <Text style={[styles.text, styles.text2]}>{plantSitting.status}</Text>
+                    <Button style={styles.deleteButton} rippleColor={'#f00'} onPress={() => deletePlantSitting(plantSitting.id)}>
+                      <Icon name="delete" color={'#ff5555'} size={24} />
+                    </Button>
+                  </View>
+                </Card.Content>
+              </View>
+            </Card>
+          ))}
+        </ScrollView>
+        <Button
+          style={styles.addButton2}
+          mode="contained"
+          onPress={() => setVisible(true)}
+          buttonColor='#D9D9D9'
+          rippleColor={'#00000040'}
+        >
+          <Icon name="plus" color={'#000000'} size={24} />
+        </Button>
+      </View>
+      <ModalPlantSitting {...props} {...{ setVisible, visible }} />
     </View>
   );
 };
@@ -61,11 +95,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   containerPlant: {
+    height: '50%',
+  },
+  containerPlantScroll: {
     paddingHorizontal: 20,
   },
   card: {
     marginHorizontal: 20,
     marginVertical: 10,
+  },
+  lastCard: {
+    marginBottom: 130,
   },
   titlePlant: {
     padding: 10,
@@ -90,11 +130,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 5,
     // Ombre pour Android
-    elevation: 15,
+    elevation: 4,
   },
   cardImage: {
     flex: 4,
-    height: 150,
+    height: 'auto',
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
     borderWidth: 1,
@@ -103,6 +143,45 @@ const styles = StyleSheet.create({
     flex: 6,
     paddingLeft: 10,
     gap: 10,
+  },
+  bottomContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: -10,
+  },
+  deleteButton: {
+    width: '100%',
+    alignItems: 'center',
+    marginLeft: -10,
+  },
+  text: {
+    textAlign: 'center'
+  },
+  text2: {
+    backgroundColor: colors.primary,
+    paddingHorizontal: 10,
+    paddingVertical: 2,
+    marginRight: -10,
+    borderRadius: 10,
+  },
+  addButton: {
+    width: 80,
+    position: 'absolute',
+    bottom: 10,
+    right: '50%',
+    transform: [{ translateX: 40 }],
+    borderWidth: 1,
+    borderColor: colors.black,
+  },
+  addButton2: {
+    width: 80,
+    position: 'absolute',
+    bottom: 60,
+    right: '50%',
+    transform: [{ translateX: 40 }],
+    borderWidth: 1,
+    borderColor: colors.black,
   },
 });
 

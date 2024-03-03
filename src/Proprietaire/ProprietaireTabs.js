@@ -190,12 +190,20 @@ const ClientTabs = () => {
   const [plantList, setPlantList] = useState(plantListRaw);
   const [plantSittingList, setPlantSittingList] = useState(plantSittingRaw);
 
+  const addPlant = (newPlant) => {
+    setPlantList(currentList => [...[newPlant], ...currentList]);
+  };
+
   const deletePlant = (plantId) => {
     setPlantList(currentList => currentList.filter(plant => plant.id !== plantId));
   };
 
-  const addPlant = (newPlant) => {
-    setPlantList(currentList => [...[newPlant], ...currentList]);
+  const addPlantSitting = (newPlant) => {
+    setPlantSittingList(currentList => [...[newPlant], ...currentList]);
+  };
+
+  const deletePlantSitting = (plantId) => {
+    setPlantSittingList(currentList => currentList.filter(plant => plant.id !== plantId));
   };
 
   return (
@@ -219,7 +227,7 @@ const ClientTabs = () => {
             ),
           }}
         >
-          {() => <Plantsitting {...{ plantSittingList }} />}
+          {() => <Plantsitting {...{ plantSittingList, addPlantSitting, deletePlantSitting }} />}
         </Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>
