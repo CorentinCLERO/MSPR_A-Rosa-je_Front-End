@@ -10,8 +10,8 @@ const Plantsitting = (props) => {
   const { plantSittingList, deletePlantSitting } = props;
   const [visible, setVisible] = useState(false);
 
-  const PlantSittingWaiting = plantSittingList.filter(plantSitting => plantSitting.status === 'En attente');
-  const PlantSittingKeep = plantSittingList.filter(plantSitting => plantSitting.status === 'En cours');
+  const PlantSittingWaiting = plantSittingList.filter(plantSitting => plantSitting.status === 'En cours');
+  const PlantSittingKeep = plantSittingList.filter(plantSitting => plantSitting.status === 'En attente');
 
   return (
     <View style={styles.container}>
@@ -70,7 +70,7 @@ const Plantsitting = (props) => {
           ))}
         </ScrollView>
         <Button
-          style={styles.addButton2}
+          style={styles.addButton}
           mode="contained"
           onPress={() => setVisible(true)}
           buttonColor='#D9D9D9'
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     height: '50%',
   },
   containerPlantScroll: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
   },
   card: {
     marginHorizontal: 20,
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 5,
     // Ombre pour Android
-    elevation: 4,
+    elevation: 15,
   },
   cardImage: {
     flex: 4,
@@ -166,15 +166,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   addButton: {
-    width: 80,
-    position: 'absolute',
-    bottom: 10,
-    right: '50%',
-    transform: [{ translateX: 40 }],
-    borderWidth: 1,
-    borderColor: colors.black,
-  },
-  addButton2: {
     width: 80,
     position: 'absolute',
     bottom: 60,

@@ -55,7 +55,7 @@ const ModalPlant = (props) => {
           onPress={() => setVisible(false)}
           style={styles.modalCloseIcon}
           color={'#000000'}
-          size={24}
+          size={40}
         />
         <View style={styles.modalContent}>
           <Text>Ajout de plant :</Text>
@@ -66,6 +66,12 @@ const ModalPlant = (props) => {
             label="Variété"
             value={plantData.variety ? plantData.variety : ''}
             onChangeText={variety => setPlantData({ ...plantData, variety })}
+          />
+          <TextInput
+            label="Message"
+            value={plantData.message ? plantData.message : ''}
+            onChangeText={message => setPlantData({ ...plantData, message })}
+            multiline
           />
           <View style={styles.checkboxContainer}>
             <Text>Déplaçable ?</Text>

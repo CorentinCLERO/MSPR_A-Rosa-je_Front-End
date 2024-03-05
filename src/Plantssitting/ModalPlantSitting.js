@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { colors } from '../colors';
-import { Button, Checkbox, Modal, TextInput } from 'react-native-paper';
-import * as ImagePicker from 'expo-image-picker';
+import { Button, Modal, TextInput } from 'react-native-paper';
 
 const ModalPlantSitting = (props) => {
   const { setVisible, visible, addPlantSitting } = props;
@@ -41,23 +40,22 @@ const ModalPlantSitting = (props) => {
           onPress={() => setVisible(false)}
           style={styles.modalCloseIcon}
           color={'#000000'}
-          size={24}
+          size={40}
         />
         <View style={styles.modalContent}>
-          <Text>Ajout de plant-sitting :</Text>
+          <Text>Demande de plant-sitting :</Text>
           <TextInput
-            label="Variété"
+            label="Indiquez la description de vos plantes :"
+            value={plantData.description ? plantData.description : ''}
+            onChangeText={description => setPlantData({ ...plantData, description })}
+            multiline
+          />
+          <TextInput
+            label="Indiquez la raison de votre demande :"
             value={plantData.variety ? plantData.variety : ''}
             onChangeText={variety => setPlantData({ ...plantData, variety })}
             multiline
           />
-          <View style={styles.checkboxContainer}>
-            <Text>Déplaçable ?</Text>
-            <Checkbox
-              status={plantData.movable ? 'checked' : 'unchecked'}
-              onPress={() => setPlantData({ ...plantData, movable: !plantData.movable })}
-            />
-          </View>
           <Button
             onPress={() => handleAddPlantSitting()}
             buttonColor={colors.success}
@@ -85,27 +83,11 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 40,
   },
-  imageContainer: {
-    width: '100%',
-    height: 200,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  image: {
-    width: 200,
-    height: 200
-  },
   modalCloseIcon: {
     position: 'absolute',
     top: 10,
     right: 10,
     color: colors.warning,
-  },
-  checkboxContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
   },
 });
 

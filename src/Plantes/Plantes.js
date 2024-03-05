@@ -49,6 +49,7 @@ const Plantes = (props) => {
                   <Card.Content style={styles.cardContent}>
                     <Text style={styles.cardtitle}>{plant.variety}</Text>
                     <Text style={styles.content}>{plant.movable ? 'Déplaçable' : 'Non déplaçable'}</Text>
+                    <Text  numberOfLines={2} ellipsizeMode='tail'>{plant.message}</Text>
                     <Button style={styles.deleteButton} rippleColor={'#f00'} onPress={() => deletePlant(plant.id)}>
                       <Icon name="delete" color={'#ff5555'} size={24} />
                     </Button>

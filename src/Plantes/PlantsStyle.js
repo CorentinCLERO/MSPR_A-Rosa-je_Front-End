@@ -45,7 +45,7 @@ export const styles = StyleSheet.create({
   cardContent: {
     flex: 6,
     paddingLeft: 10,
-    gap: 10,
+    gap: 5,
   },
   cardtitle: {
     fontSize: 22,
@@ -57,7 +57,6 @@ export const styles = StyleSheet.create({
   deleteButton: {
     width: '100%',
     alignItems: 'flex-end',
-    marginTop: 10,
   },
   scrollIcon: {
     position: 'absolute',

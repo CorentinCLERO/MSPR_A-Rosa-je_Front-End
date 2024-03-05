@@ -5,43 +5,51 @@ import Plantsitting from '../Plantssitting/Plantsitting';
 import Plantes from '../Plantes/Plantes';
 import PlantSittingSVG from '../../assets/iconesTabs/plantSitting.svg';
 import PlantSVG from '../../assets/iconesTabs/plant.svg';
+import { colors } from '../colors';
+import { StyleSheet } from 'react-native';
 
 export const plantListRaw = [
   {
     id: 1,
     variety: 'Cactus',
     movable: true,
-    url: 'https://www.mooseplantshop.co.uk/cdn/shop/products/bunnyears_300x300.jpg?v=1647530194'
+    url: 'https://www.mooseplantshop.co.uk/cdn/shop/products/bunnyears_300x300.jpg?v=1647530194',
+    message: 'Elle doivent être arrosé tout les jours et bla et bla et bla et bla et bla et bla',
   },
   {
     id: 2,
     variety: 'Rose',
     movable: false,
-    url: 'https://lejardindu19eme.files.wordpress.com/2016/01/rosier-penny-lane.jpg'
+    url: 'https://lejardindu19eme.files.wordpress.com/2016/01/rosier-penny-lane.jpg',
+    message: 'Elle doivent être arrosé tout les 5 jours',
   },
   {
     id: 51,
     variety: 'Caaaaactus',
     movable: true,
-    url: 'https://www.mooseplantshop.co.uk/cdn/shop/products/bunnyears_300x300.jpg?v=1647530194'
+    url: 'https://www.mooseplantshop.co.uk/cdn/shop/products/bunnyears_300x300.jpg?v=1647530194',
+    message: 'Elle doivent être arrosé tout les 4 jours',
   },
   {
     id: 29,
     variety: 'Roooooose',
     movable: false,
-    url: 'https://lejardindu19eme.files.wordpress.com/2016/01/rosier-penny-lane.jpg'
+    url: 'https://lejardindu19eme.files.wordpress.com/2016/01/rosier-penny-lane.jpg',
+    message: 'Elle doivent être arrosé tout les 6 jours',
   },
   {
     id: 241,
     variety: 'Caactus',
     movable: true,
-    url: 'https://www.mooseplantshop.co.uk/cdn/shop/products/bunnyears_300x300.jpg?v=1647530194'
+    url: 'https://www.mooseplantshop.co.uk/cdn/shop/products/bunnyears_300x300.jpg?v=1647530194',
+    message: 'Elle doivent être arrosé tout les 9 jours',
   },
   {
     id: 234,
     variety: 'Rooose',
     movable: false,
-    url: 'https://lejardindu19eme.files.wordpress.com/2016/01/rosier-penny-lane.jpg'
+    url: 'https://lejardindu19eme.files.wordpress.com/2016/01/rosier-penny-lane.jpg',
+    message: 'Elle doivent être arrosé tout les 2 jours',
   },
 ];
 
@@ -208,7 +216,7 @@ const ClientTabs = () => {
 
   return (
     <NavigationContainer independent={true}>
-      <Tab.Navigator barStyle={{ backgroundColor: '#FFF', borderTopRightRadius: 10, borderTopLeftRadius: 10, shadowColor: 'green', borderWidth: 2, borderBottomWidth: 0, overflow: 'hidden', elevation: 15 }}>
+      <Tab.Navigator barStyle={styles.navigator}>
         <Tab.Screen
           name="Plantes"
           options={{
@@ -233,5 +241,16 @@ const ClientTabs = () => {
     </NavigationContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  navigator: {
+    backgroundColor: colors.white,
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+    borderWidth: 2,
+    borderBottomWidth: 0,
+    overflow: 'hidden',
+  }
+});
 
 export default ClientTabs;
