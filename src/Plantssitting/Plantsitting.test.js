@@ -1,13 +1,17 @@
 import React from "react";
 import rendered from "react-test-renderer";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import Tabs from "./Tabs";
+import Plantsitting from "./Plantsitting";
 
-describe("Tabs", () => {
-  it("Tabs exist", () => {
+const plantSittingData = [
+
+];
+
+describe("Plantsitting", () => {
+  it("Plantsitting exist", () => {
     const tree = rendered.create(
       <SafeAreaProvider>
-        <Tabs />
+        <Plantsitting plantSittingData={plantSittingData} />
       </SafeAreaProvider>
     );
     expect(tree.toJSON()).toBeTruthy();

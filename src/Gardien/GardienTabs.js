@@ -4,7 +4,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import Map from '../Map/Map';
 import Missions from '../Missions/Missions';
 import PlantSOS from '../PlantSOS/PlantSOS';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MapSVG from '../../assets/iconesTabs/map.svg';
+import MissionSVG from '../../assets/iconesTabs/mission.svg';
+import PlantSOSSVG from '../../assets/iconesTabs/plantSOS.svg';
 
 const GardienTabs = () => {
   const Tab = createMaterialBottomTabNavigator();
@@ -15,17 +17,29 @@ const GardienTabs = () => {
         <Tab.Screen
           name="Map"
           component={Map}
-          options={{ tabBarLabel: 'Map', tabBarIcon: () => { return <Icon name="home-map-marker" size={24} />; }, }}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <MapSVG fill={color} width="24" height="24" />
+            ),
+          }}
         />
         <Tab.Screen
           name="Missions"
           component={Missions}
-          options={{ tabBarLabel: 'Missions', tabBarIcon: () => { return <Icon name="calendar-month" size={24} />; }, }}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <MissionSVG fill={color} width="24" height="24" />
+            ),
+          }}
         />
         <Tab.Screen
           name="PlantSOS"
           component={PlantSOS}
-          options={{ tabBarLabel: 'PlantSOS', tabBarIcon: () => { return <Icon name="leaf" size={24} />; }, }}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <PlantSOSSVG fill={color} width="24" height="24" />
+            ),
+          }}
         />
       </Tab.Navigator>
     </NavigationContainer>
