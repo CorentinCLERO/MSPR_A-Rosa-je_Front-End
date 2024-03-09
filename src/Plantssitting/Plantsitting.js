@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Button, Card } from 'react-native-paper';
-import { colors } from '../colors';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { format } from 'date-fns';
-import ModalPlantSitting from './ModalPlantSitting';
+import React, { useState, useEffect } from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Button, Card } from "react-native-paper";
+import { colors } from "../colors";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { format } from "date-fns";
+import ModalPlantSitting from "./ModalPlantSitting";
 
 const Plantsitting = (props) => {
   const { plantSittingList, deletePlantSitting } = props;
   const [visible, setVisible] = useState(false);
+  const [PlantSittingWaiting, setPlantSittingWaiting] = useState([]);
+  const [PlantSittingKeep, setPlantSittingKeep] = useState([]);
 
-  const PlantSittingWaiting = plantSittingList.filter(plantSitting => plantSitting.status === 'En cours');
-  const PlantSittingKeep = plantSittingList.filter(plantSitting => plantSitting.status === 'En attente');
+  useEffect(()=> {
+    setPlantSittingWaiting(plantSittingList.filter(plantSitting => plantSitting.status === "En cours"));
+    setPlantSittingKeep(plantSittingList.filter(plantSitting => plantSitting.status === "En attente"));
+  }, [plantSittingList]);
 
   return (
     <View style={styles.container}>
@@ -24,14 +28,14 @@ const Plantsitting = (props) => {
               <View style={styles.cardLayout}>
                 <Card.Cover style={styles.cardImage} source={{ uri: plantSitting.plants[0]?.url }} />
                 <Card.Content style={styles.cardContent}>
-                  <Text numberOfLines={1} ellipsizeMode='tail'>{plantSitting.reason}</Text>
-                  <Text numberOfLines={1} ellipsizeMode='tail'>{plantSitting.description}</Text>
-                  <Text style={styles.text}>{plantSitting.plants.length + ' plantes'}</Text>
-                  <Text style={styles.text} numberOfLines={1} ellipsizeMode='tail'>{format(plantSitting.beginDate, 'MM/dd/yy') + ' - ' + format(plantSitting.endDate, 'MM/dd/yy')}</Text>
+                  <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting.reason}</Text>
+                  <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting.description}</Text>
+                  <Text style={styles.text}>{plantSitting.plants.length + " plantes"}</Text>
+                  <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">{format(plantSitting.beginDate, "MM/dd/yy") + " - " + format(plantSitting.endDate, "MM/dd/yy")}</Text>
                   <View style={styles.bottomContainer}>
                     <Text style={[styles.text, styles.text2]}>{plantSitting.status}</Text>
-                    <Button style={styles.deleteButton} rippleColor={'#f00'} onPress={() => deletePlantSitting(plantSitting.id)}>
-                      <Icon name="delete" color={'#ff5555'} size={24} />
+                    <Button style={styles.deleteButton} rippleColor={"#f00"} onPress={() => deletePlantSitting(plantSitting.id)}>
+                      <Icon name="delete" color={"#ff5555"} size={24} />
                     </Button>
                   </View>
                 </Card.Content>
@@ -54,14 +58,14 @@ const Plantsitting = (props) => {
               <View style={styles.cardLayout}>
                 <Card.Cover style={styles.cardImage} source={{ uri: plantSitting.plants[0]?.url }} />
                 <Card.Content style={styles.cardContent}>
-                  <Text numberOfLines={1} ellipsizeMode='tail'>{plantSitting.reason}</Text>
-                  <Text numberOfLines={1} ellipsizeMode='tail'>{plantSitting.description}</Text>
-                  <Text style={styles.text}>{plantSitting.plants.length + ' plantes'}</Text>
-                  <Text style={styles.text}>{format(plantSitting.beginDate, 'MM/dd/yy') + ' - ' + format(plantSitting.endDate, 'MM/dd/yy')}</Text>
+                  <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting.reason}</Text>
+                  <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting.description}</Text>
+                  <Text style={styles.text}>{plantSitting.plants.length + " plantes"}</Text>
+                  <Text style={styles.text}>{format(plantSitting.beginDate, "MM/dd/yy") + " - " + format(plantSitting.endDate, "MM/dd/yy")}</Text>
                   <View style={styles.bottomContainer}>
                     <Text style={[styles.text, styles.text2]}>{plantSitting.status}</Text>
-                    <Button style={styles.deleteButton} rippleColor={'#f00'} onPress={() => deletePlantSitting(plantSitting.id)}>
-                      <Icon name="delete" color={'#ff5555'} size={24} />
+                    <Button style={styles.deleteButton} rippleColor={"#f00"} onPress={() => deletePlantSitting(plantSitting.id)}>
+                      <Icon name="delete" color={"#ff5555"} size={24} />
                     </Button>
                   </View>
                 </Card.Content>
@@ -73,10 +77,10 @@ const Plantsitting = (props) => {
           style={styles.addButton}
           mode="contained"
           onPress={() => setVisible(true)}
-          buttonColor='#D9D9D9'
-          rippleColor={'#00000040'}
+          buttonColor="#D9D9D9"
+          rippleColor={"#00000040"}
         >
-          <Icon name="plus" color={'#000000'} size={24} />
+          <Icon name="plus" color={"#000000"} size={24} />
         </Button>
       </View>
       <ModalPlantSitting {...props} {...{ setVisible, visible }} />
@@ -92,10 +96,10 @@ const styles = StyleSheet.create({
   title: {
     margin: 10,
     fontSize: 22,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   containerPlant: {
-    height: '50%',
+    height: "50%",
   },
   containerPlantScroll: {
     paddingHorizontal: 10,
@@ -110,15 +114,15 @@ const styles = StyleSheet.create({
   titlePlant: {
     padding: 10,
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   titlePlant2: {
     borderTopWidth: 1,
     borderTopColor: colors.grey,
   },
   cardLayout: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     backgroundColor: colors.white,
     borderRadius: 15,
     // Ombre pour iOS
@@ -134,7 +138,7 @@ const styles = StyleSheet.create({
   },
   cardImage: {
     flex: 4,
-    height: 'auto',
+    height: "auto",
     borderTopRightRadius: 0,
     borderBottomRightRadius: 0,
     borderWidth: 1,
@@ -145,18 +149,18 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   bottomContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginTop: -10,
   },
   deleteButton: {
-    width: '100%',
-    alignItems: 'center',
+    width: "100%",
+    alignItems: "center",
     marginLeft: -10,
   },
   text: {
-    textAlign: 'center'
+    textAlign: "center"
   },
   text2: {
     backgroundColor: colors.primary,
@@ -167,9 +171,9 @@ const styles = StyleSheet.create({
   },
   addButton: {
     width: 80,
-    position: 'absolute',
+    position: "absolute",
     bottom: 60,
-    right: '50%',
+    right: "50%",
     transform: [{ translateX: 40 }],
     borderWidth: 1,
     borderColor: colors.black,

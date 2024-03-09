@@ -1,14 +1,14 @@
-import React from 'react';
-import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
-import { NavigationContainer } from '@react-navigation/native';
-import ProprietaireTabs from './Proprietaire/ProprietaireTabs';
-import GardienTabs from './Gardien/GardienTabs';
-import BotanisteTabs from './Botaniste/BotanisteTabs';
-// import ProprietaireSVG from '../assets/iconesTabs/proprietaire.svg';
-import GardienSVG from '../assets/iconesTabs/gardien.svg';
-import BotannisteSVG from '../assets/iconesTabs/botaniste.svg';
-import { ProprietaireSVG } from '../assets/iconesTabs/ProprietaireSVG';
-import { View } from 'react-native';
+import React from "react";
+import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
+import { NavigationContainer } from "@react-navigation/native";
+import ProprietaireTabs from "./Proprietaire/ProprietaireTabs";
+import GardienTabs from "./Gardien/GardienTabs";
+import BotanisteTabs from "./Botaniste/BotanisteTabs";
+// import ProprietaireSVG from "../assets/iconesTabs/proprietaire.svg";
+import GardienSVG from "../assets/iconesTabs/gardien.svg";
+import BotannisteSVG from "../assets/iconesTabs/botaniste.svg";
+import { ProprietaireSVG } from "../assets/iconesTabs/ProprietaireSVG";
+import { View } from "react-native";
 
 const Tabs = () => {
   const Tab = createMaterialBottomTabNavigator();
@@ -16,7 +16,7 @@ const Tabs = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        barStyle={{ backgroundColor: '#888888', borderTopRightRadius: 10, borderTopLeftRadius: 10, shadowColor: 'green', borderWidth: 2, borderBottomWidth: 0, overflow: 'hidden', elevation: 15 }}
+        barStyle={{ backgroundColor: "#888888", borderTopRightRadius: 10, borderTopLeftRadius: 10, shadowColor: "green", borderWidth: 2, borderBottomWidth: 0, overflow: "hidden", elevation: 15 }}
         activeColor="#0b4205"
         inactiveColor="#000000"
       >

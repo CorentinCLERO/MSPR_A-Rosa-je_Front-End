@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { colors } from '../colors';
-import { Button, Checkbox, Modal, TextInput } from 'react-native-paper';
-import * as ImagePicker from 'expo-image-picker';
+import React, { useEffect, useState } from "react";
+import { Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { colors } from "../colors";
+import { Button, Checkbox, Modal, TextInput } from "react-native-paper";
+import * as ImagePicker from "expo-image-picker";
 
 const ModalPlant = (props) => {
   const { setVisible, visible, addPlant } = props;
@@ -22,7 +22,7 @@ const ModalPlant = (props) => {
 
   const handleAddPlant = () => {
     if (plantData.url === null || plantData.variety === null) {
-      Alert.alert('Erreur', 'Veuillez remplir tous les champs requis.');
+      Alert.alert("Erreur", "Veuillez remplir tous les champs requis.");
       return;
     }
     setVisible(false);
@@ -54,29 +54,29 @@ const ModalPlant = (props) => {
           name="close"
           onPress={() => setVisible(false)}
           style={styles.modalCloseIcon}
-          color={'#000000'}
+          color={"#000000"}
           size={40}
         />
         <View style={styles.modalContent}>
           <Text>Ajout de plant :</Text>
           <TouchableOpacity style={styles.imageContainer} onPress={pickImage}>
-            <Image source={{ uri: plantData.url ? plantData.url : 'https://res.cloudinary.com/dl0ehqnva/image/upload/c_thumb,h_800,w_800/co_rgb:1E2C3F,l_text:helvetica_50_bold_normal_left:Ajout%C3%A9%20une%20image/fl_layer_apply,g_south,y_30/msprb3cda/hahf85nbcakp5no5vwjv.jpg' }} style={styles.image} />
+            <Image source={{ uri: plantData.url ? plantData.url : "https://res.cloudinary.com/dl0ehqnva/image/upload/c_thumb,h_800,w_800/co_rgb:1E2C3F,l_text:helvetica_50_bold_normal_left:Ajout%C3%A9%20une%20image/fl_layer_apply,g_south,y_30/msprb3cda/hahf85nbcakp5no5vwjv.jpg" }} style={styles.image} />
           </TouchableOpacity>
           <TextInput
             label="Variété"
-            value={plantData.variety ? plantData.variety : ''}
+            value={plantData.variety ? plantData.variety : ""}
             onChangeText={variety => setPlantData({ ...plantData, variety })}
           />
           <TextInput
             label="Message"
-            value={plantData.message ? plantData.message : ''}
+            value={plantData.message ? plantData.message : ""}
             onChangeText={message => setPlantData({ ...plantData, message })}
             multiline
           />
           <View style={styles.checkboxContainer}>
             <Text>Déplaçable ?</Text>
             <Checkbox
-              status={plantData.movable ? 'checked' : 'unchecked'}
+              status={plantData.movable ? "checked" : "unchecked"}
               onPress={() => setPlantData({ ...plantData, movable: !plantData.movable })}
             />
           </View>
@@ -108,26 +108,26 @@ const styles = StyleSheet.create({
     gap: 40,
   },
   imageContainer: {
-    width: '100%',
+    width: "100%",
     height: 200,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   image: {
     width: 200,
     height: 200
   },
   modalCloseIcon: {
-    position: 'absolute',
+    position: "absolute",
     top: 10,
     right: 10,
     color: colors.warning,
   },
   checkboxContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });
 

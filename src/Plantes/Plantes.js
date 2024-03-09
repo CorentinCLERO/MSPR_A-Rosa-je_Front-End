@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react';
-import { Text, View, ScrollView, Dimensions } from 'react-native';
-import { Button, Card } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import ModalPlant from './ModalPlant';
-import { styles } from './PlantsStyle';
+import React, { useRef, useState } from "react";
+import { Text, View, ScrollView, Dimensions } from "react-native";
+import { Button, Card } from "react-native-paper";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import ModalPlant from "./ModalPlant";
+import { styles } from "./PlantsStyle";
 
 const Plantes = (props) => {
   const { plantList, deletePlant } = props;
@@ -13,7 +13,7 @@ const Plantes = (props) => {
   const scrollViewRef = useRef(null);
 
   const handleContentSizeChange = (contentWidth, contentHeight) => {
-    const scrollViewHeight = Dimensions.get('window').height - 40;
+    const scrollViewHeight = Dimensions.get("window").height - 40;
     if (contentHeight > scrollViewHeight) {
       setCanScroll(true);
     } else {
@@ -48,10 +48,10 @@ const Plantes = (props) => {
                   <Card.Cover style={styles.cardImage} source={{ uri: plant.url }} />
                   <Card.Content style={styles.cardContent}>
                     <Text style={styles.cardtitle}>{plant.variety}</Text>
-                    <Text style={styles.content}>{plant.movable ? 'Déplaçable' : 'Non déplaçable'}</Text>
-                    <Text  numberOfLines={2} ellipsizeMode='tail'>{plant.message}</Text>
-                    <Button style={styles.deleteButton} rippleColor={'#f00'} onPress={() => deletePlant(plant.id)}>
-                      <Icon name="delete" color={'#ff5555'} size={24} />
+                    <Text style={styles.content}>{plant.movable ? "Déplaçable" : "Non déplaçable"}</Text>
+                    <Text  numberOfLines={2} ellipsizeMode="tail">{plant.message}</Text>
+                    <Button style={styles.deleteButton} rippleColor={"#f00"} onPress={() => deletePlant(plant.id)}>
+                      <Icon name="delete" color={"#ff5555"} size={24} />
                     </Button>
                   </Card.Content>
                 </View>
@@ -62,7 +62,7 @@ const Plantes = (props) => {
       </ScrollView>
       {canScroll && (
         <Icon
-          name={haveScroll ? 'arrow-up' : 'arrow-down'}
+          name={haveScroll ? "arrow-up" : "arrow-down"}
           size={24}
           color="#000"
           style={styles.scrollIcon}
@@ -71,8 +71,8 @@ const Plantes = (props) => {
             else scrollViewRef.current.scrollToEnd({ animated: true });
           }} />
       )}
-      <Button style={styles.addButton} mode="contained" onPress={() => setVisible(true)} buttonColor='#D9D9D9' rippleColor={'#00000040'}>
-        <Icon name="plus" color={'#000000'} size={24} />
+      <Button style={styles.addButton} mode="contained" onPress={() => setVisible(true)} buttonColor="#D9D9D9" rippleColor={"#00000040"}>
+        <Icon name="plus" color={"#000000"} size={24} />
       </Button>
       <ModalPlant {...props} {...{ setVisible, visible }} />
     </View>

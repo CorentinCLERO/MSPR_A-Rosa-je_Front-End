@@ -1,16 +1,16 @@
-import { StyleSheet } from 'react-native';
-import { colors } from '../colors';
+import { StyleSheet } from "react-native";
+import { colors } from "../colors";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   title: {
     marginVertical: 20,
     fontSize: 26,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   card: {
     marginVertical: 20,
@@ -20,8 +20,8 @@ export const styles = StyleSheet.create({
     marginBottom: 100,
   },
   cardLayout: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     backgroundColor: colors.white,
     borderRadius: 15,
     // Ombre pour iOS
@@ -49,17 +49,17 @@ export const styles = StyleSheet.create({
   },
   cardtitle: {
     fontSize: 22,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   content: {
     fontSize: 18,
   },
   deleteButton: {
-    width: '100%',
-    alignItems: 'flex-end',
+    width: "100%",
+    alignItems: "flex-end",
   },
   scrollIcon: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 20,
     left: 30,
     backgroundColor: colors.primary,
@@ -70,9 +70,9 @@ export const styles = StyleSheet.create({
   },
   addButton: {
     width: 80,
-    position: 'absolute',
+    position: "absolute",
     bottom: 20,
-    right: '50%',
+    right: "50%",
     transform: [{ translateX: 20 }],
     borderWidth: 1,
     borderColor: colors.black,
