@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import { NavigationContainer } from "@react-navigation/native";
 import PlantSOSSVG from "../../assets/iconesTabs/plantSOS.svg";
 import PlantSOSBotaniste from "../PlantSOSBotaniste/PlantSOSBotaniste";
+import { plantSOSRaw } from "../data";
 
 const BotanisteTabs = () => {
   const Tab = createMaterialBottomTabNavigator();
+
+
+  const [plantSOSListe , setPlantSOSListe ] = useState(plantSOSRaw);
 
   return (
     <NavigationContainer independent={true}>
@@ -18,7 +22,7 @@ const BotanisteTabs = () => {
             ),
           }}
         >
-          {() => <PlantSOSBotaniste />}
+          {() => <PlantSOSBotaniste {...{plantSOSListe, setPlantSOSListe}} />}
         </Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>

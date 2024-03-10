@@ -8,7 +8,6 @@ import BotanisteTabs from "./Botaniste/BotanisteTabs";
 import GardienSVG from "../assets/iconesTabs/gardien.svg";
 import BotannisteSVG from "../assets/iconesTabs/botaniste.svg";
 import { ProprietaireSVG } from "../assets/iconesTabs/ProprietaireSVG";
-import { View } from "react-native";
 
 const Tabs = () => {
   const Tab = createMaterialBottomTabNavigator();
@@ -16,7 +15,7 @@ const Tabs = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        barStyle={{ backgroundColor: "#888888", borderTopRightRadius: 10, borderTopLeftRadius: 10, shadowColor: "green", borderWidth: 2, borderBottomWidth: 0, overflow: "hidden", elevation: 15 }}
+        //barStyle={{ backgroundColor: "#888888", borderTopRightRadius: 10, borderTopLeftRadius: 10, shadowColor: "green", borderWidth: 2, borderBottomWidth: 0, overflow: "hidden", elevation: 15 }}
         activeColor="#0b4205"
         inactiveColor="#000000"
       >
