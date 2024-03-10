@@ -4,10 +4,10 @@
     "slug": "mspr-arosaje-frontend",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/iconesTabs/botaniste.svg",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/iconesTabs/botaniste.svg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -15,23 +15,16 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.cocoepsi.msprarosajefrontend"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/iconesTabs/botaniste.svg",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.cocoepsi.msprarosajefrontend"
+      }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "6d4b9be3-b3e2-46f0-9ee8-cba028966ab4"
-      }
+      "favicon": "./assets/iconesTabs/botaniste.svg"
     },
     "plugins": [
       [
