@@ -53,7 +53,7 @@ const ClientTabs = () => {
             ),
           }}
         >
-          {() => <Plantsitting {...{ plantSittingList, addPlantSitting, deletePlantSitting }} />}
+          {() => <Plantsitting {...{ plantSittingList, addPlantSitting, deletePlantSitting, plantList }} />}
         </Tab.Screen>
       </Tab.Navigator>
     </NavigationContainer>

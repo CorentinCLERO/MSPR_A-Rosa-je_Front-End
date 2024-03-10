@@ -5,10 +5,9 @@ import { colors } from "../colors";
 import { Button, Modal, TextInput } from "react-native-paper";
 import CalendarPicker from "react-native-calendar-picker";
 import DropdownSelect from "react-native-input-select";
-import { plantListRaw } from "../data";
 
 const ModalPlantSitting = (props) => {
-  const { setVisible, visible, addPlantSitting } = props;
+  const { setVisible, visible, addPlantSitting, plantList } = props;
   const initialState = {
     description: null,
     reason: null,
@@ -89,7 +88,7 @@ const ModalPlantSitting = (props) => {
             </View>
             <DropdownSelect
               placeholder="Plantes à garder"
-              options={plantListRaw.map(plant => ({
+              options={plantList.map(plant => ({
                 label: plant.variety,
                 value: plant,
               }))}

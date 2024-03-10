@@ -1,12 +1,12 @@
-import React from 'react';
-import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
-import { NavigationContainer } from '@react-navigation/native';
-import Map from '../Map/Map';
-import Missions from '../Missions/Missions';
-import PlantSOS from '../PlantSOS/PlantSOS';
-import MapSVG from '../../assets/iconesTabs/map.svg';
-import MissionSVG from '../../assets/iconesTabs/mission.svg';
-import PlantSOSSVG from '../../assets/iconesTabs/plantSOS.svg';
+import React from "react";
+import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
+import { NavigationContainer } from "@react-navigation/native";
+import Map from "../Map/Map";
+import Missions from "../Missions/Missions";
+import MapSVG from "../../assets/iconesTabs/map.svg";
+import MissionSVG from "../../assets/iconesTabs/mission.svg";
+import PlantSOSSVG from "../../assets/iconesTabs/plantSOS.svg";
+import PlantSOSGardien from "../PlantSOSGardien/PlantSOSGardien";
 
 const GardienTabs = () => {
   const Tab = createMaterialBottomTabNavigator();
@@ -34,7 +34,7 @@ const GardienTabs = () => {
         />
         <Tab.Screen
           name="PlantSOS"
-          component={PlantSOS}
+          component={PlantSOSGardien}
           options={{
             tabBarIcon: ({ color }) => (
               <PlantSOSSVG fill={color} width="24" height="24" />

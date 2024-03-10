@@ -181,3 +181,34 @@ export const plantSittingRaw = [
     status: "En cours"
   },
 ];
+
+export const plantSOSRaw = [
+  {
+    url: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Starr_080731-9572_Monstera_deliciosa.jpg",
+    variety: "monstera",
+    description: "le monstera que je garde ressemble à une chips au wasabi",
+    treated: true,
+    answer: "il faut l'aroser"
+  },
+  {
+    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrSAoKCq6ACeNvBZZzYC01vWgRaN8EGhwj_bxFRxtKAbAKGQMpJFq4yyB8bg&s",
+    variety: "cactus2",
+    description: "le cactus que je garde ressemble à une MST. Je fais quoi wsh?",
+    treated: true,
+    answer: "il faut l'aroser"
+  },
+  {
+    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrSAoKCq6ACeNvBZZzYC01vWgRaN8EGhwj_bxFRxtKAbAKGQMpJFq4yyB8bg&s",
+    variety: "cactus",
+    description: "le cactus que je garde ressemble à une MST. Je fais quoi wsh?",
+    treated: false,
+    answer: null
+  },
+  {
+    url: "https://upload.wikimedia.org/wikipedia/commons/f/fe/Starr_080731-9572_Monstera_deliciosa.jpg",
+    variety: "monstera2",
+    description: "le monstera que je garde ressemble à une chips au wasabi",
+    treated: false,
+    answer: null
+  },
+];

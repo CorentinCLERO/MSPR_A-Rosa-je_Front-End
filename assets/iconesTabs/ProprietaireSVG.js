@@ -1,13 +1,13 @@
-import React from 'react';
-import Svg, { G, Path } from 'react-native-svg';
+import React from "react";
+import Svg, { G, Path } from "react-native-svg";
 
 export const ProprietaireSVG = (props) => {
   return (
     <Svg
-      width={props.width || '24'}
-      height={props.height || '24'}
-      viewBox='0 0 512 512'
-      fill={props.fill || '#000'}
+      width={props.width || "24"}
+      height={props.height || "24"}
+      viewBox="0 0 512 512"
+      fill={props.fill || "#000"}
     >
       <G transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
         stroke="none">

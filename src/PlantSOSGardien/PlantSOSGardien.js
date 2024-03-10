@@ -1,12 +1,12 @@
 import React from "react";
 import { Text } from "react-native";
 
-const Mission = () => {
+const PlantSOSGardien = () => {
   return (
     <Text>
-      Mission
+      PlantSOSGardien
     </Text>
   );
 };
 
-export default Mission;
+export default PlantSOSGardien;

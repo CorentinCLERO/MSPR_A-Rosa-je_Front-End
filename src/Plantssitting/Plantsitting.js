@@ -31,7 +31,7 @@ const Plantsitting = (props) => {
                   <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting.reason}</Text>
                   <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting.description}</Text>
                   <Text style={styles.text}>{plantSitting.plants.length + " plantes"}</Text>
-                  <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">{format(plantSitting.beginDate, "MM/dd/yy") + " - " + format(plantSitting.endDate, "MM/dd/yy")}</Text>
+                  <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">{format(plantSitting.beginDate, "dd/MM/yy") + " - " + format(plantSitting.endDate, "dd/MM/yy")}</Text>
                   <View style={styles.bottomContainer}>
                     <Text style={[styles.text, styles.text2]}>{plantSitting.status}</Text>
                     <Button style={styles.deleteButton} rippleColor={"#f00"} onPress={() => deletePlantSitting(plantSitting.id)}>

@@ -45,7 +45,7 @@ module.exports = {
     "no-redeclare": "error", // Interdit la redéclaration d"une variable
     "no-shadow": "warn", // Avertit lorsqu"une variable dans une portée masque une variable dans une portée englobante
     "indent": ["error", 2], // Enforce une indentation de 2 espaces
-    "quotes": ["error", "double"], // Exige l"utilisation de guillemets simples pour les chaînes de caractères
+    "quotes": ["error", "double"], // Exige l"utilisation de guillemets double pour les chaînes de caractères
     "semi": ["error", "always"], // Exige l"utilisation de point-virgule à la fin des instructions
     "no-eval": "error", // Interdit l"utilisation de la fonction eval()
 
