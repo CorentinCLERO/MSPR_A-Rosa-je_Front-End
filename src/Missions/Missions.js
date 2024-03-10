@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Button, Card } from "react-native-paper";
 import { colors } from "../colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { format } from "date-fns";
+import MyContext from "../MyContext";
 
-const Mission = (props) => {
-  const { missions, deleteMission } = props;
+const Mission = () => {
+  const { missions, removeMission, addPlantSitting } = useContext(MyContext);
+
+  const deleteMission = (plant) => {
+    removeMission(plant.id);
+    if (plant?.plant) addPlantSitting(plant.plant);
+  };
+
   return (
     <View>
       <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 10, textAlign: "center", marginVertical: 20 }}>Mes gardes :</Text>

@@ -1,11 +1,11 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import MyContext from "./MyContext";
-import { missionRaw, plantListRaw, plantSOSRaw, plantSittingRaw } from "./data";
+import { missionRaw, plantListRaw, plantsSOSRaw, plantSittingRaw } from "./data";
 
 export const MyProvider = ({ children }) => {
   const [missions, setMissions] = useState(missionRaw);
-  const [plantSOS, setPlantSOS] = useState(plantSOSRaw);
-  const [plantSitting, setPlantSitting] = useState(plantSittingRaw);
+  const [plantsSOS, setPlantsSOS] = useState(plantsSOSRaw);
+  const [plantSittings, setPlantSittings] = useState(plantSittingRaw);
   const [plants, setPlants] = useState(plantListRaw);
 
   const addMission = (plant) => {
@@ -17,7 +17,7 @@ export const MyProvider = ({ children }) => {
   };
 
   const addPlant = (plant) => {
-    setPlants([...plants, plant]);
+    setPlants([plant, ...plants]);
   };
 
   const removePlant = (id) => {
@@ -25,19 +25,19 @@ export const MyProvider = ({ children }) => {
   };
 
   const addPlantSOS = (plant) => {
-    setPlantSOS([...plantSOS, plant]);
+    setPlantsSOS([plant, ...plantsSOS]);
   };
 
   const removePlantSOS = (id) => {
-    setPlantSOS(plantSOS.filter((plant) => plant.id !== id));
+    setPlantsSOS(plantsSOS.filter((plant) => plant.id !== id));
   };
 
   const addPlantSitting = (plant) => {
-    setPlantSitting([...plantSitting, plant]);
+    setPlantSittings([plant, ...plantSittings]);
   };
 
   const removePlantSitting = (id) => {
-    setPlantSitting(plantSitting.filter((plant) => plant.id !== id));
+    setPlantSittings(plantSittings.filter((plant) => plant.id !== id));
   };
 
   // useMemo ensures the context value is memoized, only recalculating when necessary
@@ -45,16 +45,16 @@ export const MyProvider = ({ children }) => {
     missions,
     addMission,
     removeMission,
-    plantSOS,
+    plantsSOS,
     addPlantSOS,
     removePlantSOS,
-    plantSitting,
+    plantSittings,
     addPlantSitting,
     removePlantSitting,
     plants,
     addPlant,
     removePlant,
-  }), [missions, plantSOS, plantSitting, plants]);
+  }), [missions, plantsSOS, plantSittings, plants]);
 
   return (
     <MyContext.Provider value={value}>

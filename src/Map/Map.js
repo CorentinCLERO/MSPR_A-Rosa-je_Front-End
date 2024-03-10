@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import { Text, View, ScrollView, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { vw, vh, vmin, vmax } from "react-native-expo-viewport-units";
@@ -7,13 +7,15 @@ import { colors } from "../colors";
 import { format } from "date-fns";
 import * as Location from "expo-location";
 import MapsPinSVG from "../../assets/iconesTabs/mapsPin.svg";
+import MyContext from "../MyContext";
 
-const Map = (props) => {
-  const { plantSittingRequest, KeepPlant } = props;
+const Map = () => {
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
   const [transportability, setTransportability] = useState(null);
+  const { addMission, removePlantSitting, plantSittings } = useContext(MyContext);
   const mapViewRef = useRef(null);
+  const plantSittingRequests = plantSittings.filter((plant) => plant.status === "En attente")
 
   useEffect(() => {
     (async () => {
@@ -36,6 +38,11 @@ const Map = (props) => {
       }, 350);
     })();
   }, [KeepPlant]);
+
+  const KeepPlant = (plant) => {
+    removePlantSitting(plant.id);
+    addMission(plant);
+  };
 
   const handleMarkerPress = (marker) => {
     setSelectedMarker(marker);
@@ -75,7 +82,7 @@ const Map = (props) => {
               title="Votre position"
             />
           )}
-          {plantSittingRequest?.map((marker, index) => (
+          {plantSittingRequests?.map((marker, index) => (
             <Marker
               key={index}
               coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}

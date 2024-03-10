@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AppRegistry, SafeAreaView, StyleSheet, StatusBar } from "react-native";
+import { AppRegistry, SafeAreaView, StyleSheet, StatusBar, Platform } from "react-native";
 import { PaperProvider } from "react-native-paper";
 import { name as appName } from "./app.json";
 import Tabs from "./src/Tabs";

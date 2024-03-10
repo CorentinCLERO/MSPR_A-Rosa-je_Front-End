@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { colors } from "../colors";
 import { Button, Modal, TextInput } from "react-native-paper";
 import CalendarPicker from "react-native-calendar-picker";
 import DropdownSelect from "react-native-input-select";
+import MyContext from "../MyContext";
 
 const ModalPlantSitting = (props) => {
-  const { setVisible, visible, addPlantSitting, plantList } = props;
+  const { setVisible, visible } = props;
+  const { plants, addPlantSitting } = useContext(MyContext);
   const initialState = {
     description: null,
     reason: null,
@@ -88,7 +90,7 @@ const ModalPlantSitting = (props) => {
             </View>
             <DropdownSelect
               placeholder="Plantes à garder"
-              options={plantList.map(plant => ({
+              options={plants.map(plant => ({
                 label: plant.variety,
                 value: plant,
               }))}
@@ -96,6 +98,7 @@ const ModalPlantSitting = (props) => {
               onValueChange={(itemValue) => setPlantData({ ...plantData, plants: itemValue })}
               isMultiple
               isSearchable
+              modalControls={{  modalOptionsContainerStyle: {paddingBottom: 20}}}
             />
             <TextInput
               label="Description de vos plantes :"

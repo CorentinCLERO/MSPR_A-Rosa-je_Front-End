@@ -1,21 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Button, Card } from "react-native-paper";
 import { colors } from "../colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { format } from "date-fns";
 import ModalPlantSitting from "./ModalPlantSitting";
+import MyContext from "../MyContext";
 
-const Plantsitting = (props) => {
-  const { plantSittingList, deletePlantSitting } = props;
+const Plantsitting = () => {
+  const { plantSittings, removePlantSitting } = useContext(MyContext);
+
   const [visible, setVisible] = useState(false);
-  const [PlantSittingWaiting, setPlantSittingWaiting] = useState([]);
-  const [PlantSittingKeep, setPlantSittingKeep] = useState([]);
-
-  useEffect(()=> {
-    setPlantSittingWaiting(plantSittingList.filter(plantSitting => plantSitting.status === "En cours"));
-    setPlantSittingKeep(plantSittingList.filter(plantSitting => plantSitting.status === "En attente"));
-  }, [plantSittingList]);
+  const PlantSittingWaiting = plantSittings.filter(plantSitting => plantSitting.status === "En cours");
+  const PlantSittingKeep = plantSittings.filter(plantSitting => plantSitting.status === "En attente");
 
   return (
     <View style={styles.container}>
@@ -34,7 +31,7 @@ const Plantsitting = (props) => {
                   <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">{format(plantSitting.beginDate, "dd/MM/yy") + " - " + format(plantSitting.endDate, "dd/MM/yy")}</Text>
                   <View style={styles.bottomContainer}>
                     <Text style={[styles.text, styles.text2]}>{plantSitting.status}</Text>
-                    <Button style={styles.deleteButton} rippleColor={"#f00"} onPress={() => deletePlantSitting(plantSitting.id)}>
+                    <Button style={styles.deleteButton} rippleColor={"#f00"} onPress={() => removePlantSitting(plantSitting.id)}>
                       <Icon name="delete" color={"#ff5555"} size={24} />
                     </Button>
                   </View>
@@ -64,7 +61,7 @@ const Plantsitting = (props) => {
                   <Text style={styles.text}>{format(plantSitting.beginDate, "MM/dd/yy") + " - " + format(plantSitting.endDate, "MM/dd/yy")}</Text>
                   <View style={styles.bottomContainer}>
                     <Text style={[styles.text, styles.text2]}>{plantSitting.status}</Text>
-                    <Button style={styles.deleteButton} rippleColor={"#f00"} onPress={() => deletePlantSitting(plantSitting.id)}>
+                    <Button style={styles.deleteButton} rippleColor={"#f00"} onPress={() => removePlantSitting(plantSitting.id)}>
                       <Icon name="delete" color={"#ff5555"} size={24} />
                     </Button>
                   </View>
@@ -83,7 +80,7 @@ const Plantsitting = (props) => {
           <Icon name="plus" color={"#000000"} size={24} />
         </Button>
       </View>
-      <ModalPlantSitting {...props} {...{ setVisible, visible }} />
+      <ModalPlantSitting {...{ setVisible, visible }} />
     </View>
   );
 };
