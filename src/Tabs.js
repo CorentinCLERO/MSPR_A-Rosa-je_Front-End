@@ -8,7 +8,6 @@ import BotanisteTabs from "./Botaniste/BotanisteTabs";
 import GardienSVG from "../assets/iconesTabs/gardien.svg";
 import BotannisteSVG from "../assets/iconesTabs/botaniste.svg";
 import { ProprietaireSVG } from "../assets/iconesTabs/ProprietaireSVG";
-import { View } from "react-native";
 
 const Tabs = () => {
   const Tab = createMaterialBottomTabNavigator();
