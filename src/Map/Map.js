@@ -8,14 +8,15 @@ import { format } from "date-fns";
 import * as Location from "expo-location";
 import MapsPinSVG from "../../assets/iconesTabs/mapsPin.svg";
 import MyContext from "../MyContext";
+import CardPhotoContainer from "../components/CardPhotoContainer/CardPhotoContainer";
 
 const Map = () => {
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
   const [transportability, setTransportability] = useState(null);
-  const { addMission, removePlantSitting, plantSittings } = useContext(MyContext);
+  const { updateStatePlantSitting, plantSittings } = useContext(MyContext);
   const mapViewRef = useRef(null);
-  const plantSittingRequests = plantSittings.filter((plant) => plant.status === "En attente")
+  const plantSittingRequests = plantSittings.filter((plant) => plant.status === "En attente");
 
   useEffect(() => {
     (async () => {
@@ -37,16 +38,11 @@ const Map = () => {
         longitudeDelta: 0.1,
       }, 350);
     })();
-  }, [KeepPlant]);
-
-  const KeepPlant = (plant) => {
-    removePlantSitting(plant.id);
-    addMission(plant);
-  };
+  }, [updateStatePlantSitting]);
 
   const handleMarkerPress = (marker) => {
     setSelectedMarker(marker);
-    const movableRatio = marker?.plants?.filter(plant => plant?.movable).length / selectedMarker?.plants?.length;
+    const movableRatio = marker?.plants?.filter(plant => plant?.movable).length / marker?.plants?.length;
 
     if (movableRatio === 1) {
       setTransportability(marker?.plants?.length > 1 ? "Transportables" : "Transportable");
@@ -57,8 +53,8 @@ const Map = () => {
     }
 
     const region = {
-      latitude: marker.latitude,
-      longitude: marker.longitude,
+      latitude: marker.adress.latitude,
+      longitude: marker.adress.longitude,
       latitudeDelta: 0.05,
       longitudeDelta: 0.05,
     };
@@ -67,7 +63,7 @@ const Map = () => {
   };
 
   const handleKeppPlant = (plant) => {
-    KeepPlant(plant);
+    updateStatePlantSitting(plant.id, "En cours");
     setSelectedMarker(null);
   };
 
@@ -85,7 +81,7 @@ const Map = () => {
           {plantSittingRequests?.map((marker, index) => (
             <Marker
               key={index}
-              coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
+              coordinate={{ latitude: marker.adress.latitude, longitude: marker.adress.longitude }}
               title={marker.title}
               description={marker.description}
               onPress={() => handleMarkerPress(marker)}
@@ -96,60 +92,25 @@ const Map = () => {
             </Marker>
           ))}
         </MapView>
-        {selectedMarker && <View>
-          <Card style={styles.card} >
-            <View style={styles.cardLayout}>
-              <Card.Cover style={styles.cardImage} source={{ uri: selectedMarker?.plants[0]?.url }} />
-              <Card.Content style={styles.cardContent}>
-                <Text >{selectedMarker?.plants?.length + " plantes"}</Text>
-                <Text numberOfLines={1} ellipsizeMode="tail">{transportability}</Text>
-                <Text numberOfLines={1} ellipsizeMode="tail">{format(selectedMarker?.beginDate, "dd/MM/yy") + " - " + format(selectedMarker.endDate, "dd/MM/yy")}</Text>
-                <Button style={styles.keepButton} rippleColor={"green"} onPress={() => handleKeppPlant(selectedMarker)}>
-                  <Text style={{ color: "black" }}>{selectedMarker?.plants?.length > 1 ? "Garder la plante" : "Garder les plantes"}</Text>
-                </Button>
-              </Card.Content>
-            </View>
-          </Card>
-        </View>}
+        {selectedMarker &&
+          <CardPhotoContainer
+            plants={selectedMarker.plants}
+            pagination={selectedMarker.plants.length > 1}
+            imageWidth={29}
+          >
+            <Text style={{ paddingTop: 5 }} >{selectedMarker?.plants?.length + " plantes"}</Text>
+            <Text numberOfLines={1} ellipsizeMode="tail">{transportability}</Text>
+            <Text numberOfLines={1} ellipsizeMode="tail">{format(selectedMarker?.beginDate, "dd/MM/yy") + " - " + format(selectedMarker.endDate, "dd/MM/yy")}</Text>
+            <Button style={styles.keepButton} rippleColor={"green"} onPress={() => handleKeppPlant(selectedMarker)}>
+              <Text style={{ color: "black" }}>{selectedMarker?.plants?.length > 1 ? "Garder la plante" : "Garder les plantes"}</Text>
+            </Button>
+          </CardPhotoContainer>}
       </ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  card: {
-    marginHorizontal: 40,
-    marginVertical: 20,
-  },
-  cardLayout: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: colors.white,
-    borderRadius: 15,
-    // Ombre pour iOS
-    shadowColor: colors.success,
-    shadowOffset: {
-      width: 4,
-      height: 4,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    // Ombre pour Android
-    elevation: 8,
-  },
-  cardImage: {
-    flex: 4,
-    height: "auto",
-    borderTopRightRadius: 0,
-    borderBottomRightRadius: 0,
-    borderWidth: 1,
-  },
-  cardContent: {
-    flex: 6,
-    paddingLeft: 10,
-    gap: 10,
-    marginVertical: 10,
-  },
   keepButton: {
     backgroundColor: colors.primary,
     borderRadius: 10,

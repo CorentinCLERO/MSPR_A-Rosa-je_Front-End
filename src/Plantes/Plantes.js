@@ -1,10 +1,11 @@
 import React, { useRef, useState, useContext } from "react";
 import { Text, View, ScrollView, Dimensions } from "react-native";
-import { Button, Card } from "react-native-paper";
+import { Button } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import ModalPlant from "./ModalPlant";
 import { styles } from "./PlantsStyle";
 import MyContext from "../MyContext";
+import CardPhotoContainer from "../components/CardPhotoContainer/CardPhotoContainer";
 
 const Plantes = () => {
   const [canScroll, setCanScroll] = useState(false);
@@ -39,24 +40,19 @@ const Plantes = () => {
         {
           plants.map((plant, index) => {
             return (
-              <Card
-                key={`${plant.name}-${index}`}
-                style={[
-                  styles.card,
-                  index === plants.length - 1 ? styles.lastCard : {}
-                ]}              >
-                <View style={styles.cardLayout}>
-                  <Card.Cover style={styles.cardImage} source={{ uri: plant.url }} />
-                  <Card.Content style={styles.cardContent}>
-                    <Text style={styles.cardtitle}>{plant.variety}</Text>
-                    <Text style={styles.content}>{plant.movable ? "Déplaçable" : "Non déplaçable"}</Text>
-                    <Text  numberOfLines={2} ellipsizeMode="tail">{plant.message}</Text>
-                    <Button style={styles.deleteButton} rippleColor={"#f00"} onPress={() => removePlant(plant.id)}>
-                      <Icon name="delete" color={"#ff5555"} size={24} />
-                    </Button>
-                  </Card.Content>
-                </View>
-              </Card>
+              <CardPhotoContainer
+                key={index} plants={[plant]}
+                cardStyles={index === plants.length - 1 ? styles.lastCard : {}}
+                cardContentStyles={styles.cardContent}
+                imageWidth={28}
+              >
+                <Text style={styles.cardtitle}>{plant.variety}</Text>
+                <Text style={styles.content}>{plant.movable ? "Déplaçable" : "Non déplaçable"}</Text>
+                <Text numberOfLines={2} ellipsizeMode="tail">{plant.message}</Text>
+                <Button style={styles.deleteButton} rippleColor={"#f00"} onPress={() => removePlant(plant.id)}>
+                  <Icon name="delete" color={"#ff5555"} size={24} />
+                </Button>
+              </CardPhotoContainer>
             );
           })
         }

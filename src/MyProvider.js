@@ -1,20 +1,12 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import MyContext from "./MyContext";
-import { missionRaw, plantListRaw, plantsSOSRaw, plantSittingRaw } from "./data";
+import { plantListRaw, plantsSOSRaw, plantSittingRaw, addressesRaw } from "./data";
 
 export const MyProvider = ({ children }) => {
-  const [missions, setMissions] = useState(missionRaw);
   const [plantsSOS, setPlantsSOS] = useState(plantsSOSRaw);
   const [plantSittings, setPlantSittings] = useState(plantSittingRaw);
   const [plants, setPlants] = useState(plantListRaw);
-
-  const addMission = (plant) => {
-    setMissions([...missions, { id: Math.floor(Math.random() * 1000000), pseudo: "coco", adress: { number: "28", street: "rue Marbeau", city: "Paris", }, reason: plant.reason, plants: plant.plants, beginDate: plant.beginDate, endDate: plant.endDate, longitude: plant.longitude, latitude: plant.latitude, status: "En cours", plant: plant }]);
-  };
-
-  const removeMission = (id) => {
-    setMissions(missions.filter((mission) => mission.id !== id));
-  };
+  const addresses = addressesRaw;
 
   const addPlant = (plant) => {
     setPlants([plant, ...plants]);
@@ -40,21 +32,24 @@ export const MyProvider = ({ children }) => {
     setPlantSittings(plantSittings.filter((plant) => plant.id !== id));
   };
 
+  const updateStatePlantSitting = (id, state) => {
+    setPlantSittings(plantSittings.map((plantSitting) => (plantSitting.id === id ? {...plantSitting, status: state} : plantSitting)));
+  };
+
   // useMemo ensures the context value is memoized, only recalculating when necessary
   const value = useMemo(() => ({
-    missions,
-    addMission,
-    removeMission,
     plantsSOS,
     addPlantSOS,
     removePlantSOS,
     plantSittings,
     addPlantSitting,
     removePlantSitting,
+    updateStatePlantSitting,
     plants,
     addPlant,
     removePlant,
-  }), [missions, plantsSOS, plantSittings, plants]);
+    addresses,
+  }), [plantsSOS, plantSittings, plants, addresses]);
 
   return (
     <MyContext.Provider value={value}>
