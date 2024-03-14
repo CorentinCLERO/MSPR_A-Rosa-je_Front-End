@@ -26,15 +26,18 @@ const PlantSOS = (props) => {
         placeholder="Rechercher une plante"
         onChangeText={setSearchQuery}
         value={searchQuery}
+        style={styles.search}
       />
+
       <FlatList
+        
         data={filteredPlants}
         renderItem={({ item }) => (
           
           
-          <Card key={item.index} onPress={() => setVisible(true)}>
-            <Card.Cover source={{ uri: item.url}}/>
-            <Card.Content >
+          <Card  style={styles.card} key={item.index} onPress={() => setVisible(true)}>
+            <Card.Cover style={styles.cover} source={{ uri: item.url}}/>
+            <Card.Content style={styles.content} >
               <Text>{item.variety}</Text>
               <Text>{item.description}</Text>
                  
@@ -60,9 +63,38 @@ const PlantSOS = (props) => {
 
 const styles = StyleSheet.create({
   header : {
-    fontSize : 20 , 
+    position : "relative",
+    left : 142 ,
+    marginBottom : 20 ,
+    fontSize : 27 , 
     fontWeight : "bold"
+  },
+  search : {
+    position : "relative",
+    left : 20 , 
+    width : 370,
+    marginBottom : 20 ,
+  },
+  card : {
+    display : "flex",
+    flexWrap : "wrap" , 
+    marginBottom: 20,
+    width : 375 ,
+    position : "relative",
+    left : 15, 
+  },
+  cover : {
+    height : 150,
+    width : 125
+  },
+  content : {
+    position : "absolute",
+    marginTop : 15 , 
+    left : 120,
+    width : 250 
   }
+  
+
 
 });
 
