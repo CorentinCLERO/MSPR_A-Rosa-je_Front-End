@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-native/no-inline-styles */
 import React, { useState, useContext } from "react";
 import { Text, View, ScrollView, StyleSheet, TextInput, Alert, Keyboard } from "react-native";
 import MyContext from "../MyContext";

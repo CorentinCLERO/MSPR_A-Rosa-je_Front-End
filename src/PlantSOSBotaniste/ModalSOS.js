@@ -1,6 +1,6 @@
 import React from "react";
 import { Text , StyleSheet} from "react-native";
-import { Modal } from "react-native-paper";
+import { Button, Icon, Modal } from "react-native-paper";
 import { colors } from "../colors";
 
 
@@ -16,6 +16,11 @@ const ModalSOS = (props) => {
       onDismiss={()=> setVisible(false)}
       contentContainerStyle={styles.modalContainer}
     >
+      <Button
+        onPress={() => setVisible(false)}
+        icon={"arrow-left-thick"}
+      >
+      </Button>
       <Text>
         ModalSOS
       </Text>
@@ -26,9 +31,7 @@ const ModalSOS = (props) => {
 const styles = StyleSheet.create({
   modalContainer: {
     backgroundColor: colors.background,
-    margin: 30,
     flex: 1,
-    borderRadius: 10,
   },
 });
 
