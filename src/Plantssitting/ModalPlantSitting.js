@@ -1,32 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { colors } from "../colors";
 import { Button, Modal, TextInput } from "react-native-paper";
 import CalendarPicker from "react-native-calendar-picker";
 import DropdownSelect from "react-native-input-select";
+import MyContext from "../MyContext";
 
 const ModalPlantSitting = (props) => {
-  const { setVisible, visible, addPlantSitting, plantList } = props;
-  const initialState = {
-    description: null,
-    reason: null,
-    plants: null,
-    beginDate: null,
-    endDate: null,
-  };
-  const [plantData, setPlantData] = useState(initialState);
+  const { setVisible, visible } = props;
+  const { plants, addPlantSitting, addresses } = useContext(MyContext);
+  const [plantData, setPlantData] = useState([]);
   const [isTypeEnd, setIsTypeEnd] = useState(true);
   const minDate = new Date();
 
   useEffect(() => {
     if (visible) {
-      setPlantData(initialState);
+      setPlantData([]);
     }
   }, [visible]);
-
+  
   const handleAddPlantSitting = () => {
-    if (plantData.description === null || plantData.reason === null || plantData.plants === null || plantData.beginDate === null || plantData.endDate === null) {
+    if (plantData.description === undefined || plantData.reason === undefined || plantData.plants === undefined || plantData.beginDate === undefined || plantData.endDate === undefined || plantData.adress === undefined) {
       Alert.alert("Erreur", "Veuillez remplir tous les champs requis.");
       return;
     }
@@ -88,7 +83,7 @@ const ModalPlantSitting = (props) => {
             </View>
             <DropdownSelect
               placeholder="Plantes à garder"
-              options={plantList.map(plant => ({
+              options={plants.map(plant => ({
                 label: plant.variety,
                 value: plant,
               }))}
@@ -96,6 +91,18 @@ const ModalPlantSitting = (props) => {
               onValueChange={(itemValue) => setPlantData({ ...plantData, plants: itemValue })}
               isMultiple
               isSearchable
+              modalControls={{  modalOptionsContainerStyle: {paddingBottom: 20}}}
+            />
+            <DropdownSelect
+              placeholder="Adresse des plantes"
+              options={addresses.map(adress => ({
+                label: adress.number + " " + adress.street + " " + adress.city,
+                value: adress,
+              }))}
+              selectedValue={plantData.adress ? plantData.adress : null}
+              onValueChange={(itemValue) => setPlantData({ ...plantData, adress: itemValue })}
+              isSearchable
+              modalControls={{  modalOptionsContainerStyle: {paddingBottom: 20}}}
             />
             <TextInput
               label="Description de vos plantes :"

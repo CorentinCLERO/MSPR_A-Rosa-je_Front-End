@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import { NavigationContainer } from "@react-navigation/native";
 import Map from "../Map/Map";
@@ -7,6 +7,7 @@ import MapSVG from "../../assets/iconesTabs/map.svg";
 import MissionSVG from "../../assets/iconesTabs/mission.svg";
 import PlantSOSSVG from "../../assets/iconesTabs/plantSOS.svg";
 import PlantSOSGardien from "../PlantSOSGardien/PlantSOSGardien";
+
 
 const GardienTabs = () => {
   const Tab = createMaterialBottomTabNavigator();

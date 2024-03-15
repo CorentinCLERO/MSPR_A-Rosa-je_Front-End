@@ -11,7 +11,7 @@ describe("Plantes", () => {
     { id: 2, name: "Rose", variety: "Rose rouge", movable: false, url: "https://example.com/rose.jpg" }
   ];
 
-  beforeEach(() => {
+  beforeAll(() => {
     utils = render(
       <SafeAreaProvider>
         <Plantes plantList={mockPlantList} />
@@ -19,23 +19,23 @@ describe("Plantes", () => {
     );
   });
 
-  afterEach(() => {
+  afterAll(() => {
     cleanup();
-  });
+  }, 10000);
 
   it("Plantes exist", () => {
     expect(utils.toJSON()).toBeTruthy();
   });
 
-  it("should display 'Vos plantes :'", () => {
+  it("should display 'Vos plantes :'", async () => {
     const { findByText } = utils;
-    const textElement = findByText("Vos plantes :");
+    const textElement = await findByText("Vos plantes :");
     expect(textElement).toBeTruthy();
   });
 
-  it("displays the plant cards correctly", () => {
+  it("displays the plant cards correctly", async () => {
     const { findByText } = utils;
-    const plantName = findByText(mockPlantList[0].variety);
+    const plantName = await findByText(mockPlantList[0].variety);
     expect(plantName).toBeTruthy();
   });
 });
