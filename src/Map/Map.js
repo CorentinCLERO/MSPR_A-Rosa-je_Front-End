@@ -1,12 +1,12 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import { Text, View, ScrollView, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import { vw, vh, vmin, vmax } from "react-native-expo-viewport-units";
-import { Button, Card } from "react-native-paper";
+import { vw, vh } from "react-native-expo-viewport-units";
+import { Button } from "react-native-paper";
 import { colors } from "../colors";
 import { format } from "date-fns";
 import * as Location from "expo-location";
-import MapsPinSVG from "../../assets/iconesTabs/mapsPin.svg";
+import MapsPinSVG from "../../assets/mapsPin.svg";
 import MyContext from "../MyContext";
 import CardPhotoContainer from "../components/CardPhotoContainer/CardPhotoContainer";
 
@@ -68,7 +68,7 @@ const Map = () => {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: "space-between", }}>
+    <View style={{ flex: 1, justifyContent: "space-between", backgroundColor: colors.background, marginBottom: -100 }}>
       <ScrollView>
         <Text style={{ fontSize: 20, fontWeight: "bold", margin: 20 }}>Recherchez les plantes à garder prez de chez vous :</Text>
         <MapView ref={mapViewRef} style={{ width: vw(100), height: selectedMarker ? vh(50) : vh(70) }}>

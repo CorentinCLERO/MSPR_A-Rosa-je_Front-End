@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     justifyContent: "space-between",
+    backgroundColor: colors.background,
   },
   title: {
     marginVertical: 20,

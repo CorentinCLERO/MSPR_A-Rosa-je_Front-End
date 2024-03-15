@@ -31,12 +31,47 @@ const ModalPlant = (props) => {
     addPlant({ ...plantData, id: Math.floor(Math.random() * 1000000) });
   };
 
+  const pickImageOrTakePhoto = () => {
+    Alert.alert("Ajouter une image", "Choisissez une option", [
+      {
+        text: "Caméra",
+        onPress: takePhoto,
+      },
+      {
+        text: "Galerie",
+        onPress: pickImage,
+      },
+      {
+        text: "Annuler",
+        style: "cancel",
+      },
+    ]);
+  };
+
+  const takePhoto = async () => {
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+    if (permissionResult.granted === false) {
+      Alert.alert("Erreur", "Permission pour accéder à la caméra est requise.");
+      return;
+    }
+
+    let result = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setPlantData({ ...plantData, url: result.assets[0].uri });
+    }
+  };
+
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3],
+      aspect: [1, 1],
       quality: 1,
     });
 
@@ -61,7 +96,7 @@ const ModalPlant = (props) => {
         />
         <View style={styles.modalContent}>
           <Text>Ajout de plant :</Text>
-          <TouchableOpacity style={styles.imageContainer} onPress={pickImage}>
+          <TouchableOpacity style={styles.imageContainer} onPress={pickImageOrTakePhoto}>
             <Image source={{ uri: plantData.url ? plantData.url : "https://res.cloudinary.com/dl0ehqnva/image/upload/c_thumb,h_800,w_800/co_rgb:1E2C3F,l_text:helvetica_50_bold_normal_left:Ajout%C3%A9%20une%20image/fl_layer_apply,g_south,y_30/msprb3cda/hahf85nbcakp5no5vwjv.jpg" }} style={styles.image} />
           </TouchableOpacity>
           <TextInput

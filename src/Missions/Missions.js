@@ -18,9 +18,9 @@ const Mission = () => {
   const missions = plantSittings.filter(plantSitting => plantSitting.status === "En cours");
 
   return (
-    <View>
-      <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 10, textAlign: "center", marginVertical: 20 }}>Mes gardes :</Text>
-      <ScrollView style={{ marginBottom: 80 }}>
+    <View style={{backgroundColor: colors.background}}>
+      <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 10, textAlign: "center", marginVertical: 20, marginBottom: 35 }}>Mes gardes :</Text>
+      <ScrollView>
         {missions.map((mission, index) => (
           <CardPhotoContainer
             key={index}
