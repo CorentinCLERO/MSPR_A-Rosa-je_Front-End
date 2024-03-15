@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Text , StyleSheet, View, FlatList} from "react-native";
-import { Card , Searchbar} from "react-native-paper";
+import { Searchbar} from "react-native-paper";
 import ModalSOS from "./ModalSOS";
+import MyContext from "../MyContext";
+import CardPhotoContainer from "../components/CardPhotoContainer/CardPhotoContainer";
+import { colors } from "../colors";
 
-const PlantSOS = (props) => {
-  const {plantSOSListe } = props;
+
+const PlantSOS = () => {
+  const {plantsSOS } = useContext(MyContext);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredPlants, setFilteredPlants] = useState([]);
   const [visible, setVisible] = useState(false);
@@ -12,11 +16,11 @@ const PlantSOS = (props) => {
 
   useEffect(() => {
     // eslint-disable-next-line no-shadow
-    const filteredPlants = plantSOSListe.filter(plantSOS =>
-      plantSOS.variety.toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredPlants = plantsSOS.filter(plantsSOS =>
+      plantsSOS.variety.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredPlants(filteredPlants);
-  }, [searchQuery, plantSOSListe]);
+  }, [searchQuery, plantsSOS]);
 
   return (
     <View>
@@ -29,31 +33,28 @@ const PlantSOS = (props) => {
         style={styles.search}
       />
 
-      <FlatList
-        
-        data={filteredPlants}
-        renderItem={({ item }) => (
-          
-          
-          <Card  style={styles.card} key={item.index} onPress={() => setVisible(true)}>
-            <Card.Cover style={styles.cover} source={{ uri: item.url}}/>
-            <Card.Content style={styles.content} >
-              <Text>{item.variety}</Text>
-              <Text>{item.description}</Text>
-                 
-              <Text>{item.treated ? "En cours" : "Terminer"}</Text>
-                  
-            </Card.Content>
-            
-          </Card>
-           
-         
-        )}
-        keyExtractor={(item, index) => index.toString()}
-      />
-
       
-      <ModalSOS {...props} {...{ setVisible, visible }} />
+      <FlatList data={filteredPlants} renderItem={({item, index}) => (
+
+        <CardPhotoContainer
+          plants={[item]} key={index} 
+          onPress={() => setVisible(true)}
+          cardStyles={[styles.card, index === plantsSOS.length - 1 ? styles.lastCard : {}]}
+          imageHeight={15}
+        >
+
+          <View style={styles.content}>
+            <Text>{item.pseudo}</Text>
+            <Text>{item.variety}</Text>
+            <Text>{item.description}</Text>          
+            <Text style={styles.cardTreated}>{item.treated ? "En cours" : "Terminer"}</Text>       
+          </View>  
+        </CardPhotoContainer> )}
+      />
+        
+           
+      
+      <ModalSOS {...{ setVisible, visible }} />
     </View>
     
 
@@ -75,24 +76,21 @@ const styles = StyleSheet.create({
     width : 370,
     marginBottom : 20 ,
   },
-  card : {
-    display : "flex",
-    flexWrap : "wrap" , 
-    marginBottom: 20,
-    width : 375 ,
-    position : "relative",
-    left : 15, 
+  card: {
+    marginVertical: 20, 
+    marginHorizontal: 40
   },
-  cover : {
-    height : 150,
-    width : 125
+  lastCard: {
+    marginBottom: 220,
   },
-  content : {
-    position : "absolute",
-    marginTop : 15 , 
-    left : 120,
-    width : 250 
-  }
+  cardTreated: {
+    backgroundColor: colors.primary,
+    paddingHorizontal: 5,
+    borderRadius: 20,
+    borderWidth: 1,
+    width : 75,
+    paddingLeft : 10
+  },
   
 
 

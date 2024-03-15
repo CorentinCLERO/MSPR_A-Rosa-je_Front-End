@@ -16,7 +16,8 @@ const CardPhotoContainer = (props) => {
     carouselPaginationStyles = {},
     imageHeight = 17,
     imageWidth = 27,
-    pagination = false
+    pagination = false,
+    onPress = () => {}
   } = props;
   const [currentIndex, setCurrentIndex] = useState(0);
   const flatListRef = useRef(null);
@@ -43,7 +44,7 @@ const CardPhotoContainer = (props) => {
   }, [currentIndex]);
 
   return (
-    <Card style={[styles.card, cardStyles]}>
+    <Card style={[styles.card, cardStyles]} onPress={() => onPress()}>
       <View style={[styles.cardLayout, cardLayoutStyles]}>
         <FlatList
           data={plants}
@@ -60,6 +61,7 @@ const CardPhotoContainer = (props) => {
           keyExtractor={(item, index) => index.toString()}
           style={[styles.imageCarousel, {height: vh(imageHeight)}, imageCarouselStyles]}
           ref={flatListRef}
+          
         />
         <Card.Content style={[styles.cardContent, cardContentStyles]}>
           {children}
