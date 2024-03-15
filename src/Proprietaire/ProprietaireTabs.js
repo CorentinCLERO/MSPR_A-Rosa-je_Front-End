@@ -1,73 +1,58 @@
-import React, { useState } from "react";
+import React from "react";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import { NavigationContainer } from "@react-navigation/native";
 import Plantsitting from "../Plantssitting/Plantsitting";
 import Plantes from "../Plantes/Plantes";
-import PlantSittingSVG from "../../assets/iconesTabs/plantSitting.svg";
-import PlantSVG from "../../assets/iconesTabs/plant.svg";
+import { PlantSittingSVG } from "../../assets/iconesTabs/PlantSitting";
+import { PlantSVG } from "../../assets/iconesTabs/Plant";
 import { colors } from "../colors";
-import { StyleSheet } from "react-native";
-import { plantListRaw, plantSittingRaw } from "../data";
+import { StyleSheet, View } from "react-native";
 
 
 const ClientTabs = () => {
   const Tab = createMaterialBottomTabNavigator();
 
-  const [plantList, setPlantList] = useState(plantListRaw);
-  const [plantSittingList, setPlantSittingList] = useState(plantSittingRaw);
-
-  const addPlant = (newPlant) => {
-    setPlantList(currentList => [...[newPlant], ...currentList]);
-  };
-
-  const deletePlant = (plantId) => {
-    setPlantList(currentList => currentList.filter(plant => plant.id !== plantId));
-  };
-
-  const addPlantSitting = (newPlant) => {
-    setPlantSittingList(currentList => [...[newPlant], ...currentList]);
-  };
-
-  const deletePlantSitting = (plantId) => {
-    setPlantSittingList(currentList => currentList.filter(plant => plant.id !== plantId));
-  };
-
   return (
-    <NavigationContainer independent={true}>
-      <Tab.Navigator barStyle={styles.navigator}>
-        <Tab.Screen
-          name="Plantes"
-          options={{
-            tabBarIcon: ({ color }) => (
-              <PlantSVG fill={color} width="24" height="24" />
-            ),
-          }}
+    <View style={{ backgroundColor: colors.background, flex: 1, marginBottom: -20 }}>
+      <NavigationContainer independent={true}>
+        <Tab.Navigator
+          barStyle={styles.navigator}
+          activeColor={colors.blue}
+          inactiveColor="#FFFFFF"
+          labeled={false}
         >
-          {() => <Plantes {...{ plantList, deletePlant, addPlant }} />}
-        </Tab.Screen>
-        <Tab.Screen
-          name="Plantsitting"
-          options={{
-            tabBarIcon: ({ color }) => (
-              <PlantSittingSVG fill={color} width="24" height="24" />
-            ),
-          }}
-        >
-          {() => <Plantsitting {...{ plantSittingList, addPlantSitting, deletePlantSitting, plantList }} />}
-        </Tab.Screen>
-      </Tab.Navigator>
-    </NavigationContainer>
+          <Tab.Screen
+            name="Plantes"
+            component={Plantes}
+            options={{
+              tabBarIcon: ({ color }) => (
+                <PlantSVG fill={color} width="24" height="24" />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Plantsitting"
+            component={Plantsitting}
+            options={{
+              tabBarIcon: ({ color }) => (
+                <PlantSittingSVG fill={color} width="24" height="24" />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   navigator: {
-    backgroundColor: colors.white,
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
-    borderWidth: 2,
-    borderBottomWidth: 0,
+    backgroundColor: colors.paleGreen,
+    borderTopRightRadius: 40,
+    borderTopLeftRadius: 40,
     overflow: "hidden",
+    marginBottom: 10,
+    marginHorizontal: 20,
   }
 });
 
