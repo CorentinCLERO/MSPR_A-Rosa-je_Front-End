@@ -6,6 +6,8 @@ import PlantSOSBotaniste from "../PlantSOSBotaniste/PlantSOSBotaniste";
 import { colors } from "../colors";
 import { StyleSheet, View } from "react-native";
 import { plantSOSRaw } from "../data";
+import { colors } from "../colors";
+import { StyleSheet, View } from "react-native";
 
 const BotanisteTabs = () => {
   const Tab = createMaterialBottomTabNavigator();
@@ -30,7 +32,7 @@ const BotanisteTabs = () => {
               ),
             }}
           >
-            {() => <PlantSOSBotaniste {...{plantSOSListe, setPlantSOSListe}} />}
+            {() => <PlantSOSBotaniste />}
           </Tab.Screen>
         </Tab.Navigator>
       </NavigationContainer>
