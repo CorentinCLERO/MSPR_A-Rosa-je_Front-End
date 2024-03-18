@@ -40,7 +40,8 @@ const PlantSOS = () => {
           plants={[item]} key={index} 
           // onPress={() => setVisible(true)}
           cardStyles={[styles.card, index === plantsSOS.length - 1 ? styles.lastCard : {}]}
-          imageHeight={15}
+          imageHeight={19}
+          imageWidth={28}
         >
 
           <View style={styles.content}>
