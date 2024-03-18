@@ -38,7 +38,7 @@ const PlantSOS = () => {
 
         <CardPhotoContainer
           plants={[item]} key={index} 
-          onPress={() => setVisible(true)}
+          // onPress={() => setVisible(true)}
           cardStyles={[styles.card, index === plantsSOS.length - 1 ? styles.lastCard : {}]}
           imageHeight={15}
         >
