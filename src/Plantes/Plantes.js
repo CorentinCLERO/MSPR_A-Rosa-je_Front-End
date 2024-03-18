@@ -45,6 +45,7 @@ const Plantes = () => {
                 cardStyles={index === plants.length - 1 ? styles.lastCard : {}}
                 cardContentStyles={styles.cardContent}
                 imageWidth={28}
+                imageHeight={23}
               >
                 <Text style={styles.cardtitle}>{plant.variety}</Text>
                 <Text style={styles.content}>{plant.movable ? "Déplaçable" : "Non déplaçable"}</Text>
