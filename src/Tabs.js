@@ -4,10 +4,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import ProprietaireTabs from "./Proprietaire/ProprietaireTabs";
 import GardienTabs from "./Gardien/GardienTabs";
 import BotanisteTabs from "./Botaniste/BotanisteTabs";
-// import ProprietaireSVG from "../assets/iconesTabs/proprietaire.svg";
-import GardienSVG from "../assets/iconesTabs/gardien.svg";
-import BotannisteSVG from "../assets/iconesTabs/botaniste.svg";
-import { ProprietaireSVG } from "../assets/iconesTabs/ProprietaireSVG";
+import { GardienSVG } from "../assets/iconesTabs/Gardien";
+import { BotanisteSVG } from "../assets/iconesTabs/Botaniste";
+import { ProprietaireSVG } from "../assets/iconesTabs/Proprietaire";
+import { colors } from "./colors";
 
 const Tabs = () => {
   const Tab = createMaterialBottomTabNavigator();
@@ -15,9 +15,10 @@ const Tabs = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        //barStyle={{ backgroundColor: "#888888", borderTopRightRadius: 10, borderTopLeftRadius: 10, shadowColor: "green", borderWidth: 2, borderBottomWidth: 0, overflow: "hidden", elevation: 15 }}
-        activeColor="#0b4205"
-        inactiveColor="#000000"
+        barStyle={{ backgroundColor: colors.green, borderTopRightRadius: 20, borderTopLeftRadius: 20, overflow: "hidden", marginBottom: -10 }}
+        activeColor={colors.blue}
+        inactiveColor="#FFFFFF"
+        labeled={false}
       >
         <Tab.Screen
           name="Proprietaire"
@@ -42,7 +43,7 @@ const Tabs = () => {
           component={BotanisteTabs}
           options={{
             tabBarIcon: ({ color }) => (
-              <BotannisteSVG fill={color} width="24" height="24" />
+              <BotanisteSVG fill={color} width="24" height="24" />
             ),
           }}
         />

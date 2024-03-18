@@ -5,16 +5,16 @@ import { vw, vh } from "react-native-expo-viewport-units";
 import { colors } from "../../colors";
 
 const CardPhotoContainer = (props) => {
-  const { 
-    children, 
-    plants, 
-    cardStyles = {}, 
-    cardLayoutStyles = {}, 
-    cardContentStyles = {}, 
+  const {
+    children,
+    plants,
+    cardStyles = {},
+    cardLayoutStyles = {},
+    cardContentStyles = {},
     imageCarouselStyles = {},
     carouselImageStyles = {},
     carouselPaginationStyles = {},
-    imageHeight = 17,
+    imageHeight = 19,
     imageWidth = 27,
     pagination = false,
     onPress = () => {}
@@ -39,7 +39,7 @@ const CardPhotoContainer = (props) => {
 
   useEffect(() => {
     const interval = setInterval(autoRotate, 4000);
-  
+
     return () => clearInterval(interval);
   }, [currentIndex]);
 
@@ -59,12 +59,14 @@ const CardPhotoContainer = (props) => {
             </View>
           )}
           keyExtractor={(item, index) => index.toString()}
-          style={[styles.imageCarousel, {height: vh(imageHeight)}, imageCarouselStyles]}
+          style={[styles.imageCarousel, { height: vh(imageHeight) }, imageCarouselStyles]}
           ref={flatListRef}
           
         />
         <Card.Content style={[styles.cardContent, cardContentStyles]}>
-          {children}
+          <View style={styles.cardContentCenter}>
+            {children}
+          </View>
         </Card.Content>
       </View>
     </Card>
@@ -80,9 +82,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: colors.white,
-    borderRadius: 15,
+    borderRadius: 10,
     // Ombre pour iOS
-    shadowColor: colors.success,
+    shadowColor: colors.blue,
     shadowOffset: {
       width: 4,
       height: 4,
@@ -102,17 +104,24 @@ const styles = StyleSheet.create({
   carouselImage: {
     resizeMode: "cover",
   },
-  carouselPagination: { 
-    color: colors.success, 
-    position: "absolute", 
-    bottom: 10 , 
-    right: 10, 
-    backgroundColor: colors.white + "99", 
-    paddingHorizontal: 5, 
-    borderRadius: 7 
+  carouselPagination: {
+    color: colors.success,
+    position: "absolute",
+    bottom: 10,
+    right: 10,
+    backgroundColor: colors.white + "99",
+    paddingHorizontal: 5,
+    borderRadius: 7
   },
   cardContent: {
     flex: 6,
+    backgroundColor: colors.green,
+    height: "100%",
+    borderLeftWidth: 1,
+  },
+  cardContentCenter: {
+    flex: 1,
+    justifyContent: "center",
     paddingLeft: 10,
     gap: 10,
   },

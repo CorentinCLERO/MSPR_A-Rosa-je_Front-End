@@ -4,10 +4,10 @@
     "slug": "mspr-arosaje-frontend",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/iconesTabs/botaniste.svg",
+    "icon": "./assets/logos/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/iconesTabs/botaniste.svg",
+      "image": "./assets/logos/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,12 +19,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/iconesTabs/botaniste.svg",
+        "foregroundImage": "./assets/logos/logo.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
-      "favicon": "./assets/iconesTabs/botaniste.svg"
+      "favicon": "./assets/logos/logo.png"
     },
     "plugins": [
       [
