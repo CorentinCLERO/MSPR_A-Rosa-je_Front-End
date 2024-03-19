@@ -68,7 +68,7 @@ const Map = () => {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: "space-between", backgroundColor: colors.background, marginBottom: -100 }}>
+    <View style={{  justifyContent: "space-between", backgroundColor: colors.background,  }}>
       <ScrollView>
         <Text style={{ fontSize: 20, fontWeight: "bold", margin: 20 }}>Recherchez les plantes à garder prez de chez vous :</Text>
         <MapView ref={mapViewRef} style={{ width: vw(100), height: selectedMarker ? vh(50) : vh(70) }}>

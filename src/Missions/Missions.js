@@ -18,8 +18,8 @@ const Mission = () => {
   const missions = plantSittings.filter(plantSitting => plantSitting.status === "En cours");
 
   return (
-    <View style={{backgroundColor: colors.background}}>
-      <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 10, textAlign: "center", marginVertical: 20, marginBottom: 35 }}>Mes gardes :</Text>
+    <View style={{backgroundColor: colors.background , marginBottom : 50}}>
+      <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 10, textAlign: "center", marginVertical: 20 }}>Mes gardes :</Text>
       <ScrollView>
         {missions.map((mission, index) => (
           <CardPhotoContainer
@@ -29,7 +29,7 @@ const Mission = () => {
             cardStyles={{marginVertical: 20, marginHorizontal: 40}}
             imageCarouselStyles
             imageWidth={29}
-            imageHeight={20}
+            imageHeight={23}
           >
             <View style={styles.bottomContainer}>
               <Text numberOfLines={1} ellipsizeMode="tail">{mission.pseudo}</Text>
@@ -53,13 +53,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop: -10,
+    marginTop:10 , 
+    
   },
   deleteButton: {
     position: "absolute",
     width: "100%",
-    alignItems: "center",
-    marginLeft: 90,
+    alignItems: "flex-end",
+    left:"12%"
   },
   text: {
     textAlign: "center"
@@ -69,6 +70,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 2,
     borderRadius: 10,
+    marginBottom: 10,
   },
 });
 

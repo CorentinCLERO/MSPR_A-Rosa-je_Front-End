@@ -74,7 +74,7 @@ const PlantSOSGardien = () => {
   return (
     <View style={{ backgroundColor: colors.background }}>
       <Text style={styles.title}>PlantSOS</Text>
-      <View style={{ margin: 20, backgroundColor: colors.primary, padding: 20, borderRadius: 10, gap: 5 }}>
+      <View style={{ margin: 20, backgroundColor: colors.primary, padding: 20, borderRadius: 10, gap: 5 , maxHeight:"55%"}}>
         <Text style={{ fontWeight: "bold", textAlign: "center" }}>Vous avez un problème avec une plante ?</Text>
         <Text style={{ fontWeight: "bold", marginBottom: 10, textAlign: "center" }}>Demandez conseil à nos botanistes expert !</Text>
         <Text style={{ marginBottom: 5 }}>Quel est le nom de la plante ?</Text>
@@ -88,15 +88,15 @@ const PlantSOSGardien = () => {
           value={plantData.description ? plantData.description : ""}
           onChangeText={description => setPlantData({ ...plantData, description })}
           multiline
-          numberOfLines={4}
+          numberOfLines={3}
           style={styles.input}
         />
         <View style={{ display: "flex", flexDirection: "row", justifyContent: "center", marginLeft: 10 }}>
-          <Button labelStyle={{ marginTop: 20, borderWidth: 1, borderRadius: 20, color: colors.black, fontSize: 20, paddingVertical: 10, paddingHorizontal: 50, backgroundColor: colors.white }} onPress={() => handleAddPlantSOS()}>
+          <Button labelStyle={{ marginTop: "17%", borderWidth: 1, borderRadius: 20, color: colors.black, fontSize: 15, paddingHorizontal: "5%", backgroundColor: colors.white , maxHeight:"100%"}} onPress={() => handleAddPlantSOS()}>
             <Text>Poster</Text>
           </Button>
           <Button
-            labelStyle={{ marginTop: 20, borderWidth: 1, borderRadius: 20, color: colors.black, fontSize: 20, padding: 10, backgroundColor: colors.white }}
+            labelStyle={{marginTop: "11.5%", borderWidth: 1, borderRadius: 20, color: colors.black, fontSize: 15, paddingHorizontal: "5%", backgroundColor: colors.white , maxHeight:"100%"}}
             onPress={() => pickImageOrTakePhoto()}
           >
             <Text>Ajout d&apos;image</Text>
