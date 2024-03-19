@@ -26,6 +26,7 @@ const Plantsitting = () => {
               key={index} plants={plantSitting.plants}
               cardStyles={index === PlantSittingWaiting.length - 1 ? styles.lastCard : {}}
               pagination={plantSitting.plants.length > 1}
+              imageHeight={21}
             >
               <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting.reason}</Text>
               <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting.description}</Text>
@@ -55,6 +56,7 @@ const Plantsitting = () => {
               plants={plantSitting.plants}
               cardStyles={index === PlantSittingKeep.length - 1 ? styles.lastCard2 : {}}
               pagination={plantSitting.plants.length > 1}
+              imageHeight={23}
             >
               <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting.reason}</Text>
               <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting.description}</Text>

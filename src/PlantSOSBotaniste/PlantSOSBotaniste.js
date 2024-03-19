@@ -23,7 +23,7 @@ const PlantSOS = () => {
   }, [searchQuery, plantsSOS]);
 
   return (
-    <View>
+    <View style={{ backgroundColor : colors.background }}>
 
       <Text style={styles.header}>PlantSOS</Text>
       <Searchbar
@@ -45,9 +45,9 @@ const PlantSOS = () => {
         >
 
           <View style={styles.content}>
-            <Text>{item.pseudo}</Text>
-            <Text>{item.variety}</Text>
-            <Text>{item.description}</Text>          
+            <Text style={styles.text}>{item.pseudo}</Text>
+            <Text style={styles.text}>{item.variety}</Text>
+            <Text style={styles.text}>{item.description}</Text>          
             <Text style={styles.cardTreated}>{item.treated ? "En cours" : "Terminer"}</Text>       
           </View>  
         </CardPhotoContainer> )}
@@ -65,16 +65,17 @@ const PlantSOS = () => {
 
 const styles = StyleSheet.create({
   header : {
-    position : "relative",
-    left : 142 ,
     marginBottom : 20 ,
     fontSize : 27 , 
-    fontWeight : "bold"
+    marginTop : 15,
+    left: "35%",
+    fontWeight : "bold",
+    width : "100%",
   },
   search : {
     position : "relative",
     left : 20 , 
-    width : 370,
+    width : "90%",
     marginBottom : 20 ,
   },
   card: {
@@ -89,9 +90,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     borderRadius: 20,
     borderWidth: 1,
-    width : 75,
-    paddingLeft : 10
+    width : "58%",
+    paddingLeft : "10%",
+    marginTop : 5 ,
   },
+  text : {
+    marginTop : 5 ,
+  }
   
 
 
