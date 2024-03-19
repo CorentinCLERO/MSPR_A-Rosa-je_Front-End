@@ -41,14 +41,14 @@ const Plantes = () => {
           plants.map((plant, index) => {
             return (
               <CardPhotoContainer
-                key={index} plants={[plant]}
+                key={index} plants={[plant?.picture]}
                 cardStyles={index === plants.length - 1 ? styles.lastCard : {}}
                 cardContentStyles={styles.cardContent}
                 imageWidth={28}
               >
                 <Text style={styles.cardtitle}>{plant.variety}</Text>
                 <Text style={styles.content}>{plant.movable ? "Déplaçable" : "Non déplaçable"}</Text>
-                <Text numberOfLines={2} ellipsizeMode="tail">{plant.message}</Text>
+                <Text numberOfLines={2} ellipsizeMode="tail">{plant?.picture?.message ? plant?.picture?.message : "Aucune description"}</Text>
                 <Button style={styles.deleteButton} rippleColor={"#f00"} onPress={() => removePlant(plant.id)}>
                   <Icon name="delete" color={"#ff5555"} size={24} />
                 </Button>

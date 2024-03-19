@@ -53,7 +53,7 @@ const CardPhotoContainer = (props) => {
           snapToAlignment="center"
           renderItem={({ item, index }) => (
             <View>
-              <Image source={{ uri: item.url }} style={[styles.carouselImage, { width: vw(imageWidth), height: vh(imageHeight) }, carouselImageStyles]} />
+              <Image source={{ uri: item?.url || "https://res.cloudinary.com/dl0ehqnva/image/upload/v1710676939/msprb3cda/h36vzpfnuwwmrgvjgveh.png" }} style={[styles.carouselImage, { width: vw(imageWidth), height: vh(imageHeight) }, carouselImageStyles]} />
               <Text style={[styles.carouselPagination, carouselPaginationStyles, pagination ? {} : styles.displayNone]}>{index + 1}</Text>
             </View>
           )}

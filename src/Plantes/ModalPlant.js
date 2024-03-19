@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { colors } from "../colors";
 import { Button, Checkbox, Modal, TextInput } from "react-native-paper";
@@ -9,26 +9,43 @@ import MyContext from "../MyContext";
 const ModalPlant = (props) => {
   const { setVisible, visible } = props;
   const { addPlant } = useContext(MyContext);
-  const initialState = {
-    url: null,
-    variety: null,
-    movable: false,
-  };
-  const [plantData, setPlantData] = useState(initialState);
-
+  const [plantData, setPlantData] = useState({});
+  const [imageInfo, setImageInfo] = useState(null);
+  
   useEffect(() => {
     if (visible) {
-      setPlantData(initialState);
+      setPlantData({});
     }
   }, [visible]);
-
+  
   const handleAddPlant = () => {
-    if (plantData.url === null || plantData.variety === null) {
-      Alert.alert("Erreur", "Veuillez remplir tous les champs requis.");
+    if (plantData.file === null || plantData.variety === null || plantData.movable === null || plantData.message === null) {
+      Alert.alert("Erreur", "Veuillez remplir tous les champs requis et ajouter une image.");
       return;
     }
-    setVisible(false);
-    addPlant({ ...plantData, id: Math.floor(Math.random() * 1000000) });
+    const data = new FormData();
+    // Ajouter l'image à l'objet FormData
+    data.append("photo", {
+      name: imageInfo.name,
+      type: imageInfo.type,
+      uri: imageInfo.uri,
+    });
+    // Ajouter les autres données du formulaire à l'objet FormData
+    Object.keys(plantData).forEach(key => {
+      data.append(key, plantData[key]);
+    });
+    // Ajout d'infos qui ne sont pas géré pour la version de POC
+    data.append("userId", 1);
+    console.log("data", data);
+    addPlant(data)
+      .then(response => {
+        console.log("Réponse du serveur:", response);
+        setVisible(false);
+      }).catch(error => {
+        console.error("Erreur lors de l'ajout de la plante:", error);
+        // Handle the error here, possibly show a message to the user
+      });
+  
   };
 
   const pickImageOrTakePhoto = () => {
@@ -54,18 +71,20 @@ const ModalPlant = (props) => {
       Alert.alert("Erreur", "Permission pour accéder à la caméra est requise.");
       return;
     }
-
+    
     let result = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
       aspect: [1, 1],
       quality: 1,
+      cameraType: "back", 
     });
-
+    
     if (!result.canceled) {
+      createFormData(result.assets[0].uri);
       setPlantData({ ...plantData, url: result.assets[0].uri });
     }
   };
-
+  
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -74,10 +93,21 @@ const ModalPlant = (props) => {
       aspect: [1, 1],
       quality: 1,
     });
-
+    
     if (!result.canceled) {
+      createFormData(result.assets[0].uri);
       setPlantData({ ...plantData, url: result.assets[0].uri });
     }
+  };
+  
+  const createFormData = (photoUri) => {
+    console.log("photoUri", photoUri);
+    // Ici, "photo" est le nom du champ attendu par votre back-end/api Cloudinary.
+    setImageInfo({
+      name: `coco_${Date.now()}.jpg`, // Vous pouvez donner un nom dynamique basé sur l"heure actuelle pour éviter les doublons.
+      type: "image/jpeg", // Assurez-vous que le type correspond au type de fichier que vous envoyez.
+      uri: Platform.OS === "ios" ? photoUri.replace("file://", "") : photoUri,
+    });
   };
 
   return (
@@ -113,7 +143,7 @@ const ModalPlant = (props) => {
           <View style={styles.checkboxContainer}>
             <Text>Déplaçable ?</Text>
             <Checkbox
-              status={plantData.movable ? "checked" : "unchecked"}
+              status={plantData.movable === undefined ? "checked" : plantData.movable ? "checked" : "unchecked"}
               onPress={() => setPlantData({ ...plantData, movable: !plantData.movable })}
             />
           </View>
