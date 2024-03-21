@@ -1,6 +1,7 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import MyContext from "./MyContext";
 import { plantListRaw, plantsSOSRaw, plantSittingRaw, addressesRaw } from "./data";
+import axios from "axios";
 
 export const MyProvider = ({ children }) => {
   const [plantsSOS, setPlantsSOS] = useState(plantsSOSRaw);
@@ -8,12 +9,38 @@ export const MyProvider = ({ children }) => {
   const [plants, setPlants] = useState(plantListRaw);
   const addresses = addressesRaw;
 
-  const addPlant = (plant) => {
-    setPlants([plant, ...plants]);
+  const addPlant = (data) => {
+    console.log("plant", data);
+    return axios({
+      method: "POST",
+      url: `${process.env.EXPO_PUBLIC_API_URL}/api/plant`,
+      data: data,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+      .then((response) => {
+        console.log("laréponse", response);
+        setPlants([response.data.data, ...plants]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const removePlant = (id) => {
-    setPlants(plants.filter((plant) => plant.id !== id));
+    axios({
+      method: "DELETE",
+      url: `${process.env.EXPO_PUBLIC_API_URL}/api/plant/${id}`,
+    }) 
+      .then((response) => {
+        console.log(response);
+        setPlants(plants.filter((plant) => plant.id !== id));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
   };
 
   const addPlantSOS = (plant) => {
@@ -33,8 +60,24 @@ export const MyProvider = ({ children }) => {
   };
 
   const updateStatePlantSitting = (id, state) => {
-    setPlantSittings(plantSittings.map((plantSitting) => (plantSitting.id === id ? {...plantSitting, status: state} : plantSitting)));
+    setPlantSittings(plantSittings.map((plantSitting) => (plantSitting.id === id ? { ...plantSitting, status: state } : plantSitting)));
   };
+
+  const getPlantFromUser = (id = 1) => {
+    axios({ method: "GET", url: `${process.env.EXPO_PUBLIC_API_URL}/api/plants/${id}`, })
+      .then((response) => {
+        setPlants(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getPlantFromUser();
+  }, []);
+
 
   // useMemo ensures the context value is memoized, only recalculating when necessary
   const value = useMemo(() => ({
