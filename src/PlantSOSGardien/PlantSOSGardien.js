@@ -7,10 +7,14 @@ import CardPhotoContainer from "../components/CardPhotoContainer/CardPhotoContai
 import { colors } from "../colors";
 import { Button } from "react-native-paper";
 import * as ImagePicker from "expo-image-picker";
+import ModalSOS from "../PlantSOSBotaniste/ModalSOS";
 
 const PlantSOSGardien = () => {
   const [plantData, setPlantData] = useState({});
   const { plantsSOS, addPlantSOS } = useContext(MyContext);
+  const [visible, setVisible] = useState(false);
+  const [selectPlant , setSelectPlant] = useState(0);
+  const roleBotaniste = true;
 
   const handleAddPlantSOS = () => {
     if (plantData.description === undefined || plantData.variety === undefined || plantData.url === undefined) {
@@ -109,6 +113,7 @@ const PlantSOSGardien = () => {
             return (
               <CardPhotoContainer
                 key={index} plants={[plantSOS]}
+                onPress={() => {setVisible(true) ; setSelectPlant(plantSOS) ; }}
                 cardStyles={[styles.card, index === plantsSOS.length - 1 ? styles.lastCard : {}]}
                 imageHeight={13}
                 imageWidth={28}
@@ -123,6 +128,7 @@ const PlantSOSGardien = () => {
           })
         }
       </ScrollView>
+      <ModalSOS {...{ setVisible, visible , selectPlant , setSelectPlant , roleBotaniste }} />
     </View>
   );
 };
