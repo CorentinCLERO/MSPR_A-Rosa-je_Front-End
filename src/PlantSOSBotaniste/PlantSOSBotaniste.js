@@ -12,6 +12,8 @@ const PlantSOS = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredPlants, setFilteredPlants] = useState([]);
   const [visible, setVisible] = useState(false);
+  const [selectPlant , setSelectPlant] = useState(0);
+  const roleBotaniste  = false;
 
 
   useEffect(() => {
@@ -38,7 +40,7 @@ const PlantSOS = () => {
 
         <CardPhotoContainer
           plants={[item]} key={index} 
-          // onPress={() => setVisible(true)}
+          onPress={() => {setVisible(true) ; setSelectPlant(item) ; }}
           cardStyles={[styles.card, index === plantsSOS.length - 1 ? styles.lastCard : {}]}
           imageHeight={19}
           imageWidth={28}
@@ -48,14 +50,14 @@ const PlantSOS = () => {
             <Text style={styles.text}>{item.pseudo}</Text>
             <Text style={styles.text}>{item.variety}</Text>
             <Text style={styles.text}>{item.description}</Text>          
-            <Text style={styles.cardTreated}>{item.treated ? "En cours" : "Terminer"}</Text>       
+            <Text style={styles.cardTreated}>{item.treated ? "Répondu" : "En cours"}</Text>       
           </View>  
         </CardPhotoContainer> )}
       />
         
            
       
-      <ModalSOS {...{ setVisible, visible }} />
+      <ModalSOS {...{ setVisible, visible , selectPlant , setSelectPlant , roleBotaniste }} />
     </View>
     
 
