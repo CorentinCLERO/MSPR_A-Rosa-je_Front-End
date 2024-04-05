@@ -83,6 +83,10 @@ export const MyProvider = ({ children }) => {
     setPlantsSOS(plantsSOS.map((plant) => plant.id === id ? { answerInput: answerInput} : plant ));
     console.log(plantsSOS);
   };
+  const updatePlantAnswer = ( id, answerInput ) => {
+    setPlantsSOS(plantsSOS.map((plant) => plant.id === id ? { answerInput: answerInput} : plant ));
+    console.log(plantsSOS);
+  };
   // useMemo ensures the context value is memoized, only recalculating when necessary
   const value = useMemo(() => ({
     plantsSOS,

@@ -1,6 +1,7 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { useContext } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { Button, Card } from "react-native-paper";
+import { Button } from "react-native-paper";
 import { colors } from "../colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { format } from "date-fns";
