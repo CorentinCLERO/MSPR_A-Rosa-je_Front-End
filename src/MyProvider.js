@@ -1,24 +1,19 @@
 import React, { useState, useMemo, useEffect } from "react";
 import MyContext from "./MyContext";
-import { plantListRaw, plantsSOSRaw, plantSittingRaw, addressesRaw } from "./data";
-import axios from "axios";
+import { plantsSOSRaw, addressesRaw } from "./data";
+import API from "./api";
 
 export const MyProvider = ({ children }) => {
   const [plantsSOS, setPlantsSOS] = useState(plantsSOSRaw);
-  const [plantSittings, setPlantSittings] = useState(plantSittingRaw);
-  const [plants, setPlants] = useState(plantListRaw);
+  const [plantSittings, setPlantSittings] = useState(null);
+  const [plants, setPlants] = useState(null);
   const addresses = addressesRaw;
 
   const addPlant = (data) => {
-    console.log("plant", data);
-    return axios({
-      method: "POST",
-      url: `${process.env.EXPO_PUBLIC_API_URL}/api/plant`,
-      data: data,
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
+    return API.post("/plant",
+      data,
+      { headers: { "Content-Type": "multipart/form-data" } }
+    )
       .then((response) => {
         console.log("laréponse", response);
         setPlants([response.data.data, ...plants]);
@@ -29,10 +24,7 @@ export const MyProvider = ({ children }) => {
   };
 
   const removePlant = (id) => {
-    axios({
-      method: "DELETE",
-      url: `${process.env.EXPO_PUBLIC_API_URL}/api/plant/${id}`,
-    })
+    return API.delete(`/plant/${id}`)
       .then((response) => {
         console.log(response);
         setPlants(plants.filter((plant) => plant.id !== id));
@@ -68,16 +60,31 @@ export const MyProvider = ({ children }) => {
   }, []);
 
   const getPlantFromUser = (id = 1) => {
-    axios({ method: "GET", url: `${process.env.EXPO_PUBLIC_API_URL}/api/plants/${id}`, })
+    return API.get(`/plants/${id}`)
       .then((response) => {
         setPlants(response.data);
-        console.log(response.data);
+        console.log("Plantes récupérées:", response.data);
       })
       .catch((error) => {
-        console.log(error);
+        console.error("Erreur lors de la récupération des plantes:", error);
       });
   };
 
+  const getPlantSittingFromUser = (id = 1) => {
+    return API.get(`/requests/${id}`)
+      .then((response) => {
+        setPlantSittings(response.data);
+        console.log("Plantes récupérées:", response.data);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la récupération des plantes requests:", error);
+      });
+  };
+
+  useEffect(() => {
+    getPlantFromUser();
+    getPlantSittingFromUser();
+  }, []);
 
   const updatePlantAnswer = (id, answerInput) => {
     setPlantsSOS(plantsSOS.map((plant) => plant.id === id ? { answerInput: answerInput } : plant));

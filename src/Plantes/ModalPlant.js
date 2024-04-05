@@ -36,6 +36,7 @@ const ModalPlant = (props) => {
     });
     // Ajout d'infos qui ne sont pas géré pour la version de POC
     data.append("userId", 1);
+    data.append("adress_id", 1);
     console.log("data", data);
     addPlant(data)
       .then(response => {

@@ -12,32 +12,36 @@ const Plantsitting = () => {
   const { plantSittings, removePlantSitting } = useContext(MyContext);
 
   const [visible, setVisible] = useState(false);
-  const PlantSittingWaiting = plantSittings.filter(plantSitting => plantSitting.status === "En cours");
-  const PlantSittingKeep = plantSittings.filter(plantSitting => plantSitting.status === "En attente");
-
+  const PlantSittingWaiting = plantSittings?.filter(plantSitting => plantSitting.status === "mission");
+  const PlantSittingKeep = plantSittings?.filter(plantSitting => plantSitting.status === "slot");
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Vos Demandes de Plant-Sitting</Text>
       <View style={styles.containerPlant}>
         <Text style={styles.titlePlant}>Vos Plant-Sitting en cours :</Text>
         <ScrollView style={styles.containerPlantScroll}>
-          {PlantSittingWaiting.map((plantSitting, index) => (
+          {PlantSittingWaiting?.map((plantSitting, index) => (
             <CardPhotoContainer
-              key={index} plants={plantSitting.plants}
-              cardStyles={index === PlantSittingWaiting.length - 1 ? styles.lastCard : {}}
-              pagination={plantSitting.plants.length > 1}
-              imageHeight={21}
+              key={index} 
+              plants={plantSitting?.plants?.length > 0 ? plantSitting?.plants : ["https://res.cloudinary.com/dl0ehqnva/image/upload/v1710676939/msprb3cda/h36vzpfnuwwmrgvjgveh.png"]}
+              cardStyles={index === PlantSittingWaiting?.length - 1 ? styles.lastCard : {}}
+              pagination={plantSitting?.plants?.length > 1}
             >
-              <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting.reason}</Text>
-              <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting.description}</Text>
-              <Text style={styles.text}>{plantSitting.plants.length + " plantes"}</Text>
-              <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">{format(plantSitting.beginDate, "dd/MM/yy") + " - " + format(plantSitting.endDate, "dd/MM/yy")}</Text>
+              <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting?.reason}</Text>
+              <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting?.description}</Text>
+              <Text style={styles.text}>{plantSitting?.plants?.length ? plantSitting?.plants?.length : "Aucune" + " plantes"}</Text>
+              <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">
+                {plantSitting?.beginDate ? format(new Date(plantSitting?.beginDate), "dd/MM/yy") : "Date non renseignée"}
+                {" - "}
+                {plantSitting?.endDate ? format(new Date(plantSitting?.endDate), "dd/MM/yy") : "Date non renseignée"}
+              </Text>
               <View style={styles.bottomContainer}>
-                <Text style={[styles.text, styles.text2]}>{plantSitting.status}</Text>
+                <Text style={[styles.text, styles.text2]}>{plantSitting?.status}</Text>
                 <Button
                   style={styles.deleteButton}
                   rippleColor={"#f00"}
-                  onPress={() => removePlantSitting(plantSitting.id)}
+                  onPress={() => removePlantSitting(plantSitting?.id)}
                 >
                   <Icon name="delete" color={"#ff5555"} size={24} />
                 </Button>
@@ -50,21 +54,24 @@ const Plantsitting = () => {
       <View style={styles.containerPlant}>
         <Text style={[styles.titlePlant, styles.titlePlant2]}>Vos demandes de Plant-Sitting :</Text>
         <ScrollView style={styles.containerPlantScroll}>
-          {PlantSittingKeep.map((plantSitting, index) => (
+          {PlantSittingKeep?.map((plantSitting, index) => (
             <CardPhotoContainer
               key={index}
-              plants={plantSitting.plants}
-              cardStyles={index === PlantSittingKeep.length - 1 ? styles.lastCard2 : {}}
-              pagination={plantSitting.plants.length > 1}
-              imageHeight={23}
+              plants={plantSitting?.plants?.length > 0 ? plantSitting?.plants : ["https://res.cloudinary.com/dl0ehqnva/image/upload/v1710676939/msprb3cda/h36vzpfnuwwmrgvjgveh.png"]}
+              cardStyles={index === PlantSittingKeep?.length - 1 ? styles.lastCard2 : {}}
+              pagination={plantSitting?.plants?.length > 1}
             >
-              <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting.reason}</Text>
-              <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting.description}</Text>
-              <Text style={styles.text}>{plantSitting.plants.length + " plantes"}</Text>
-              <Text style={styles.text}>{format(plantSitting.beginDate, "MM/dd/yy") + " - " + format(plantSitting.endDate, "MM/dd/yy")}</Text>
+              <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting?.reason}</Text>
+              <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting?.description}</Text>
+              <Text style={styles.text}>{plantSitting?.plants?.length ? plantSitting?.plants?.length : "Aucune" + " plantes"}</Text>
+              <Text style={styles.text}>
+                {plantSitting?.beginDate ? format(new Date(plantSitting?.beginDate), "dd/MM/yy") : "Date non renseignée"}
+                {" - "}
+                {plantSitting?.endDate ? format(new Date(plantSitting?.endDate), "dd/MM/yy") : "Date non renseignée"}
+              </Text>
               <View style={styles.bottomContainer}>
-                <Text style={[styles.text, styles.text2]}>{plantSitting.status}</Text>
-                <Button style={styles.deleteButton} rippleColor={"#f00"} onPress={() => removePlantSitting(plantSitting.id)}>
+                <Text style={[styles.text, styles.text2]}>{plantSitting?.status}</Text>
+                <Button style={styles.deleteButton} rippleColor={"#f00"} onPress={() => removePlantSitting(plantSitting?.id)}>
                   <Icon name="delete" color={"#ff5555"} size={24} />
                 </Button>
               </View>

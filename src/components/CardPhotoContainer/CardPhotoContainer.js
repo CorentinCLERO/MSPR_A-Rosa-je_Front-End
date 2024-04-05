@@ -23,9 +23,9 @@ const CardPhotoContainer = (props) => {
   const flatListRef = useRef(null);
 
   const autoRotate = () => {
-    const nextIndex = (currentIndex + 1) % plants.length;
+    const nextIndex = (currentIndex + 1) % plants?.length;
 
-    if (nextIndex >= 0 && nextIndex < plants.length) {
+    if (nextIndex >= 0 && nextIndex < plants?.length) {
       const nextItemOffset = vw(imageWidth) * nextIndex;
       flatListRef?.current?.scrollToOffset({
         animated: true,

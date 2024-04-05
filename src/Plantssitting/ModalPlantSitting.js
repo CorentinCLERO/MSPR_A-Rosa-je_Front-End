@@ -40,6 +40,8 @@ const ModalPlantSitting = (props) => {
     }
   };
 
+  const plantsWithNoPkantSitting = plants.filter(plant => plant.request_id === null);
+
   return (
     <Modal
       visible={visible}
@@ -83,7 +85,7 @@ const ModalPlantSitting = (props) => {
             </View>
             <DropdownSelect
               placeholder="Plantes à garder"
-              options={plants.map(plant => ({
+              options={plantsWithNoPkantSitting.map(plant => ({
                 label: plant.variety,
                 value: plant,
               }))}
