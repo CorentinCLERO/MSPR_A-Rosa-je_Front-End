@@ -71,43 +71,6 @@ const ModalPlant = (props) => {
       Alert.alert("Erreur", "Permission pour accéder à la caméra est requise.");
       return;
     }
-    
-    let result = await ImagePicker.launchCameraAsync({
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 1,
-      cameraType: "back", 
-    });
-    
-    if (!result.canceled) {
-      createFormData(result.assets[0].uri);
-      setPlantData({ ...plantData, url: result.assets[0].uri });
-    }
-  };
-
-  const pickImageOrTakePhoto = () => {
-    Alert.alert("Ajouter une image", "Choisissez une option", [
-      {
-        text: "Caméra",
-        onPress: takePhoto,
-      },
-      {
-        text: "Galerie",
-        onPress: pickImage,
-      },
-      {
-        text: "Annuler",
-        style: "cancel",
-      },
-    ]);
-  };
-
-  const takePhoto = async () => {
-    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
-    if (permissionResult.granted === false) {
-      Alert.alert("Erreur", "Permission pour accéder à la caméra est requise.");
-      return;
-    }
 
     let result = await ImagePicker.launchCameraAsync({
       allowsEditing: true,

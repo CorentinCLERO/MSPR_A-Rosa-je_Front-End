@@ -1,19 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import { NavigationContainer } from "@react-navigation/native";
 import { PlantSOSSVG } from "../../assets/iconesTabs/PlantSOS";
 import PlantSOSBotaniste from "../PlantSOSBotaniste/PlantSOSBotaniste";
 import { colors } from "../colors";
 import { StyleSheet, View } from "react-native";
-import { plantSOSRaw } from "../data";
-import { colors } from "../colors";
-import { StyleSheet, View } from "react-native";
 
 const BotanisteTabs = () => {
   const Tab = createMaterialBottomTabNavigator();
-
-
-  const [plantSOSListe , setPlantSOSListe ] = useState(plantSOSRaw);
 
   return (
     <View style={{ backgroundColor: colors.background, flex: 1, marginBottom: -20 }}>

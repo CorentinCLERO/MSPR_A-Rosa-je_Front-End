@@ -63,21 +63,9 @@ export const MyProvider = ({ children }) => {
     setPlantSittings(plantSittings.map((plantSitting) => (plantSitting.id === id ? { ...plantSitting, status: state } : plantSitting)));
   };
 
-  const getPlantFromUser = (id = 1) => {
-    axios({ method: "GET", url: `${process.env.EXPO_PUBLIC_API_URL}/api/plants/${id}`, })
-      .then((response) => {
-        setPlants(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   useEffect(() => {
     getPlantFromUser();
   }, []);
-
 
   const getPlantFromUser = (id = 1) => {
     axios({ method: "GET", url: `${process.env.EXPO_PUBLIC_API_URL}/api/plants/${id}`, })
