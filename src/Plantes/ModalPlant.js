@@ -64,27 +64,25 @@ const ModalPlant = (props) => {
       },
     ]);
   };
-
+  
   const takePhoto = async () => {
     const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
     if (permissionResult.granted === false) {
       Alert.alert("Erreur", "Permission pour accéder à la caméra est requise.");
       return;
     }
-    
+
     let result = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
       aspect: [1, 1],
       quality: 1,
-      cameraType: "back", 
     });
-    
+
     if (!result.canceled) {
-      createFormData(result.assets[0].uri);
       setPlantData({ ...plantData, url: result.assets[0].uri });
     }
   };
-  
+
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({

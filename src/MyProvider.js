@@ -63,6 +63,10 @@ export const MyProvider = ({ children }) => {
     setPlantSittings(plantSittings.map((plantSitting) => (plantSitting.id === id ? { ...plantSitting, status: state } : plantSitting)));
   };
 
+  useEffect(() => {
+    getPlantFromUser();
+  }, []);
+
   const getPlantFromUser = (id = 1) => {
     axios({ method: "GET", url: `${process.env.EXPO_PUBLIC_API_URL}/api/plants/${id}`, })
       .then((response) => {
@@ -74,11 +78,11 @@ export const MyProvider = ({ children }) => {
       });
   };
 
-  useEffect(() => {
-    getPlantFromUser();
-  }, []);
 
-
+  const updatePlantAnswer = ( id, answerInput ) => {
+    setPlantsSOS(plantsSOS.map((plant) => plant.id === id ? { answerInput: answerInput} : plant ));
+    console.log(plantsSOS);
+  };
   // useMemo ensures the context value is memoized, only recalculating when necessary
   const value = useMemo(() => ({
     plantsSOS,
@@ -92,6 +96,8 @@ export const MyProvider = ({ children }) => {
     addPlant,
     removePlant,
     addresses,
+    updatePlantAnswer,
+ 
   }), [plantsSOS, plantSittings, plants, addresses]);
 
   return (
