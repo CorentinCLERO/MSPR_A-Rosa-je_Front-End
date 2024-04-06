@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import { NavigationContainer } from "@react-navigation/native";
-import { PlantSOSSVG } from "../../assets/iconesTabs/PlantSOS";
-import PlantSOSBotaniste from "../PlantSOSBotaniste/PlantSOSBotaniste";
-import { plantSOSRaw } from "../data";
+import Plantsitting from "../Plantssitting/Plantsitting";
+import Plantes from "../Plantes/Plantes";
+import { PlantSittingSVG } from "../../assets/iconesTabs/PlantSitting";
+import { PlantSVG } from "../../assets/iconesTabs/Plant";
 import { colors } from "../colors";
 import { StyleSheet, View } from "react-native";
 
-const BotanisteTabs = () => {
+
+const ClientTabs = () => {
   const Tab = createMaterialBottomTabNavigator();
-
-
-  const [plantSOSListe , setPlantSOSListe ] = useState(plantSOSRaw);
 
   return (
     <View style={{ backgroundColor: colors.background, flex: 1, marginBottom: -20 }}>
@@ -19,25 +18,32 @@ const BotanisteTabs = () => {
         <Tab.Navigator
           barStyle={styles.navigator}
           activeColor={colors.blue}
-          inactiveColor={colors.white}
+          inactiveColor="#FFFFFF"
           labeled={false}
         >
           <Tab.Screen
-            name="PlantSOS"
+            name="Plantes"
+            component={Plantes}
             options={{
               tabBarIcon: ({ color }) => (
-                <PlantSOSSVG fill={color} width="24" height="24" />
+                <PlantSVG fill={color} width="24" height="24" />
               ),
             }}
-          >
-            {() => <PlantSOSBotaniste />}
-          </Tab.Screen>
+          />
+          <Tab.Screen
+            name="Plantsitting"
+            component={Plantsitting}
+            options={{
+              tabBarIcon: ({ color }) => (
+                <PlantSittingSVG fill={color} width="24" height="24" />
+              ),
+            }}
+          />
         </Tab.Navigator>
       </NavigationContainer>
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   navigator: {
@@ -50,4 +56,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default BotanisteTabs;
+export default ClientTabs;
