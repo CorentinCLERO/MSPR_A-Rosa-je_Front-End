@@ -44,7 +44,10 @@ export const MyProvider = ({ children }) => {
   };
 
   const addPlantSitting = (plant) => {
-    setPlantSittings([plant, ...plantSittings]);
+    console.log("planticxi-------------", plant.plants)
+    console.log("pplantSittingsplantSittings-------------", plantSittings)
+    const updatedPlantSittings = plantSittings ? [plant, ...plantSittings] : [plant];
+    setPlantSittings(updatedPlantSittings);
   };
 
   const removePlantSitting = (id) => {
@@ -63,7 +66,7 @@ export const MyProvider = ({ children }) => {
     return API.get(`/plants/${id}`)
       .then((response) => {
         setPlants(response.data);
-        console.log("Plantes récupérées:", response.data);
+        // console.log("Plantes récupérées:", response.data);
       })
       .catch((error) => {
         console.error("Erreur lors de la récupération des plantes:", error);
@@ -74,7 +77,7 @@ export const MyProvider = ({ children }) => {
     return API.get(`/requests/${id}`)
       .then((response) => {
         setPlantSittings(response.data);
-        console.log("Plantes récupérées:", response.data);
+        // console.log("Plantes requests récupérées:", response.data);
       })
       .catch((error) => {
         console.error("Erreur lors de la récupération des plantes requests:", error);
@@ -90,7 +93,7 @@ export const MyProvider = ({ children }) => {
     setPlantsSOS(plantsSOS.map((plant) => plant.id === id ? { answerInput: answerInput } : plant));
     console.log(plantsSOS);
   };
-  
+
   // useMemo ensures the context value is memoized, only recalculating when necessary
   const value = useMemo(() => ({
     plantsSOS,

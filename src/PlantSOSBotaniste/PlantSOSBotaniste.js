@@ -50,7 +50,7 @@ const PlantSOS = () => {
             <Text style={styles.text}>{item.pseudo}</Text>
             <Text style={styles.text}>{item.variety}</Text>
             <Text style={styles.text}>{item.description}</Text>          
-            <Text style={styles.cardTreated}>{item.treated ? "Répondu" : "En cours"}</Text>       
+            <Text style={styles.cardTreated}>{item.treated ? "Répondu" : "mission"}</Text>       
           </View>  
         </CardPhotoContainer> )}
       />

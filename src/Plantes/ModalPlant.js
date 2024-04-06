@@ -25,6 +25,7 @@ const ModalPlant = (props) => {
     }
     const data = new FormData();
     // Ajouter l'image à l'objet FormData
+    console.log(imageInfo)
     data.append("photo", {
       name: imageInfo.name,
       type: imageInfo.type,
@@ -80,6 +81,7 @@ const ModalPlant = (props) => {
     });
 
     if (!result.canceled) {
+      createFormData(result.assets[0].uri);
       setPlantData({ ...plantData, url: result.assets[0].uri });
     }
   };

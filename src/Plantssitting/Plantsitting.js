@@ -19,7 +19,7 @@ const Plantsitting = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Vos Demandes de Plant-Sitting</Text>
       <View style={styles.containerPlant}>
-        <Text style={styles.titlePlant}>Vos Plant-Sitting en cours :</Text>
+        <Text style={styles.titlePlant}>Vos Plant-Sitting mission :</Text>
         <ScrollView style={styles.containerPlantScroll}>
           {PlantSittingWaiting?.map((plantSitting, index) => (
             <CardPhotoContainer
@@ -30,11 +30,11 @@ const Plantsitting = () => {
             >
               <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting?.reason}</Text>
               <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting?.description}</Text>
-              <Text style={styles.text}>{plantSitting?.plants?.length ? plantSitting?.plants?.length : "Aucune" + " plantes"}</Text>
+              <Text style={styles.text}>{plantSitting?.plants?.length ? plantSitting?.plants?.length : "Aucune"} plantes</Text>
               <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">
-                {plantSitting?.beginDate ? format(new Date(plantSitting?.beginDate), "dd/MM/yy") : "Date non renseignée"}
+                {plantSitting?.begin_date ? format(new Date(plantSitting?.begin_date), "dd/MM/yy") : "Date non renseignée"}
                 {" - "}
-                {plantSitting?.endDate ? format(new Date(plantSitting?.endDate), "dd/MM/yy") : "Date non renseignée"}
+                {plantSitting?.end_date ? format(new Date(plantSitting?.end_date), "dd/MM/yy") : "Date non renseignée"}
               </Text>
               <View style={styles.bottomContainer}>
                 <Text style={[styles.text, styles.text2]}>{plantSitting?.status}</Text>
@@ -63,11 +63,11 @@ const Plantsitting = () => {
             >
               <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting?.reason}</Text>
               <Text numberOfLines={1} ellipsizeMode="tail">{plantSitting?.description}</Text>
-              <Text style={styles.text}>{plantSitting?.plants?.length ? plantSitting?.plants?.length : "Aucune" + " plantes"}</Text>
+              <Text style={styles.text}>{plantSitting?.plants?.length ? plantSitting?.plants?.length : "Aucune"} plantes</Text>
               <Text style={styles.text}>
-                {plantSitting?.beginDate ? format(new Date(plantSitting?.beginDate), "dd/MM/yy") : "Date non renseignée"}
+                {plantSitting?.begin_date ? format(new Date(plantSitting?.begin_date), "dd/MM/yy") : "Date non renseignée"}
                 {" - "}
-                {plantSitting?.endDate ? format(new Date(plantSitting?.endDate), "dd/MM/yy") : "Date non renseignée"}
+                {plantSitting?.end_date ? format(new Date(plantSitting?.end_date), "dd/MM/yy") : "Date non renseignée"}
               </Text>
               <View style={styles.bottomContainer}>
                 <Text style={[styles.text, styles.text2]}>{plantSitting?.status}</Text>
