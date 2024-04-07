@@ -28,7 +28,12 @@
         "android.permission.ACCESS_FINE_LOCATION",
         "android.permission.FOREGROUND_SERVICE"
       ],
-      "package": "com.arosajemsprsixun.arosajelapp"
+      "package": "com.arosajemsprsixun.arosajelapp",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyB8jSTHSpmqZDIl3wz5Nyz8FJfAL0bYvVE"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/logos/logo.png"

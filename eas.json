@@ -12,17 +12,6 @@
       "android": {
         "buildType": "apk"
       },
-      "preview2": {
-        "android": {
-          "gradleCommand": ":app:assembleRelease"
-        }
-      },
-      "preview3": {
-        "developmentClient": true
-      },
-      "preview4": {
-        "distribution": "internal"
-      },
       "env": {
         "EXPO_PUBLIC_API_URL": "https://upward-splendid-ghoul.ngrok-free.app"
       }
