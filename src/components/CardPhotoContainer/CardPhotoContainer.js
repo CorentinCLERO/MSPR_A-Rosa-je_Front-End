@@ -23,9 +23,9 @@ const CardPhotoContainer = (props) => {
   const flatListRef = useRef(null);
 
   const autoRotate = () => {
-    const nextIndex = (currentIndex + 1) % plants.length;
+    const nextIndex = (currentIndex + 1) % plants?.length;
 
-    if (nextIndex >= 0 && nextIndex < plants.length) {
+    if (nextIndex >= 0 && nextIndex < plants?.length) {
       const nextItemOffset = vw(imageWidth) * nextIndex;
       flatListRef?.current?.scrollToOffset({
         animated: true,
@@ -54,7 +54,7 @@ const CardPhotoContainer = (props) => {
           snapToAlignment="center"
           renderItem={({ item, index }) => (
             <View>
-              <Image source={{ uri: item?.url || "https://res.cloudinary.com/dl0ehqnva/image/upload/v1710676939/msprb3cda/h36vzpfnuwwmrgvjgveh.png" }} style={[styles.carouselImage, { width: vw(imageWidth), height: vh(imageHeight) }, carouselImageStyles]} />
+              <Image source={{ uri: item?.url || item?.picture?.url || "https://res.cloudinary.com/dl0ehqnva/image/upload/v1710676939/msprb3cda/h36vzpfnuwwmrgvjgveh.png" }} style={[styles.carouselImage, { width: vw(imageWidth), height: vh(imageHeight) }, carouselImageStyles]} />
               <Text style={[styles.carouselPagination, carouselPaginationStyles, pagination ? {} : styles.displayNone]}>{index + 1}</Text>
             </View>
           )}

@@ -16,7 +16,7 @@ const Map = () => {
   const [transportability, setTransportability] = useState(null);
   const { updateStatePlantSitting, plantSittings } = useContext(MyContext);
   const mapViewRef = useRef(null);
-  const plantSittingRequests = plantSittings.filter((plant) => plant.status === "En attente");
+  const plantSittingRequests = plantSittings.filter((plant) => plant.status === "slot");
 
   useEffect(() => {
     (async () => {
@@ -63,12 +63,12 @@ const Map = () => {
   };
 
   const handleKeppPlant = (plant) => {
-    updateStatePlantSitting(plant.id, "En cours");
+    updateStatePlantSitting(plant.id, "mission");
     setSelectedMarker(null);
   };
 
   return (
-    <View style={{  justifyContent: "space-between", backgroundColor: colors.background,  }}>
+    <View style={{ justifyContent: "space-between", backgroundColor: colors.background, height: "100%" }}>
       <ScrollView>
         <Text style={{ fontSize: 20, fontWeight: "bold", margin: 20 }}>Recherchez les plantes à garder prez de chez vous :</Text>
         <MapView ref={mapViewRef} style={{ width: vw(100), height: selectedMarker ? vh(50) : vh(70) }}>
@@ -100,7 +100,7 @@ const Map = () => {
           >
             <Text style={{ paddingTop: 5 }} >{selectedMarker?.plants?.length + " plantes"}</Text>
             <Text numberOfLines={1} ellipsizeMode="tail">{transportability}</Text>
-            <Text numberOfLines={1} ellipsizeMode="tail">{format(selectedMarker?.beginDate, "dd/MM/yy") + " - " + format(selectedMarker.endDate, "dd/MM/yy")}</Text>
+            <Text numberOfLines={1} ellipsizeMode="tail">{format(selectedMarker?.begin_date, "dd/MM/yy") + " - " + format(selectedMarker.end_date, "dd/MM/yy")}</Text>
             <Button style={styles.keepButton} rippleColor={"green"} onPress={() => handleKeppPlant(selectedMarker)}>
               <Text style={{ color: "black" }}>{selectedMarker?.plants?.length > 1 ? "Garder la plante" : "Garder les plantes"}</Text>
             </Button>

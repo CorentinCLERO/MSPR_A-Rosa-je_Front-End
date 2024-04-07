@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Alert, Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Alert, Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { colors } from "../colors";
 import { Button, Checkbox, Modal, TextInput } from "react-native-paper";
@@ -11,15 +11,16 @@ const ModalPlant = (props) => {
   const { addPlant } = useContext(MyContext);
   const [plantData, setPlantData] = useState({});
   const [imageInfo, setImageInfo] = useState(null);
-  
+  const [isFetching, setIsFetching] = useState(false);
+
   useEffect(() => {
     if (visible) {
       setPlantData({});
     }
   }, [visible]);
-  
+
   const handleAddPlant = () => {
-    if (plantData.file === null || plantData.variety === null || plantData.movable === null || plantData.message === null) {
+    if (plantData.url === undefined || plantData.variety === undefined || plantData.message === undefined) {
       Alert.alert("Erreur", "Veuillez remplir tous les champs requis et ajouter une image.");
       return;
     }
@@ -36,16 +37,18 @@ const ModalPlant = (props) => {
     });
     // Ajout d'infos qui ne sont pas géré pour la version de POC
     data.append("userId", 1);
-    console.log("data", data);
+    data.append("adress_id", 1);
+    setIsFetching(true);
     addPlant(data)
       .then(response => {
         console.log("Réponse du serveur:", response);
         setVisible(false);
+        setIsFetching(false);
       }).catch(error => {
         console.error("Erreur lors de l'ajout de la plante:", error);
-        // Handle the error here, possibly show a message to the user
+        setIsFetching(false);
+        Alert.alert("Erreur", "Nous n'avons pas réussi à enregistrer votre plante, veuillez réessayer plus tard.");
       });
-  
   };
 
   const pickImageOrTakePhoto = () => {
@@ -64,7 +67,7 @@ const ModalPlant = (props) => {
       },
     ]);
   };
-  
+
   const takePhoto = async () => {
     const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
     if (permissionResult.granted === false) {
@@ -79,6 +82,7 @@ const ModalPlant = (props) => {
     });
 
     if (!result.canceled) {
+      createFormData(result.assets[0].uri);
       setPlantData({ ...plantData, url: result.assets[0].uri });
     }
   };
@@ -91,13 +95,13 @@ const ModalPlant = (props) => {
       aspect: [1, 1],
       quality: 1,
     });
-    
+
     if (!result.canceled) {
       createFormData(result.assets[0].uri);
       setPlantData({ ...plantData, url: result.assets[0].uri });
     }
   };
-  
+
   const createFormData = (photoUri) => {
     console.log("photoUri", photoUri);
     // Ici, "photo" est le nom du champ attendu par votre back-end/api Cloudinary.
@@ -146,12 +150,17 @@ const ModalPlant = (props) => {
             />
           </View>
           <Button
-            onPress={() => handleAddPlant()}
+            onPress={() => {
+              if (!isFetching) {
+                handleAddPlant();
+              }
+            }}
             buttonColor={colors.success}
             textColor={colors.black}
+            loading={isFetching}
           >
-            <Text>
-              Add Plant
+            <Text style={styles.whiteText}>
+              {!isFetching && "Add Plant"}
             </Text>
           </Button>
         </View>
@@ -193,6 +202,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  whiteText: {
+    color: colors.white
   },
 });
 

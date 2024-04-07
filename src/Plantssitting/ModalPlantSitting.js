@@ -21,24 +21,26 @@ const ModalPlantSitting = (props) => {
   }, [visible]);
   
   const handleAddPlantSitting = () => {
-    if (plantData.description === undefined || plantData.reason === undefined || plantData.plants === undefined || plantData.beginDate === undefined || plantData.endDate === undefined || plantData.adress === undefined) {
+    if (plantData.description === undefined || plantData.reason === undefined || plantData.plants === undefined || plantData.begin_date === undefined || plantData.end_date === undefined || plantData.adress === undefined) {
       Alert.alert("Erreur", "Veuillez remplir tous les champs requis.");
       return;
     }
-    setVisible(false);
-    addPlantSitting({ ...plantData, id: Math.floor(Math.random() * 1000000), status: "En attente" });
+    // setVisible(false);
+    addPlantSitting({ ...plantData, id: Math.floor(Math.random() * 1000000), status: "slot" });
   };
 
 
   const onDateChange = (date, type) => {
     if (type === "END_DATE" && isTypeEnd) {
-      setPlantData({ ...plantData, endDate: date });
+      setPlantData({ ...plantData, end_date: date });
       setIsTypeEnd(false);
     } else {
-      setPlantData({ ...plantData, beginDate: date });
+      setPlantData({ ...plantData, begin_date: date });
       setIsTypeEnd(true);
     }
   };
+
+  const plantsWithNoPkantSitting = plants.filter(plant => plant.request_id === null);
 
   return (
     <Modal
@@ -72,8 +74,8 @@ const ModalPlantSitting = (props) => {
                 ]}
                 previousTitle="Précédent"
                 nextTitle="Suivant"
-                selectedStartDate={plantData.beginDate ? plantData.beginDate : null}
-                selectedEndDate={plantData.endDate ? plantData.endDate : null}
+                selectedStartDate={plantData.begin_date ? plantData.begin_date : null}
+                selectedEndDate={plantData.end_date ? plantData.end_date : null}
                 todayBackgroundColor="#99ff99"
                 selectedDayColor={colors.success}
                 selectedDayTextColor="#FFFFFF"
@@ -83,7 +85,7 @@ const ModalPlantSitting = (props) => {
             </View>
             <DropdownSelect
               placeholder="Plantes à garder"
-              options={plants.map(plant => ({
+              options={plantsWithNoPkantSitting.map(plant => ({
                 label: plant.variety,
                 value: plant,
               }))}
