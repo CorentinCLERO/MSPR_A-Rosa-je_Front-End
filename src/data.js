@@ -55,8 +55,8 @@ export const plantSittingRaw = [
       movable: false,
       url: "https://lejardindu19eme.files.wordpress.com/2016/01/rosier-penny-lane.jpg"
     }],
-    beginDate: "2024-03-04T00:00:00.000Z",
-    endDate: "2024-03-10T00:00:00.000Z",
+    begin_date: "2024-03-04T00:00:00.000Z",
+    end_date: "2024-03-10T00:00:00.000Z",
     adress: {
       number: "1",
       street: "rue Marbeau",
@@ -64,7 +64,7 @@ export const plantSittingRaw = [
       longitude: 2.2387715561771415,
       latitude: 48.888068752936135,
     },
-    status: "En cours"
+    status: "mission"
   },
   {
     id: 2,
@@ -83,8 +83,8 @@ export const plantSittingRaw = [
       movable: false,
       url: "https://lejardindu19eme.files.wordpress.com/2016/01/rosier-penny-lane.jpg"
     }],
-    beginDate: "2024-03-04T00:00:00.000Z",
-    endDate: "2024-03-10T00:00:00.000Z",
+    begin_date: "2024-03-04T00:00:00.000Z",
+    end_date: "2024-03-10T00:00:00.000Z",
     adress: {
       number: "2",
       street: "rue Marbeau",
@@ -92,7 +92,7 @@ export const plantSittingRaw = [
       longitude: 2.2383209450626396,
       latitude: 48.88530593663853,
     },
-    status: "En attente"
+    status: "slot"
   },
   {
     id: 3,
@@ -111,8 +111,8 @@ export const plantSittingRaw = [
       movable: false,
       url: "https://lejardindu19eme.files.wordpress.com/2016/01/rosier-penny-lane.jpg"
     }],
-    beginDate: "2024-03-04T00:00:00.000Z",
-    endDate: "2024-03-10T00:00:00.000Z",  
+    begin_date: "2024-03-04T00:00:00.000Z",
+    end_date: "2024-03-10T00:00:00.000Z",  
     adress: {
       number: "3",
       street: "rue Marbeau",
@@ -120,7 +120,7 @@ export const plantSittingRaw = [
       longitude: 2.243728278436663,
       latitude: 48.885638840721725,  
     },
-    status: "En attente"
+    status: "slot"
   },
   {
     id: 4,
@@ -139,8 +139,8 @@ export const plantSittingRaw = [
       movable: false,
       url: "https://lejardindu19eme.files.wordpress.com/2016/01/rosier-penny-lane.jpg"
     }],
-    beginDate: "2024-03-04T00:00:00.000Z",
-    endDate: "2024-03-10T00:00:00.000Z",
+    begin_date: "2024-03-04T00:00:00.000Z",
+    end_date: "2024-03-10T00:00:00.000Z",
     adress: {
       number: "4",
       street: "rue Marbeau",
@@ -148,7 +148,7 @@ export const plantSittingRaw = [
       longitude: 2.220232127466204,
       latitude: 48.901495294715225,
     },
-    status: "En attente"
+    status: "slot"
   },
   {
     id: 5,
@@ -161,8 +161,8 @@ export const plantSittingRaw = [
       movable: true,
       url: "https://www.mooseplantshop.co.uk/cdn/shop/products/bunnyears_300x300.jpg?v=1647530194"
     }],
-    beginDate: "2024-04-04T00:00:00.000Z",
-    endDate: "2024-04-10T00:00:00.000Z",
+    begin_date: "2024-04-04T00:00:00.000Z",
+    end_date: "2024-04-10T00:00:00.000Z",
     adress: {
       number: "5",
       street: "rue Marbeau",
@@ -170,7 +170,7 @@ export const plantSittingRaw = [
       longitude: 2.24980079964638,
       latitude: 48.88734036486076,
     },
-    status: "En cours"
+    status: "mission"
   },
   {
     id: 6,
@@ -183,8 +183,8 @@ export const plantSittingRaw = [
       movable: false,
       url: "https://lejardindu19eme.files.wordpress.com/2016/01/rosier-penny-lane.jpg"
     }],
-    beginDate: "2024-04-04T00:00:00.000Z",
-    endDate: "2024-04-10T00:00:00.000Z",
+    begin_date: "2024-04-04T00:00:00.000Z",
+    end_date: "2024-04-10T00:00:00.000Z",
     adress: {
       number: "6",
       street: "rue Marbeau",
@@ -192,7 +192,7 @@ export const plantSittingRaw = [
       longitude: 2.250723479547503,
       latitude: 48.891200436229035,
     },
-    status: "En attente"
+    status: "slot"
   },
   {
     id: 7,
@@ -205,8 +205,8 @@ export const plantSittingRaw = [
       movable: true,
       url: "https://www.mooseplantshop.co.uk/cdn/shop/products/bunnyears_300x300.jpg?v=1647530194"
     }],
-    beginDate: "2024-04-04T00:00:00.000Z",
-    endDate: "2024-04-10T00:00:00.000Z",
+    begin_date: "2024-04-04T00:00:00.000Z",
+    end_date: "2024-04-10T00:00:00.000Z",
     adress: {
       number: "7",
       street: "rue Marbeau",
@@ -214,7 +214,7 @@ export const plantSittingRaw = [
       longitude: 2.2479125244998954,
       latitude: 48.89630162220309,
     },
-    status: "En cours"
+    status: "mission"
   },
   {
     id: 8,
@@ -227,8 +227,8 @@ export const plantSittingRaw = [
       movable: false,
       url: "https://lejardindu19eme.files.wordpress.com/2016/01/rosier-penny-lane.jpg"
     }],
-    beginDate: "2024-04-04T00:00:00.000Z",
-    endDate: "2024-04-10T00:00:00.000Z",
+    begin_date: "2024-04-04T00:00:00.000Z",
+    end_date: "2024-04-10T00:00:00.000Z",
     adress: {
       number: "8",
       street: "rue Marbeau",
@@ -236,7 +236,7 @@ export const plantSittingRaw = [
       longitude: 2.235917685785296,
       latitude: 48.901543340940044,
     },
-    status: "En cours"
+    status: "mission"
   },
 ];
 

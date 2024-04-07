@@ -12,14 +12,14 @@ const Mission = () => {
   const { plantSittings, updateStatePlantSitting, addPlantSitting } = useContext(MyContext);
 
   const deleteMission = (plant) => {
-    updateStatePlantSitting(plant.id, "En attente");
+    updateStatePlantSitting(plant.id, "slot");
     if (plant?.plant) addPlantSitting(plant.plant);
   };
 
-  const missions = plantSittings.filter(plantSitting => plantSitting.status === "En cours");
+  const missions = plantSittings.filter(plantSitting => plantSitting.status === "mission");
 
   return (
-    <View style={{backgroundColor: colors.background , marginBottom : 50}}>
+    <View style={{backgroundColor: colors.background , marginBottom : 50, height: "100%"}}>
       <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 10, textAlign: "center", marginVertical: 20 }}>Mes gardes :</Text>
       <ScrollView>
         {missions.map((mission, index) => (
@@ -33,14 +33,14 @@ const Mission = () => {
             imageHeight={23}
           >
             <View style={styles.bottomContainer}>
-              <Text numberOfLines={1} ellipsizeMode="tail">{mission.pseudo}</Text>
+              <Text numberOfLines={1} ellipsizeMode="tail">coco</Text>
               <Button style={styles.deleteButton} rippleColor={"#f00"} onPress={() => deleteMission(mission)}>
                 <Icon name="delete" color={"#ff5555"} size={24} />
               </Button>
             </View>
             <Text numberOfLines={1} ellipsizeMode="tail">{mission.adress.number + " " + mission.adress.street + " " + mission.adress.city}</Text>
             <Text numberOfLines={1} ellipsizeMode="tail">{mission.reason}</Text>
-            <Text style={styles.text}>{format(mission.beginDate, "MM/dd/yy") + " - " + format(mission.endDate, "MM/dd/yy")}</Text>
+            <Text style={styles.text}>{format(mission.begin_date, "MM/dd/yy") + " - " + format(mission.end_date, "MM/dd/yy")}</Text>
             <Text style={[styles.text, styles.text2]}>{mission.status}</Text>
           </CardPhotoContainer>
         ))}
@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginTop:10 , 
-    
   },
   deleteButton: {
     position: "absolute",

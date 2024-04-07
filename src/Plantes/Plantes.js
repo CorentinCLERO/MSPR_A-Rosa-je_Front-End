@@ -38,7 +38,7 @@ const Plantes = () => {
         }}
       >
         {
-          plants.map((plant, index) => {
+          plants?.map((plant, index) => {
             return (
               <CardPhotoContainer
                 key={index} plants={[plant?.picture]}

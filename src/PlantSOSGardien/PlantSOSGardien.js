@@ -21,7 +21,7 @@ const PlantSOSGardien = () => {
       Alert.alert("Erreur", "Veuillez remplir tous les champs requis.");
       return;
     }
-    addPlantSOS({ ...plantData, id: Math.floor(Math.random() * 1000000), status: "En attente", treated: false, answer: null });
+    addPlantSOS({ ...plantData, id: Math.floor(Math.random() * 1000000), status: "slot", treated: false, answer: null });
     Keyboard.dismiss();
     setPlantData({});
   };
