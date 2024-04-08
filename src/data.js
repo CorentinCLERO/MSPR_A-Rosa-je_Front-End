@@ -1,37 +1,37 @@
 export const plantListRaw = [
   {
     id: 1,
-    variety: "Cactus",
+    title: "Cactus",
     movable: true,
     picture: {"createdAt": "2023-01-05T00:00:00.000Z", "helpRequest_id": 1, "id": 1, "message": "Elle doivent être arrosé tout les jours et bla et bla et bla et bla et bla et bla", "plant_id": 1, "request_id": 1, "updatedAt": "2023-01-05T00:00:00.000Z", "url": "https://www.mooseplantshop.co.uk/cdn/shop/products/bunnyears_300x300.jpg?v=1647530194"},
   },
   {
     id: 2,
-    variety: "Rose",
+    title: "Rose",
     movable: false,
     picture: {"createdAt": "2023-01-05T00:00:00.000Z", "helpRequest_id": 1, "id": 1, "message": "Elle doivent être arrosé tout les jours et bla et bla et bla et bla et bla et bla", "plant_id": 1, "request_id": 1, "updatedAt": "2023-01-05T00:00:00.000Z", "url": "https://lejardindu19eme.files.wordpress.com/2016/01/rosier-penny-lane.jpg"},
   },
   {
     id: 51,
-    variety: "Caaaaactus",
+    title: "Caaaaactus",
     movable: true,
     picture: {"createdAt": "2023-01-05T00:00:00.000Z", "helpRequest_id": 1, "id": 1, "message": "Elle doivent être arrosé tout les jours et bla et bla et bla et bla et bla et bla", "plant_id": 1, "request_id": 1, "updatedAt": "2023-01-05T00:00:00.000Z", "url": "https://www.mooseplantshop.co.uk/cdn/shop/products/bunnyears_300x300.jpg?v=1647530194"},
   },
   {
     id: 29,
-    variety: "Roooooose",
+    title: "Roooooose",
     movable: false,
     picture: {"createdAt": "2023-01-05T00:00:00.000Z", "helpRequest_id": 1, "id": 1, "message": "Elle doivent être arrosé tout les jours et bla et bla et bla et bla et bla et bla", "plant_id": 1, "request_id": 1, "updatedAt": "2023-01-05T00:00:00.000Z", "url": "https://lejardindu19eme.files.wordpress.com/2016/01/rosier-penny-lane.jpg"},
   },
   {
     id: 241,
-    variety: "Caactus",
+    title: "Caactus",
     movable: true,
     picture: {"createdAt": "2023-01-05T00:00:00.000Z", "helpRequest_id": 1, "id": 1, "message": "Elle doivent être arrosé tout les jours et bla et bla et bla et bla et bla et bla", "plant_id": 1, "request_id": 1, "updatedAt": "2023-01-05T00:00:00.000Z", "url": "https://www.mooseplantshop.co.uk/cdn/shop/products/bunnyears_300x300.jpg?v=1647530194"},
   },
   {
     id: 234,
-    variety: "Rooose",
+    title: "Rooose",
     movable: false,
     picture: {"createdAt": "2023-01-05T00:00:00.000Z", "helpRequest_id": 1, "id": 1, "message": "Elle doivent être arrosé tout les jours et bla et bla et bla et bla et bla et bla", "plant_id": 1, "request_id": 1, "updatedAt": "2023-01-05T00:00:00.000Z", "url": "https://lejardindu19eme.files.wordpress.com/2016/01/rosier-penny-lane.jpg"},
   },

@@ -14,7 +14,7 @@ const Plantsitting = () => {
   const [visible, setVisible] = useState(false);
   const PlantSittingWaiting = plantSittings?.filter(plantSitting => plantSitting.status === "mission");
   const PlantSittingKeep = plantSittings?.filter(plantSitting => plantSitting.status === "slot");
-  
+  console.log("plantSittings", plantSittings.map(p=>p.plants));
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Vos Demandes de Plant-Sitting</Text>

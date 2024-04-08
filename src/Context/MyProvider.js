@@ -7,7 +7,7 @@ export const MyProvider = ({ children }) => {
   const [plantsSOS, setPlantsSOS] = useState(plantsSOSRaw);
   const [plantSittings, setPlantSittings] = useState(null);
   const [plants, setPlants] = useState(null);
-  const addresses = addressesRaw;
+  const [addresses, setAddesses] = useState(addressesRaw);
 
   const addPlant = (data) => {
     return API.post("/plant",
@@ -15,11 +15,8 @@ export const MyProvider = ({ children }) => {
       { headers: { "Content-Type": "multipart/form-data" } }
     )
       .then((response) => {
-        console.log("laréponse", response);
+        // console.log("laréponse", response);
         setPlants([response.data.data, ...plants]);
-      })
-      .catch((error) => {
-        console.log(error);
       });
   };
 
@@ -32,7 +29,6 @@ export const MyProvider = ({ children }) => {
       .catch((error) => {
         console.log(error);
       });
-
   };
 
   const addPlantSOS = (plant) => {
@@ -43,11 +39,17 @@ export const MyProvider = ({ children }) => {
     setPlantsSOS(plantsSOS.filter((plant) => plant.id !== id));
   };
 
-  const addPlantSitting = (plant) => {
-    console.log("planticxi-------------", plant.plants);
-    console.log("pplantSittingsplantSittings-------------", plantSittings);
-    const updatedPlantSittings = plantSittings ? [plant, ...plantSittings] : [plant];
-    setPlantSittings(updatedPlantSittings);
+  const addPlantSitting = (data) => {
+    console.log("planticxi-------------", data);
+    console.log("pplantdataenvoyéauback-------------", { ...data, userId: 1 });
+    return API.post("/request",
+      { ...data, userId: 1 },
+    )
+      .then((response) => {
+        const datatToInsert = {...data, status: "slot"};
+        const updatedPlantSittings = plantSittings ? [datatToInsert, ...plantSittings] : [datatToInsert];
+        setPlantSittings(updatedPlantSittings);
+      });
   };
 
   const removePlantSitting = (id) => {
@@ -84,9 +86,31 @@ export const MyProvider = ({ children }) => {
       });
   };
 
+  const getAdressesFromUser = (id = 1) => {
+    return API.get(`/adresses/${id}`)
+      .then((response) => {
+        setAddesses(response.data);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la récupération des adresses:", error);
+      });
+  };
+
+  const getPlantSOSFromUser = (id = 1) => {
+    return API.get(`/plantsos/${id}`)
+      .then((response) => {
+        setPlantsSOS(response.data);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la récupération des adresses:", error);
+      });
+  };
+
   useEffect(() => {
     getPlantFromUser();
     getPlantSittingFromUser();
+    getAdressesFromUser();
+    getPlantSOSFromUser();
   }, []);
 
   const updatePlantAnswer = (id, answerInput) => {

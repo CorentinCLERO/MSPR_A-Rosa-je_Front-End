@@ -19,14 +19,15 @@ const ModalPlantSitting = (props) => {
       setPlantData([]);
     }
   }, [visible]);
-  
+
   const handleAddPlantSitting = () => {
     if (plantData.description === undefined || plantData.reason === undefined || plantData.plants === undefined || plantData.begin_date === undefined || plantData.end_date === undefined || plantData.adress === undefined) {
       Alert.alert("Erreur", "Veuillez remplir tous les champs requis.");
       return;
     }
-    // setVisible(false);
-    addPlantSitting({ ...plantData, id: Math.floor(Math.random() * 1000000), status: "slot" });
+    addPlantSitting({ ...plantData }).then(() =>
+      setVisible(false)
+    ).catch(err=> console.log("Erreur lors de l'ajout de la requête", err));
   };
 
 
@@ -93,7 +94,7 @@ const ModalPlantSitting = (props) => {
               onValueChange={(itemValue) => setPlantData({ ...plantData, plants: itemValue })}
               isMultiple
               isSearchable
-              modalControls={{  modalOptionsContainerStyle: {paddingBottom: 20}}}
+              modalControls={{ modalOptionsContainerStyle: { paddingBottom: 20 } }}
             />
             <DropdownSelect
               placeholder="Adresse des plantes"
@@ -104,7 +105,7 @@ const ModalPlantSitting = (props) => {
               selectedValue={plantData.adress ? plantData.adress : null}
               onValueChange={(itemValue) => setPlantData({ ...plantData, adress: itemValue })}
               isSearchable
-              modalControls={{  modalOptionsContainerStyle: {paddingBottom: 20}}}
+              modalControls={{ modalOptionsContainerStyle: { paddingBottom: 20 } }}
             />
             <TextInput
               label="Description de vos plantes :"

@@ -19,7 +19,7 @@ const PlantSOS = () => {
   useEffect(() => {
     // eslint-disable-next-line no-shadow
     const filteredPlants = plantsSOS.filter(plantsSOS =>
-      plantsSOS.variety.toLowerCase().includes(searchQuery.toLowerCase())
+      plantsSOS.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setFilteredPlants(filteredPlants);
   }, [searchQuery, plantsSOS]);
@@ -48,7 +48,7 @@ const PlantSOS = () => {
 
           <View style={styles.content}>
             <Text style={styles.text}>{item.pseudo}</Text>
-            <Text style={styles.text}>{item.variety}</Text>
+            <Text style={styles.text}>{item.title}</Text>
             <Text style={styles.text}>{item.description}</Text>          
             <Text style={styles.cardTreated}>{item.treated ? "Répondu" : "mission"}</Text>       
           </View>  
