@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Text , StyleSheet, View, FlatList} from "react-native";
 import { Searchbar} from "react-native-paper";
-import ModalSOS from "./ModalSOS";
-import MyContext from "../MyContext";
-import CardPhotoContainer from "../components/CardPhotoContainer/CardPhotoContainer";
-import { colors } from "../colors";
+import ModalSOS from "../../components/ModalSOS/ModalSOS";
+import MyContext from "../../Context/MyContext";
+import { colors } from "../../functions/colors";
+import CardPhotoContainer from "../../components/CardPhotoContainer/CardPhotoContainer";
 
 
 const PlantSOS = () => {

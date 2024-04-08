@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { colors } from "../colors";
+import { colors } from "../../functions/colors";
 import { Button, Modal, TextInput } from "react-native-paper";
 import CalendarPicker from "react-native-calendar-picker";
 import DropdownSelect from "react-native-input-select";
-import MyContext from "../MyContext";
+import MyContext from "../../Context/MyContext";
 
 const ModalPlantSitting = (props) => {
   const { setVisible, visible } = props;

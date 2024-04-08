@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
+import { plantsSOSRaw, addressesRaw } from "../data";
+import API from "../functions/api";
 import MyContext from "./MyContext";
-import { plantsSOSRaw, addressesRaw } from "./data";
-import API from "./api";
 
 export const MyProvider = ({ children }) => {
   const [plantsSOS, setPlantsSOS] = useState(plantsSOSRaw);
@@ -44,8 +44,8 @@ export const MyProvider = ({ children }) => {
   };
 
   const addPlantSitting = (plant) => {
-    console.log("planticxi-------------", plant.plants)
-    console.log("pplantSittingsplantSittings-------------", plantSittings)
+    console.log("planticxi-------------", plant.plants);
+    console.log("pplantSittingsplantSittings-------------", plantSittings);
     const updatedPlantSittings = plantSittings ? [plant, ...plantSittings] : [plant];
     setPlantSittings(updatedPlantSittings);
   };

@@ -2,12 +2,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useContext } from "react";
 import { Text, View, ScrollView, StyleSheet, TextInput, Alert, Keyboard } from "react-native";
-import MyContext from "../MyContext";
-import CardPhotoContainer from "../components/CardPhotoContainer/CardPhotoContainer";
-import { colors } from "../colors";
+import MyContext from "../../Context/MyContext";
+import { colors } from "../../functions/colors";
 import { Button } from "react-native-paper";
 import * as ImagePicker from "expo-image-picker";
-import ModalSOS from "../PlantSOSBotaniste/ModalSOS";
+import CardPhotoContainer from "../../components/CardPhotoContainer/CardPhotoContainer";
+import ModalSOS from "../../components/ModalSOS/ModalSOS";
 
 const PlantSOSGardien = () => {
   const [plantData, setPlantData] = useState({});

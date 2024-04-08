@@ -7,7 +7,7 @@ import BotanisteTabs from "./Botaniste/BotanisteTabs";
 import { GardienSVG } from "../assets/iconesTabs/Gardien";
 import { BotanisteSVG } from "../assets/iconesTabs/Botaniste";
 import { ProprietaireSVG } from "../assets/iconesTabs/Proprietaire";
-import { colors } from "./colors";
+import { colors } from "./functions/colors";
 
 const Tabs = () => {
   const Tab = createMaterialBottomTabNavigator();

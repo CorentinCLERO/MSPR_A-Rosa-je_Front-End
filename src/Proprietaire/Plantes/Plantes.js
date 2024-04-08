@@ -4,15 +4,15 @@ import { Button } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import ModalPlant from "./ModalPlant";
 import { styles } from "./PlantsStyle";
-import MyContext from "../MyContext";
-import CardPhotoContainer from "../components/CardPhotoContainer/CardPhotoContainer";
+import MyContext from "../../Context/MyContext";
+import CardPhotoContainer from "../../components/CardPhotoContainer/CardPhotoContainer";
 
 const Plantes = () => {
+  const { plants, removePlant } = useContext(MyContext);
   const [canScroll, setCanScroll] = useState(false);
   const [haveScroll, setHaveScroll] = useState(false);
   const [visible, setVisible] = useState(false);
   const scrollViewRef = useRef(null);
-  const { plants, removePlant } = useContext(MyContext);
 
   const handleContentSizeChange = (contentWidth, contentHeight) => {
     const scrollViewHeight = Dimensions.get("window").height - 40;

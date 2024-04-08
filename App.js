@@ -3,7 +3,7 @@ import { AppRegistry, SafeAreaView, StyleSheet, StatusBar, Platform } from "reac
 import { PaperProvider } from "react-native-paper";
 import { name as appName } from "./app.json";
 import Tabs from "./src/Tabs";
-import { MyProvider } from "./src/MyProvider";
+import { MyProvider } from "./src/Context/MyProvider";
 
 export default function App() {
   return (

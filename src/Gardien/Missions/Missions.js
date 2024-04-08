@@ -2,11 +2,11 @@
 import React, { useContext } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
-import { colors } from "../colors";
+import { colors } from "../../functions/colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { format } from "date-fns";
-import MyContext from "../MyContext";
-import CardPhotoContainer from "../components/CardPhotoContainer/CardPhotoContainer";
+import MyContext from "../../Context/MyContext";
+import CardPhotoContainer from "../../components/CardPhotoContainer/CardPhotoContainer";
 
 const Mission = () => {
   const { plantSittings, updateStatePlantSitting, addPlantSitting } = useContext(MyContext);

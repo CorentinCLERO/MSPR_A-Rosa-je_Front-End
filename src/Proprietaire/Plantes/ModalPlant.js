@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
-import { ActivityIndicator, Alert, Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { colors } from "../colors";
+import { colors } from "../../functions/colors";
 import { Button, Checkbox, Modal, TextInput } from "react-native-paper";
 import * as ImagePicker from "expo-image-picker";
-import MyContext from "../MyContext";
+import MyContext from "../../Context/MyContext";
 
 const ModalPlant = (props) => {
   const { setVisible, visible } = props;

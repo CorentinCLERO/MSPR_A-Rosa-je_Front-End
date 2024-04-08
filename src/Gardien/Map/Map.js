@@ -3,12 +3,12 @@ import { Text, View, ScrollView, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { vw, vh } from "react-native-expo-viewport-units";
 import { Button } from "react-native-paper";
-import { colors } from "../colors";
+import { colors } from "../../functions/colors";
 import { format } from "date-fns";
 import * as Location from "expo-location";
-import MapsPinSVG from "../../assets/mapsPin.svg";
-import MyContext from "../MyContext";
-import CardPhotoContainer from "../components/CardPhotoContainer/CardPhotoContainer";
+import MapsPinSVG from "../../../assets/mapsPin.svg";
+import MyContext from "../../Context/MyContext";
+import CardPhotoContainer from "../../components/CardPhotoContainer/CardPhotoContainer";
 
 const Map = () => {
   const [selectedMarker, setSelectedMarker] = useState(null);

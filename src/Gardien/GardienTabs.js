@@ -1,14 +1,14 @@
 import React from "react";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import { NavigationContainer } from "@react-navigation/native";
-import Map from "../Map/Map";
-import Missions from "../Missions/Missions";
-import PlantSOSGardien from "../PlantSOSGardien/PlantSOSGardien";
+import Map from "./Map/Map";
+import Missions from "./Missions/Missions";
+import PlantSOSGardien from "./PlantSOSGardien/PlantSOSGardien";
 import { MapSVG } from "../../assets/iconesTabs/Map";
 import { MissionSVG } from "../../assets/iconesTabs/Mission";
 import { PlantSOSSVG } from "../../assets/iconesTabs/PlantSOS";
 import { StyleSheet, View } from "react-native";
-import { colors } from "../colors";
+import { colors } from "../functions/colors";
 
 
 const GardienTabs = () => {
