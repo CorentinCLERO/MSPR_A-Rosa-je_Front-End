@@ -24,12 +24,12 @@
         "image": "latest"
       },
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://upward-splendid-ghoul.ngrok-free.app"
+        "EXPO_PUBLIC_API_URL": "https://imagebackenmspr-bpa43f6i4a-uc.a.run.app"
       }
     },
     "test": {
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://upward-splendid-ghoul.ngrok-free.app"
+        "EXPO_PUBLIC_API_URL": "https://imagebackenmspr-bpa43f6i4a-uc.a.run.app"
       }
     }
   },
