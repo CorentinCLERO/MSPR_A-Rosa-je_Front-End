@@ -7,7 +7,7 @@ export const MyProvider = ({ children }) => {
   const [plantsSOS, setPlantsSOS] = useState(plantsSOSRaw);
   const [plantSittings, setPlantSittings] = useState(null);
   const [plants, setPlants] = useState(null);
-  const [addresses, setAddesses] = useState(addressesRaw);
+  const [addresses, setAddresses] = useState(addressesRaw);
 
   const addPlant = (data) => {
     return new Promise((resolve, reject) => {
@@ -71,15 +71,10 @@ export const MyProvider = ({ children }) => {
     setPlantsSOS(plantsSOS.filter((plant) => plant.id !== id));
   };
 
-  useEffect(() => {
-    getPlantFromUser();
-  }, []);
-
   const getPlantFromUser = (id = 1) => {
     return API.get(`/plants/${id}`)
       .then((response) => {
         setPlants(response.data);
-        // console.log("Plantes récupérées:", response.data);
       })
       .catch((error) => {
         console.error("Erreur lors de la récupération des plantes:", error);
@@ -100,7 +95,7 @@ export const MyProvider = ({ children }) => {
   const getAdressesFromUser = (id = 1) => {
     return API.get(`/adresses/${id}`)
       .then((response) => {
-        setAddesses(response.data);
+        setAddresses(response.data);
       })
       .catch((error) => {
         console.error("Erreur lors de la récupération des adresses:", error);
@@ -125,7 +120,7 @@ export const MyProvider = ({ children }) => {
   }, []);
 
   const updatePlantAnswer = (id, answerInput) => {
-    setPlantsSOS(plantsSOS.map((plant) => plant.id === id ? { answerInput: answerInput } : plant));
+    setPlantsSOS(plantsSOS.map((plant) => plant.id === id ? {...plant, answerInput: answerInput} : plant));
   };
 
   // useMemo ensures the context value is memoized, only recalculating when necessary
