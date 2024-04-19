@@ -109,7 +109,7 @@ const PlantSOSGardien = () => {
       </View>
       <ScrollView>
         {
-          plantsSOS?.map((plantSOS, index) => {
+          plantsSOS && plantsSOS?.map((plantSOS, index) => {
             return (
               <CardPhotoContainer
                 key={index} plants={[plantSOS]}

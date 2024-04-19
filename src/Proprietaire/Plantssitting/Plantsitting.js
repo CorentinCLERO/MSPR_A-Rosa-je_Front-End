@@ -10,18 +10,19 @@ import CardPhotoContainer from "../../components/CardPhotoContainer/CardPhotoCon
 
 const Plantsitting = () => {
   const { plantSittings, removePlantSitting } = useContext(MyContext);
+  console.log(plantSittings);
 
   const [visible, setVisible] = useState(false);
-  const PlantSittingWaiting = plantSittings?.filter(plantSitting => plantSitting.status === "mission");
-  const PlantSittingKeep = plantSittings?.filter(plantSitting => plantSitting.status === "slot");
-  console.log("plantSittings", plantSittings.map(p=>p.plants));
+  const PlantSittingWaiting = plantSittings ? plantSittings?.filter(plantSitting => plantSitting.status === "mission") : [] ?? [];
+  const PlantSittingKeep = plantSittings ? plantSittings?.filter(plantSitting => plantSitting.status === "slot") : [] ?? [];
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Vos Demandes de Plant-Sitting</Text>
       <View style={styles.containerPlant}>
         <Text style={styles.titlePlant}>Vos Plant-Sitting mission :</Text>
         <ScrollView style={styles.containerPlantScroll}>
-          {PlantSittingWaiting?.map((plantSitting, index) => (
+          {PlantSittingWaiting && PlantSittingWaiting?.map((plantSitting, index) => (
             <CardPhotoContainer
               key={index} 
               plants={plantSitting?.plants?.length > 0 ? plantSitting?.plants : ["https://res.cloudinary.com/dl0ehqnva/image/upload/v1710676939/msprb3cda/h36vzpfnuwwmrgvjgveh.png"]}
@@ -54,7 +55,7 @@ const Plantsitting = () => {
       <View style={styles.containerPlant}>
         <Text style={[styles.titlePlant, styles.titlePlant2]}>Vos demandes de Plant-Sitting :</Text>
         <ScrollView style={styles.containerPlantScroll}>
-          {PlantSittingKeep?.map((plantSitting, index) => (
+          {PlantSittingKeep && PlantSittingKeep?.map((plantSitting, index) => (
             <CardPhotoContainer
               key={index}
               plants={plantSitting?.plants?.length > 0 ? plantSitting?.plants : ["https://res.cloudinary.com/dl0ehqnva/image/upload/v1710676939/msprb3cda/h36vzpfnuwwmrgvjgveh.png"]}

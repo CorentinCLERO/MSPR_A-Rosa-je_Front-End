@@ -41,7 +41,7 @@ const ModalPlantSitting = (props) => {
     }
   };
 
-  const plantsWithNoPkantSitting = plants.filter(plant => plant.request_id === null);
+  const plantsWithNoPkantSitting = plants ? plants.filter(plant => plant.request_id === null) : [];
 
   return (
     <Modal

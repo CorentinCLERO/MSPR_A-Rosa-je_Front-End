@@ -17,11 +17,10 @@ const PlantSOS = () => {
 
 
   useEffect(() => {
-    // eslint-disable-next-line no-shadow
-    const filteredPlants = plantsSOS.filter(plantsSOS =>
-      plantsSOS.title.toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredPlantsEval = plantsSOS.filter(plantsSOSEval =>
+      plantsSOSEval && plantsSOSEval.title ? plantsSOSEval.title.toLowerCase().includes(searchQuery.toLowerCase()) : undefined
     );
-    setFilteredPlants(filteredPlants);
+    setFilteredPlants(filteredPlantsEval);
   }, [searchQuery, plantsSOS]);
 
   return (

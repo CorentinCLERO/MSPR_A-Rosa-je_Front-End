@@ -8,7 +8,9 @@ export const MyProvider = ({ children }) => {
   const [plantSittings, setPlantSittings] = useState(null);
   const [plants, setPlants] = useState(null);
   const [addresses, setAddresses] = useState(addressesRaw);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  
   const addPlant = (data) => {
     return new Promise((resolve, reject) => {
       API.post("/plant",
@@ -72,51 +74,75 @@ export const MyProvider = ({ children }) => {
   };
 
   const getPlantFromUser = (id = 1) => {
-    return API.get(`/plants/${id}`)
-      .then((response) => {
-        setPlants(response.data);
-      })
-      .catch((error) => {
-        console.error("Erreur lors de la récupération des plantes:", error);
-      });
+    return new Promise((resolve, reject) => {
+      API.get(`/plants/${id}`)
+        .then((response) => {
+          setPlants(response.data);
+          resolve(response);
+        })
+        .catch((error) => {
+          console.error("Erreur lors de la récupération des plantes:", error);
+          reject(error);
+        });
+    });
   };
-
+  
   const getPlantSittingFromUser = (id = 1) => {
-    return API.get(`/requests/${id}`)
-      .then((response) => {
-        setPlantSittings(response.data);
-        // console.log("Plantes requests récupérées:", response.data);
-      })
-      .catch((error) => {
-        console.error("Erreur lors de la récupération des plantes requests:", error);
-      });
+    return new Promise((resolve, reject) => {
+      API.get(`/requests/${id}`)
+        .then((response) => {
+          setPlantSittings(response.data);
+          resolve(response);
+        })
+        .catch((error) => {
+          console.error("Erreur lors de la récupération des plantes requests:", error);
+          reject(error);
+        });
+    });
   };
-
+  
   const getAdressesFromUser = (id = 1) => {
-    return API.get(`/adresses/${id}`)
-      .then((response) => {
-        setAddresses(response.data);
-      })
-      .catch((error) => {
-        console.error("Erreur lors de la récupération des adresses:", error);
-      });
+    return new Promise((resolve, reject) => {
+      API.get(`/adresses/${id}`)
+        .then((response) => {
+          setAddresses(response.data);
+          resolve(response);
+        })
+        .catch((error) => {
+          console.error("Erreur lors de la récupération des adresses:", error);
+          reject(error);
+        });
+    });
   };
-
+  
   const getPlantSOSFromUser = (id = 1) => {
-    return API.get(`/plantsos/${id}`)
-      .then((response) => {
-        setPlantsSOS(response.data);
-      })
-      .catch((error) => {
-        console.error("Erreur lors de la récupération des adresses:", error);
-      });
+    return new Promise((resolve, reject) => {
+      API.get(`/plantsos/${id}`)
+        .then((response) => {
+          setPlantsSOS(response.data);
+          resolve(response);
+        })
+        .catch((error) => {
+          console.error("Erreur lors de la récupération des SOS plantes:", error);
+          reject(error);
+        });
+    });
   };
+  
 
   useEffect(() => {
-    getPlantFromUser();
-    getPlantSittingFromUser();
-    getAdressesFromUser();
-    getPlantSOSFromUser();
+    Promise.all([
+      setIsLoading(true),
+      getPlantFromUser(),
+      getPlantSittingFromUser(),
+      getAdressesFromUser(),
+      getPlantSOSFromUser()
+    ]).then(() => {
+      setIsLoading(false);
+    }).catch(error => {
+      console.error("An error occurred:", error);
+      setIsError(true);
+    });
   }, []);
 
   const updatePlantAnswer = (id, answerInput) => {
@@ -137,8 +163,9 @@ export const MyProvider = ({ children }) => {
     removePlant,
     addresses,
     updatePlantAnswer,
-
-  }), [plantsSOS, plantSittings, plants, addresses]);
+    isLoading,
+    isError
+  }), [plantsSOS, plantSittings, plants, addresses, isLoading, isError]);
 
   return (
     <MyContext.Provider value={value}>
