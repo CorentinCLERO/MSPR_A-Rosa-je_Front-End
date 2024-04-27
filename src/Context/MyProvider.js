@@ -46,7 +46,7 @@ export const MyProvider = ({ children }) => {
         { ...data, userId: 1 },
       )
         .then((response) => {
-          const datatToInsert = { ...data, status: "slot" };
+          const datatToInsert = { ...data, status: "slot", id: response.data.requestId };
           const updatedPlantSittings = plantSittings ? [datatToInsert, ...plantSittings] : [datatToInsert];
           setPlantSittings(updatedPlantSittings);
           resolve(response);
@@ -58,7 +58,16 @@ export const MyProvider = ({ children }) => {
   };
 
   const removePlantSitting = (id) => {
-    setPlantSittings(plantSittings.filter((plant) => plant.id !== id));
+    return new Promise((resolve, reject) => {
+      API.delete(`/request/${id}`)
+        .then((response) => {
+          setPlantSittings(plantSittings.filter((plant) => plant.id !== id));
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
   };
 
   const updateStatePlantSitting = (id, state) => {
