@@ -16,7 +16,7 @@ const Map = () => {
   const [transportability, setTransportability] = useState(null);
   const { updateStatePlantSitting, plantSittings } = useContext(MyContext);
   const mapViewRef = useRef(null);
-  const plantSittingRequests = plantSittings.filter((plant) => plant.status === "slot");
+  const plantSittingRequests = plantSittings ? plantSittings.filter((plant) => plant.status === "slot"): [];
 
   useEffect(() => {
     (async () => {
@@ -42,7 +42,7 @@ const Map = () => {
 
   const handleMarkerPress = (marker) => {
     setSelectedMarker(marker);
-    const movableRatio = marker?.plants?.filter(plant => plant?.movable).length / marker?.plants?.length;
+    const movableRatio = marker && marker.plants ? marker?.plants?.filter(plant => plant?.movable).length / marker?.plants?.length : [];
 
     if (movableRatio === 1) {
       setTransportability(marker?.plants?.length > 1 ? "Transportables" : "Transportable");
@@ -78,7 +78,7 @@ const Map = () => {
               title="Votre position"
             />
           )}
-          {plantSittingRequests?.map((marker, index) => (
+          {plantSittingRequests && plantSittingRequests?.map((marker, index) => (
             <Marker
               key={index}
               coordinate={{ latitude: marker.adress.latitude, longitude: marker.adress.longitude }}

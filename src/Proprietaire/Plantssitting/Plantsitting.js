@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { Button } from "react-native-paper";
+import { Button, Dialog, Paragraph } from "react-native-paper";
 import { colors } from "../../functions/colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { format } from "date-fns";
@@ -9,11 +9,23 @@ import MyContext from "../../Context/MyContext";
 import CardPhotoContainer from "../../components/CardPhotoContainer/CardPhotoContainer";
 
 const Plantsitting = () => {
+  const [confirmVisible, setConfirmVisible] = useState(false);
+  const [selectedPlantId, setSelectedPlantId] = useState(null);
   const { plantSittings, removePlantSitting } = useContext(MyContext);
 
   const [visible, setVisible] = useState(false);
-  const PlantSittingWaiting = plantSittings?.filter(plantSitting => plantSitting.status === "mission");
-  const PlantSittingKeep = plantSittings?.filter(plantSitting => plantSitting.status === "slot");
+  const PlantSittingWaiting = plantSittings ? plantSittings?.filter(plantSitting => plantSitting.status === "mission") : [] ?? [];
+  const PlantSittingKeep = plantSittings ? plantSittings?.filter(plantSitting => plantSitting.status === "slot") : [] ?? [];
+  
+  const showConfirmDialog = (plantId) => {
+    setSelectedPlantId(plantId);
+    setConfirmVisible(true);
+  };
+
+  const handleDelete = () => {
+    removePlantSitting(selectedPlantId);
+    setConfirmVisible(false);
+  };
   
   return (
     <View style={styles.container}>
@@ -21,7 +33,7 @@ const Plantsitting = () => {
       <View style={styles.containerPlant}>
         <Text style={styles.titlePlant}>Vos Plant-Sitting mission :</Text>
         <ScrollView style={styles.containerPlantScroll}>
-          {PlantSittingWaiting?.map((plantSitting, index) => (
+          {PlantSittingWaiting && PlantSittingWaiting?.map((plantSitting, index) => (
             <CardPhotoContainer
               key={index} 
               plants={plantSitting?.plants?.length > 0 ? plantSitting?.plants : ["https://res.cloudinary.com/dl0ehqnva/image/upload/v1710676939/msprb3cda/h36vzpfnuwwmrgvjgveh.png"]}
@@ -41,7 +53,7 @@ const Plantsitting = () => {
                 <Button
                   style={styles.deleteButton}
                   rippleColor={"#f00"}
-                  onPress={() => removePlantSitting(plantSitting?.id)}
+                  onPress={() => showConfirmDialog(plantSitting.id)}
                 >
                   <Icon name="delete" color={"#ff5555"} size={24} />
                 </Button>
@@ -54,7 +66,7 @@ const Plantsitting = () => {
       <View style={styles.containerPlant}>
         <Text style={[styles.titlePlant, styles.titlePlant2]}>Vos demandes de Plant-Sitting :</Text>
         <ScrollView style={styles.containerPlantScroll}>
-          {PlantSittingKeep?.map((plantSitting, index) => (
+          {PlantSittingKeep && PlantSittingKeep?.map((plantSitting, index) => (
             <CardPhotoContainer
               key={index}
               plants={plantSitting?.plants?.length > 0 ? plantSitting?.plants : ["https://res.cloudinary.com/dl0ehqnva/image/upload/v1710676939/msprb3cda/h36vzpfnuwwmrgvjgveh.png"]}
@@ -71,7 +83,7 @@ const Plantsitting = () => {
               </Text>
               <View style={styles.bottomContainer}>
                 <Text style={[styles.text, styles.text2]}>{plantSitting?.status}</Text>
-                <Button style={styles.deleteButton} rippleColor={"#f00"} onPress={() => removePlantSitting(plantSitting?.id)}>
+                <Button style={styles.deleteButton} rippleColor={"#f00"} onPress={() => showConfirmDialog(plantSitting.id)}>
                   <Icon name="delete" color={"#ff5555"} size={24} />
                 </Button>
               </View>
@@ -89,6 +101,18 @@ const Plantsitting = () => {
         </Button>
       </View>
       <ModalPlantSitting {...{ setVisible, visible }} />
+      <Dialog visible={confirmVisible} onDismiss={() => setConfirmVisible(false)}>
+        <Dialog.Title>
+          <Text>Confirmation</Text>
+        </Dialog.Title>
+        <Dialog.Content>
+          <Paragraph><Text>Êtes-vous sûr de vouloir supprimer cette demande de garde ?</Text></Paragraph>
+        </Dialog.Content>
+        <Dialog.Actions>
+          <Button onPress={() => setConfirmVisible(false)}><Text>Annuler</Text></Button>
+          <Button onPress={handleDelete}><Text>Supprimer</Text></Button>
+        </Dialog.Actions>
+      </Dialog>
     </View >
   );
 };

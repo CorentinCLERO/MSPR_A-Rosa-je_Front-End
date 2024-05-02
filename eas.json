@@ -11,9 +11,6 @@
       "distribution": "internal",
       "android": {
         "buildType": "apk"
-      },
-      "env": {
-        "EXPO_PUBLIC_API_URL": "https://upward-splendid-ghoul.ngrok-free.app"
       }
     },
     "production": {
@@ -22,14 +19,6 @@
       },
       "ios": {
         "image": "latest"
-      },
-      "env": {
-        "EXPO_PUBLIC_API_URL": "https://upward-splendid-ghoul.ngrok-free.app"
-      }
-    },
-    "test": {
-      "env": {
-        "EXPO_PUBLIC_API_URL": "https://upward-splendid-ghoul.ngrok-free.app"
       }
     }
   },

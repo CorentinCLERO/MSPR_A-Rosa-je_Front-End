@@ -7,32 +7,71 @@ export const MyProvider = ({ children }) => {
   const [plantsSOS, setPlantsSOS] = useState(plantsSOSRaw);
   const [plantSittings, setPlantSittings] = useState(null);
   const [plants, setPlants] = useState(null);
-  const addresses = addressesRaw;
-
+  const [addresses, setAddresses] = useState(addressesRaw);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  
   const addPlant = (data) => {
-    return API.post("/plant",
-      data,
-      { headers: { "Content-Type": "multipart/form-data" } }
-    )
-      .then((response) => {
-        console.log("laréponse", response);
-        setPlants([response.data.data, ...plants]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    return new Promise((resolve, reject) => {
+      API.post("/plant",
+        data,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      )
+        .then((response) => {
+          setPlants([response.data.data, ...plants]);
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
   };
 
   const removePlant = (id) => {
-    return API.delete(`/plant/${id}`)
-      .then((response) => {
-        console.log(response);
-        setPlants(plants.filter((plant) => plant.id !== id));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    return new Promise((resolve, reject) => {
+      API.delete(`/plant/${id}`)
+        .then((response) => {
+          setPlants(plants.filter((plant) => plant.id !== id));
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
 
+  const addPlantSitting = (data) => {
+    return new Promise((resolve, reject) => {
+      API.post("/request",
+        { ...data, userId: 1 },
+      )
+        .then((response) => {
+          const datatToInsert = { ...data, status: "slot", id: response.data.requestId };
+          const updatedPlantSittings = plantSittings ? [datatToInsert, ...plantSittings] : [datatToInsert];
+          setPlantSittings(updatedPlantSittings);
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
+
+  const removePlantSitting = (id) => {
+    return new Promise((resolve, reject) => {
+      API.delete(`/request/${id}`)
+        .then((response) => {
+          setPlantSittings(plantSittings.filter((plant) => plant.id !== id));
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
+
+  const updateStatePlantSitting = (id, state) => {
+    setPlantSittings(plantSittings.map((plantSitting) => (plantSitting.id === id ? { ...plantSitting, status: state } : plantSitting)));
   };
 
   const addPlantSOS = (plant) => {
@@ -43,55 +82,80 @@ export const MyProvider = ({ children }) => {
     setPlantsSOS(plantsSOS.filter((plant) => plant.id !== id));
   };
 
-  const addPlantSitting = (plant) => {
-    console.log("planticxi-------------", plant.plants);
-    console.log("pplantSittingsplantSittings-------------", plantSittings);
-    const updatedPlantSittings = plantSittings ? [plant, ...plantSittings] : [plant];
-    setPlantSittings(updatedPlantSittings);
-  };
-
-  const removePlantSitting = (id) => {
-    setPlantSittings(plantSittings.filter((plant) => plant.id !== id));
-  };
-
-  const updateStatePlantSitting = (id, state) => {
-    setPlantSittings(plantSittings.map((plantSitting) => (plantSitting.id === id ? { ...plantSitting, status: state } : plantSitting)));
-  };
-
-  useEffect(() => {
-    getPlantFromUser();
-  }, []);
-
   const getPlantFromUser = (id = 1) => {
-    return API.get(`/plants/${id}`)
-      .then((response) => {
-        setPlants(response.data);
-        // console.log("Plantes récupérées:", response.data);
-      })
-      .catch((error) => {
-        console.error("Erreur lors de la récupération des plantes:", error);
-      });
+    return new Promise((resolve, reject) => {
+      API.get(`/plants/${id}`)
+        .then((response) => {
+          setPlants(response.data);
+          resolve(response);
+        })
+        .catch((error) => {
+          console.error("Erreur lors de la récupération des plantes:", error);
+          reject(error);
+        });
+    });
   };
-
+  
   const getPlantSittingFromUser = (id = 1) => {
-    return API.get(`/requests/${id}`)
-      .then((response) => {
-        setPlantSittings(response.data);
-        // console.log("Plantes requests récupérées:", response.data);
-      })
-      .catch((error) => {
-        console.error("Erreur lors de la récupération des plantes requests:", error);
-      });
+    return new Promise((resolve, reject) => {
+      API.get(`/requests/${id}`)
+        .then((response) => {
+          setPlantSittings(response.data);
+          resolve(response);
+        })
+        .catch((error) => {
+          console.error("Erreur lors de la récupération des plantes requests:", error);
+          reject(error);
+        });
+    });
   };
+  
+  const getAdressesFromUser = (id = 1) => {
+    return new Promise((resolve, reject) => {
+      API.get(`/adresses/${id}`)
+        .then((response) => {
+          setAddresses(response.data);
+          resolve(response);
+        })
+        .catch((error) => {
+          console.error("Erreur lors de la récupération des adresses:", error);
+          reject(error);
+        });
+    });
+  };
+  
+  const getPlantSOSFromUser = (id = 1) => {
+    return new Promise((resolve, reject) => {
+      API.get(`/plantsos/${id}`)
+        .then((response) => {
+          setPlantsSOS(response.data);
+          resolve(response);
+        })
+        .catch((error) => {
+          console.error("Erreur lors de la récupération des SOS plantes:", error);
+          reject(error);
+        });
+    });
+  };
+  
 
   useEffect(() => {
-    getPlantFromUser();
-    getPlantSittingFromUser();
+    Promise.all([
+      setIsLoading(true),
+      getPlantFromUser(),
+      getPlantSittingFromUser(),
+      getAdressesFromUser(),
+      getPlantSOSFromUser()
+    ]).then(() => {
+      setIsLoading(false);
+    }).catch(error => {
+      console.error("An error occurred:", error);
+      setIsError(true);
+    });
   }, []);
 
   const updatePlantAnswer = (id, answerInput) => {
-    setPlantsSOS(plantsSOS.map((plant) => plant.id === id ? { answerInput: answerInput } : plant));
-    console.log(plantsSOS);
+    setPlantsSOS(plantsSOS.map((plant) => plant.id === id ? {...plant, answerInput: answerInput} : plant));
   };
 
   // useMemo ensures the context value is memoized, only recalculating when necessary
@@ -108,8 +172,9 @@ export const MyProvider = ({ children }) => {
     removePlant,
     addresses,
     updatePlantAnswer,
-
-  }), [plantsSOS, plantSittings, plants, addresses]);
+    isLoading,
+    isError
+  }), [plantsSOS, plantSittings, plants, addresses, isLoading, isError]);
 
   return (
     <MyContext.Provider value={value}>

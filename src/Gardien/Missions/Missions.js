@@ -16,13 +16,13 @@ const Mission = () => {
     if (plant?.plant) addPlantSitting(plant.plant);
   };
 
-  const missions = plantSittings.filter(plantSitting => plantSitting.status === "mission");
+  const missions = plantSittings ? plantSittings.filter(plantSitting => plantSitting.status === "mission") : [];
 
   return (
     <View style={{backgroundColor: colors.background , marginBottom : 50, height: "100%"}}>
       <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 10, textAlign: "center", marginVertical: 20 }}>Mes gardes :</Text>
       <ScrollView>
-        {missions.map((mission, index) => (
+        {missions && missions.map((mission, index) => (
           <CardPhotoContainer
             key={index}
             plants={mission.plants}

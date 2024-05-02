@@ -17,7 +17,7 @@ const PlantSOSGardien = () => {
   const roleBotaniste = true;
 
   const handleAddPlantSOS = () => {
-    if (plantData.description === undefined || plantData.variety === undefined || plantData.url === undefined) {
+    if (plantData.description === undefined || plantData.title === undefined || plantData.url === undefined) {
       Alert.alert("Erreur", "Veuillez remplir tous les champs requis.");
       return;
     }
@@ -83,8 +83,8 @@ const PlantSOSGardien = () => {
         <Text style={{ fontWeight: "bold", marginBottom: 10, textAlign: "center" }}>Demandez conseil à nos botanistes expert !</Text>
         <Text style={{ marginBottom: 5 }}>Quel est le nom de la plante ?</Text>
         <TextInput
-          value={plantData.variety ? plantData.variety : ""}
-          onChangeText={variety => setPlantData({ ...plantData, variety })}
+          value={plantData.title ? plantData.title : ""}
+          onChangeText={title => setPlantData({ ...plantData, title })}
           style={styles.input}
         />
         <Text style={{ marginTop: 5 }}>Quel est le problème de la plante ?</Text>
@@ -109,7 +109,7 @@ const PlantSOSGardien = () => {
       </View>
       <ScrollView>
         {
-          plantsSOS?.map((plantSOS, index) => {
+          plantsSOS && plantsSOS?.map((plantSOS, index) => {
             return (
               <CardPhotoContainer
                 key={index} plants={[plantSOS]}
@@ -119,7 +119,7 @@ const PlantSOSGardien = () => {
                 imageWidth={28}
               >
                 <View style={styles.cardTitle}>
-                  <Text>{plantSOS.variety}</Text>
+                  <Text>{plantSOS.title}</Text>
                   <Text style={styles.cardTreated}>{plantSOS.treated ? "Traitée" : "Non traitée"}</Text>
                 </View>
                 <Text numberOfLines={2} ellipsizeMode="tail">{plantSOS.description}</Text>
