@@ -1,9 +1,11 @@
 import * as React from "react";
-import { AppRegistry, SafeAreaView, StyleSheet, StatusBar, Platform } from "react-native";
+import { AppRegistry, SafeAreaView, StyleSheet, Platform } from "react-native";
 import { PaperProvider } from "react-native-paper";
 import { name as appName } from "./app.json";
 import Tabs from "./src/Tabs";
-import { MyProvider } from "./src/MyProvider";
+import {StatusBar} from "expo-status-bar";
+import { MyProvider } from "./src/Context/MyProvider";
+import { colors } from "./src/functions/colors";
 
 export default function App() {
   return (
@@ -11,6 +13,11 @@ export default function App() {
       <PaperProvider>
         <MyProvider>
           <Tabs />
+          <StatusBar
+            style="dark"
+            translucent={true}
+            hidden={false}
+          />
         </MyProvider>
       </PaperProvider>
     </SafeAreaView>
@@ -20,7 +27,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight || 10 : 0,
+    backgroundColor: colors.background,
   },
 });
 

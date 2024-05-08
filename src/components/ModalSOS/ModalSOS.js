@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Text , StyleSheet, View, Image} from "react-native";
 import { IconButton, Modal, TextInput } from "react-native-paper";
-import { colors } from "../colors";
-import MyContext from "../MyContext";
+import { colors } from "../../functions/colors";
+import MyContext from "../../Context/MyContext";
 
 
 const ModalSOS = (props) => {

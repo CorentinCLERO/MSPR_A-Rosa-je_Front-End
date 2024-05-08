@@ -1,11 +1,11 @@
 import React from "react";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import { NavigationContainer } from "@react-navigation/native";
-import Plantsitting from "../Plantssitting/Plantsitting";
-import Plantes from "../Plantes/Plantes";
+import Plantsitting from "./Plantssitting/Plantsitting";
+import Plantes from "./Plantes/Plantes";
 import { PlantSittingSVG } from "../../assets/iconesTabs/PlantSitting";
 import { PlantSVG } from "../../assets/iconesTabs/Plant";
-import { colors } from "../colors";
+import { colors } from "../functions/colors";
 import { StyleSheet, View } from "react-native";
 
 

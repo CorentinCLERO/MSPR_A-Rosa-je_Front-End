@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { StyleSheet, View, Image, FlatList, Text } from "react-native";
 import { Card } from "react-native-paper";
 import { vw, vh } from "react-native-expo-viewport-units";
-import { colors } from "../../colors";
+import { colors } from "../../functions/colors";
 
 const CardPhotoContainer = (props) => {
   const {
@@ -42,7 +42,7 @@ const CardPhotoContainer = (props) => {
 
     return () => clearInterval(interval);
   }, [currentIndex]);
-
+  console.log("plants", plants)
   return (
     <Card style={[styles.card, cardStyles]} onPress={() => onPress()}>
       <View style={[styles.cardLayout, cardLayoutStyles]}>

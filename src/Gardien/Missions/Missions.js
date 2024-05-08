@@ -2,11 +2,11 @@
 import React, { useContext } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
-import { colors } from "../colors";
+import { colors } from "../../functions/colors";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { format } from "date-fns";
-import MyContext from "../MyContext";
-import CardPhotoContainer from "../components/CardPhotoContainer/CardPhotoContainer";
+import MyContext from "../../Context/MyContext";
+import CardPhotoContainer from "../../components/CardPhotoContainer/CardPhotoContainer";
 
 const Mission = () => {
   const { plantSittings, updateStatePlantSitting, addPlantSitting } = useContext(MyContext);
@@ -16,13 +16,13 @@ const Mission = () => {
     if (plant?.plant) addPlantSitting(plant.plant);
   };
 
-  const missions = plantSittings.filter(plantSitting => plantSitting.status === "mission");
+  const missions = plantSittings ? plantSittings.filter(plantSitting => plantSitting.status === "mission") : [];
 
   return (
     <View style={{backgroundColor: colors.background , marginBottom : 50, height: "100%"}}>
       <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 10, textAlign: "center", marginVertical: 20 }}>Mes gardes :</Text>
       <ScrollView>
-        {missions.map((mission, index) => (
+        {missions && missions.map((mission, index) => (
           <CardPhotoContainer
             key={index}
             plants={mission.plants}

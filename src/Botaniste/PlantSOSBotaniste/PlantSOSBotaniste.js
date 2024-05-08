@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Text , StyleSheet, View, FlatList} from "react-native";
 import { Searchbar} from "react-native-paper";
-import ModalSOS from "./ModalSOS";
-import MyContext from "../MyContext";
-import CardPhotoContainer from "../components/CardPhotoContainer/CardPhotoContainer";
-import { colors } from "../colors";
+import ModalSOS from "../../components/ModalSOS/ModalSOS";
+import MyContext from "../../Context/MyContext";
+import { colors } from "../../functions/colors";
+import CardPhotoContainer from "../../components/CardPhotoContainer/CardPhotoContainer";
 
 
 const PlantSOS = () => {
@@ -17,11 +17,10 @@ const PlantSOS = () => {
 
 
   useEffect(() => {
-    // eslint-disable-next-line no-shadow
-    const filteredPlants = plantsSOS.filter(plantsSOS =>
-      plantsSOS.variety.toLowerCase().includes(searchQuery.toLowerCase())
+    const filteredPlantsEval = plantsSOS.filter(plantsSOSEval =>
+      plantsSOSEval && plantsSOSEval.title ? plantsSOSEval.title.toLowerCase().includes(searchQuery.toLowerCase()) : undefined
     );
-    setFilteredPlants(filteredPlants);
+    setFilteredPlants(filteredPlantsEval);
   }, [searchQuery, plantsSOS]);
 
   return (
@@ -48,7 +47,7 @@ const PlantSOS = () => {
 
           <View style={styles.content}>
             <Text style={styles.text}>{item.pseudo}</Text>
-            <Text style={styles.text}>{item.variety}</Text>
+            <Text style={styles.text}>{item.title}</Text>
             <Text style={styles.text}>{item.description}</Text>          
             <Text style={styles.cardTreated}>{item.treated ? "Répondu" : "mission"}</Text>       
           </View>  

@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import { NavigationContainer } from "@react-navigation/native";
 import { PlantSOSSVG } from "../../assets/iconesTabs/PlantSOS";
-import PlantSOSBotaniste from "../PlantSOSBotaniste/PlantSOSBotaniste";
+import PlantSOSBotaniste from "./PlantSOSBotaniste/PlantSOSBotaniste";
 import { plantSOSRaw } from "../data";
-import { colors } from "../colors";
+import { colors } from "../functions/colors";
 import { StyleSheet, View } from "react-native";
 
 const BotanisteTabs = () => {
