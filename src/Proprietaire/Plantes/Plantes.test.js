@@ -1,6 +1,6 @@
+/* eslint-disable */
 import React from "react";
 import Plantes from "./Plantes";
-import { render, cleanup } from "@testing-library/react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 describe("Plantes", () => {
