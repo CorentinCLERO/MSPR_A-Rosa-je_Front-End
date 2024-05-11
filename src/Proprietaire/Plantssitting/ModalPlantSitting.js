@@ -3,7 +3,6 @@ import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { colors } from "../../functions/colors";
 import { Button, Modal, TextInput } from "react-native-paper";
-import CalendarPicker from "react-native-calendar-picker";
 import DropdownSelect from "react-native-input-select";
 import MyContext from "../../Context/MyContext";
 
@@ -54,7 +53,7 @@ const ModalPlantSitting = (props) => {
           <Text>Demande de plant-sitting :</Text>
           <View style={styles.modalCalendar}>
             <View style={styles.container}>
-              <CalendarPicker
+              {/* <CalendarPicker
                 startFromMonday={true}
                 allowRangeSelection={true}
                 minDate={minDate}
@@ -82,7 +81,7 @@ const ModalPlantSitting = (props) => {
                 selectedDayTextColor="#FFFFFF"
                 onDateChange={onDateChange}
                 width={300}
-              />
+              /> */}
             </View>
             <DropdownSelect
               placeholder="Plantes à garder"

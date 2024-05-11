@@ -1,6 +1,6 @@
-/* eslint-disable */
 import React from "react";
 import Plantes from "./Plantes";
+import rendered from "react-test-renderer";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 describe("Plantes", () => {
@@ -12,16 +12,16 @@ describe("Plantes", () => {
   ];
 
   beforeAll(() => {
-    utils = render(
+    utils = rendered.create(
       <SafeAreaProvider>
         <Plantes plantList={mockPlantList} />
       </SafeAreaProvider>
     );
   });
 
-  afterAll(() => {
-    cleanup();
-  }, 10000);
+  // afterAll(() => {
+  //   cleanup();
+  // }, 10000);
 
   it("Plantes exist", () => {
     expect(utils.toJSON()).toBeTruthy();
