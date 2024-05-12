@@ -1,11 +1,11 @@
 import React, { useRef, useState, useContext } from "react";
-import { Text, View, ScrollView, Dimensions } from "react-native";
+import { Text, View, ScrollView, Dimensions, StyleSheet } from "react-native";
 import { Button, Dialog, Paragraph } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import ModalPlant from "./ModalPlant";
-import { styles } from "./PlantsStyle";
 import MyContext from "../../Context/MyContext";
 import CardPhotoContainer from "../../components/CardPhotoContainer/CardPhotoContainer";
+import { colors } from "../../functions/colors";
 
 const Plantes = () => {
   const { plants, removePlant } = useContext(MyContext);
@@ -101,5 +101,54 @@ const Plantes = () => {
   );
 };
 
-export default Plantes;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: 20,
+    justifyContent: "space-between",
+    backgroundColor: colors.background,
+  },
+  title: {
+    marginVertical: 20,
+    fontSize: 26,
+    fontWeight: "bold",
+  },
+  lastCard: {
+    marginBottom: 100,
+  },
+  cardtitle: {
+    fontSize: 22,
+    fontWeight: "bold",
+  },
+  content: {
+    fontSize: 18,
+  },
+  deleteButton: {
+    width: "100%",
+    alignItems: "flex-end",
+  },
+  scrollIcon: {
+    position: "absolute",
+    bottom: 20,
+    left: 30,
+    backgroundColor: colors.primary,
+    borderRadius: 50,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: colors.black,
+  },
+  addButton: {
+    width: 80,
+    position: "absolute",
+    bottom: 20,
+    right: "50%",
+    transform: [{ translateX: 20 }],
+    borderWidth: 1,
+    borderColor: colors.black,
+  },
+  cardContent: {
+    gap: 5
+  }
+});
 
+export default Plantes;

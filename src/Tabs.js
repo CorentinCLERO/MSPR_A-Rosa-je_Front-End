@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import { NavigationContainer } from "@react-navigation/native";
 import ProprietaireTabs from "./Proprietaire/ProprietaireTabs";
@@ -8,30 +8,53 @@ import { GardienSVG } from "../assets/iconesTabs/Gardien";
 import { BotanisteSVG } from "../assets/iconesTabs/Botaniste";
 import { ProprietaireSVG } from "../assets/iconesTabs/Proprietaire";
 import { colors } from "./functions/colors";
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 import MyContext from "./Context/MyContext";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import SignInScreen from "./components/SignInScreen/SignInScreen";
 
 const Tabs = () => {
   const Tab = createMaterialBottomTabNavigator();
-  const { isLoading, isError } = useContext(MyContext);
+  const { isLoading, isError, pageDisplayed, isLogged, handleSignIn } = useContext(MyContext);
+
+  if (!isLogged) return (
+    <SignInScreen onSignIn={handleSignIn} />
+  );
 
   if (isError) return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={styles.container}>
       <Icon name="lan-disconnect" color={"#ff5555"} size={24} />
     </View>
   );
 
   if (isLoading) return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <View style={styles.container}>
       <ActivityIndicator size="large" color="#1A98F2"/>
     </View>
   );
 
+  if (pageDisplayed === "owner") {
+    return (
+      <ProprietaireTabs />
+    );
+  }
+
+  if (pageDisplayed === "keeper") {
+    return (
+      <GardienTabs />
+    );
+  }
+
+  if (pageDisplayed === "botanist" || pageDisplayed === "admin") {
+    return (
+      <BotanisteTabs />
+    );
+  }
+
   return (
     <NavigationContainer>
       <Tab.Navigator
-        barStyle={{ backgroundColor: colors.green, borderTopRightRadius: 20, borderTopLeftRadius: 20, overflow: "hidden", marginBottom: -10 }}
+        // barStyle={{ backgroundColor: colors.green, borderTopRightRadius: 20, borderTopLeftRadius: 20, overflow: "hidden", marginBottom: -10 }}
         activeColor={colors.blue}
         inactiveColor="#FFFFFF"
         labeled={false}
@@ -67,5 +90,13 @@ const Tabs = () => {
     </NavigationContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 export default Tabs;

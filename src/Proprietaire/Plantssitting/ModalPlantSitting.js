@@ -85,7 +85,7 @@ const ModalPlantSitting = (props) => {
             </View>
             <DropdownSelect
               placeholder="Plantes à garder"
-              options={plantsWithNoPkantSitting.map(plant => ({
+              options={plantsWithNoPkantSitting?.map(plant => ({
                 label: plant.variety,
                 value: plant,
               }))}
@@ -97,7 +97,7 @@ const ModalPlantSitting = (props) => {
             />
             <DropdownSelect
               placeholder="Adresse des plantes"
-              options={addresses.map(adress => ({
+              options={addresses?.map(adress => ({
                 label: adress.number + " " + adress.street + " " + adress.city,
                 value: adress,
               }))}

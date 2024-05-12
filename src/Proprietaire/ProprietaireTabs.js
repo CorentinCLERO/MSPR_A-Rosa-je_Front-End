@@ -4,16 +4,18 @@ import { NavigationContainer } from "@react-navigation/native";
 import Plantsitting from "./Plantssitting/Plantsitting";
 import Plantes from "./Plantes/Plantes";
 import { PlantSittingSVG } from "../../assets/iconesTabs/PlantSitting";
+import { SettingSVG } from "../../assets/iconesTabs/Setting";
 import { PlantSVG } from "../../assets/iconesTabs/Plant";
 import { colors } from "../functions/colors";
 import { StyleSheet, View } from "react-native";
+import SettingPage from "../SettingPage/SettingPage";
 
 
 const ClientTabs = () => {
   const Tab = createMaterialBottomTabNavigator();
 
   return (
-    <View style={{ backgroundColor: colors.background, flex: 1, marginBottom: -20 }}>
+    <View style={styles.container}>
       <NavigationContainer independent={true}>
         <Tab.Navigator
           barStyle={styles.navigator}
@@ -39,6 +41,15 @@ const ClientTabs = () => {
               ),
             }}
           />
+          <Tab.Screen
+            name="Settings"
+            component={SettingPage}
+            options={{
+              tabBarIcon: ({ color }) => (
+                <SettingSVG fill={color} width="24" height="24" />
+              ),
+            }}
+          />
         </Tab.Navigator>
       </NavigationContainer>
     </View>
@@ -52,8 +63,12 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 40,
     overflow: "hidden",
     marginBottom: 10,
-    marginHorizontal: 20,
-  }
+  },
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+    marginBottom: -20
+  },
 });
 
 export default ClientTabs;

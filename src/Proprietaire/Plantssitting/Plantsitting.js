@@ -11,11 +11,11 @@ import CardPhotoContainer from "../../components/CardPhotoContainer/CardPhotoCon
 const Plantsitting = () => {
   const [confirmVisible, setConfirmVisible] = useState(false);
   const [selectedPlantId, setSelectedPlantId] = useState(null);
-  const { plantSittings, removePlantSitting } = useContext(MyContext);
+  const { userPlantSittings, removePlantSitting } = useContext(MyContext);
 
   const [visible, setVisible] = useState(false);
-  const PlantSittingWaiting = plantSittings ? plantSittings?.filter(plantSitting => plantSitting.status === "mission") : [] ?? [];
-  const PlantSittingKeep = plantSittings ? plantSittings?.filter(plantSitting => plantSitting.status === "slot") : [] ?? [];
+  const PlantSittingWaiting = userPlantSittings ? userPlantSittings?.filter(plantSitting => plantSitting.status === "mission") : [] ?? [];
+  const PlantSittingKeep = userPlantSittings ? userPlantSittings?.filter(plantSitting => plantSitting.status === "slot") : [] ?? [];
   
   const showConfirmDialog = (plantId) => {
     setSelectedPlantId(plantId);

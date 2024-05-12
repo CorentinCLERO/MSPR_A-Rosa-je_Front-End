@@ -68,10 +68,10 @@ const Map = () => {
   };
 
   return (
-    <View style={{ justifyContent: "space-between", backgroundColor: colors.background, height: "100%" }}>
+    <View style={styles.containerMap}>
       <ScrollView>
-        <Text style={{ fontSize: 20, fontWeight: "bold", margin: 20 }}>Recherchez les plantes à garder prez de chez vous :</Text>
-        <MapView ref={mapViewRef} style={{ width: vw(100), height: selectedMarker ? vh(50) : vh(70) }}>
+        <Text style={styles.title}>Recherchez les plantes à garder prez de chez vous :</Text>
+        <MapView ref={mapViewRef} style={{ width: vw(100), height: selectedMarker ? vh(60) : vh(80) }}>
           {userLocation && (
             <Marker
               coordinate={{ latitude: userLocation.latitude, longitude: userLocation.longitude }}
@@ -86,7 +86,7 @@ const Map = () => {
               description={marker.description}
               onPress={() => handleMarkerPress(marker)}
             >
-              <View style={{ alignItems: 'center', justifyContent: 'center', width: 50, height: 50 }}>
+              <View style={styles.mapPin}>
                 <MapsPinSVG width="100%" height="100%" />
               </View>
             </Marker>
@@ -98,11 +98,11 @@ const Map = () => {
             pagination={selectedMarker.plants.length > 1}
             imageWidth={29}
           >
-            <Text style={{ paddingTop: 5 }} >{selectedMarker?.plants?.length + " plantes"}</Text>
+            <Text style={styles.padding5} >{selectedMarker?.plants?.length + " plantes"}</Text>
             <Text numberOfLines={1} ellipsizeMode="tail">{transportability}</Text>
             <Text numberOfLines={1} ellipsizeMode="tail">{format(selectedMarker?.begin_date, "dd/MM/yy") + " - " + format(selectedMarker.end_date, "dd/MM/yy")}</Text>
             <Button style={styles.keepButton} rippleColor={"green"} onPress={() => handleKeppPlant(selectedMarker)}>
-              <Text style={{ color: "black" }}>{selectedMarker?.plants?.length > 1 ? "Garder la plante" : "Garder les plantes"}</Text>
+              <Text style={styles.colorBlack}>{selectedMarker?.plants?.length > 1 ? "Garder la plante" : "Garder les plantes"}</Text>
             </Button>
           </CardPhotoContainer>}
       </ScrollView>
@@ -115,6 +115,28 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     borderRadius: 10,
   },
+  colorBlack: {
+    color: colors.black
+  },
+  padding5: {
+    padding: 5
+  },
+  mapPin: { 
+    alignItems: "center", 
+    justifyContent: "center", 
+    width: 50, 
+    height: 50 
+  },
+  containerMap: { 
+    justifyContent: "space-between", 
+    backgroundColor: colors.background, 
+    height: "100%" 
+  },
+  title: { 
+    fontSize: 20, 
+    fontWeight: "bold", 
+    margin: 20 
+  }
 });
 
 export default Map;

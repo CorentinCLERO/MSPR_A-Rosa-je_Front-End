@@ -24,7 +24,7 @@ const PlantSOS = () => {
   }, [searchQuery, plantsSOS]);
 
   return (
-    <View style={{ backgroundColor : colors.background }}>
+    <View style={styles.container}>
 
       <Text style={styles.header}>PlantSOS</Text>
       <Searchbar
@@ -65,6 +65,10 @@ const PlantSOS = () => {
 
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
   header : {
     marginBottom : 20 ,
     fontSize : 27 , 
@@ -98,9 +102,6 @@ const styles = StyleSheet.create({
   text : {
     marginTop : 5 ,
   }
-  
-
-
 });
 
 export default PlantSOS;
