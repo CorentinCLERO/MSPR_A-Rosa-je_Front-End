@@ -28,15 +28,5 @@
   },
   "submit": {
     "production": {}
-  },
-  "credentials": {
-    "android": {
-      "keystore": {
-        "keystorePath": "./msprarosajekey.keystore",
-        "keystoreAlias": "msprarosaje",
-        "keystorePassword": "msprarosaje",
-        "keyPassword": "msprarosaje"
-      }
-    }
   }
 }

@@ -30,6 +30,14 @@
           }
         },
         {
+          "client_id": "990680309932-jds76j1n4vce5slatmco8jcbcoeo5puk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arosajemsprsixun.arosajelapp",
+            "certificate_hash": "35b29d7e3391b600fe5a3d0bf7374edb03a66f53"
+          }
+        },
+        {
           "client_id": "990680309932-t5tm3f2v3s7j9s6jujj2q23al8d9vq84.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
