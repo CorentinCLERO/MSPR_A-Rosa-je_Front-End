@@ -1,20 +1,28 @@
-import React from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
+import React, { useContext, useState } from "react";
+import { View, StyleSheet, Image, Text, Alert } from "react-native";
 import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import MyContext from "../../Context/MyContext";
 
-GoogleSignin.configure({
-  webClientId: `${process.env.EXPO_PUBLIC_WEB_CLIENT_ID}`, // client ID of type WEB for your server (needed to verify user ID and offline access)
-});
+GoogleSignin.configure({ webClientId: `${process.env.EXPO_PUBLIC_WEB_CLIENT_ID}` });
 
-export default function SignInScreen({ onSignIn }) {
+export default function SignInScreen() {
+  const { handleSignIn } = useContext(MyContext);
+  const [isInProgress, setIsInProgress] = useState(false);
+
   const signIn = async () => {
+    setIsInProgress(true);
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      onSignIn(userInfo);
+      handleSignIn(userInfo);
     } catch (error) {
-      console.error(error);
+      Alert.alert("Erreur", `La connexion avec Google a échoué : ${error.message}`, [
+        {
+          text: "Réessayer",
+          onPress: () => setIsInProgress(false),
+        }
+      ]);
     }
   };
 
@@ -29,6 +37,7 @@ export default function SignInScreen({ onSignIn }) {
         size={GoogleSigninButton.Size.Wide}
         color={GoogleSigninButton.Color.Dark}
         onPress={signIn}
+        disabled={isInProgress}
       />
     </View>
   );

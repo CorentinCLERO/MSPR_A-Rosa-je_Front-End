@@ -12,7 +12,36 @@
           "package_name": "com.arosajemsprsixun.arosajelapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "990680309932-e9467emdgag76bujtb3bs4ane88k6kml.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arosajemsprsixun.arosajelapp",
+            "certificate_hash": "09ad31619fb0eb045117c02d9244543f649b0226"
+          }
+        },
+        {
+          "client_id": "990680309932-gi9rc6e7gi7o7hli5fvkc44u5s0neido.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arosajemsprsixun.arosajelapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "990680309932-t5tm3f2v3s7j9s6jujj2q23al8d9vq84.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.arosajemsprsixun.arosajelapp",
+            "certificate_hash": "8cf948aaf9c02a618baafe00af791f72efebbe98"
+          }
+        },
+        {
+          "client_id": "990680309932-lh449a7erf1ffkl3mdo88kvftj86tj09.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDV91z6oXhGX6lCoRKN7p2wtC8Ccui3C_w"
@@ -20,7 +49,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990680309932-lh449a7erf1ffkl3mdo88kvftj86tj09.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import { NavigationContainer } from "@react-navigation/native";
 import ProprietaireTabs from "./Proprietaire/ProprietaireTabs";
@@ -15,10 +15,10 @@ import SignInScreen from "./components/SignInScreen/SignInScreen";
 
 const Tabs = () => {
   const Tab = createMaterialBottomTabNavigator();
-  const { isLoading, isError, pageDisplayed, isLogged, handleSignIn } = useContext(MyContext);
+  const { isLoading, isError, pageDisplayed, isLogged } = useContext(MyContext);
 
   if (!isLogged) return (
-    <SignInScreen onSignIn={handleSignIn} />
+    <SignInScreen />
   );
 
   if (isError) return (
