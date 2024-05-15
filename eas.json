@@ -10,13 +10,7 @@
     "preview": {
       "distribution": "internal",
       "android": {
-        "buildType": "apk",
-        "keystore": {
-          "keystorePath": "./msprarosajekey.keystore",
-          "keystoreAlias": "msprarosaje",
-          "keystorePassword": "msprarosaje",
-          "keyPassword": "msprarosaje"
-        }
+        "buildType": "apk"
       },
       "env": {
         "EXPO_PUBLIC_API_URL": "https://imagebackendmspr-bpa43f6i4a-od.a.run.app",
@@ -25,13 +19,7 @@
     },
     "production": {
       "android": {
-        "image": "latest",
-        "keystore": {
-          "keystorePath": "./msprarosajekey.keystore",
-          "keystoreAlias": "msprarosaje",
-          "keystorePassword": "msprarosaje",
-          "keyPassword": "msprarosaje"
-        }
+        "image": "latest"
       },
       "ios": {
         "image": "latest"
@@ -40,5 +28,15 @@
   },
   "submit": {
     "production": {}
+  },
+  "credentials": {
+    "android": {
+      "keystore": {
+        "keystorePath": "./msprarosajekey.keystore",
+        "keystoreAlias": "msprarosaje",
+        "keystorePassword": "msprarosaje",
+        "keyPassword": "msprarosaje"
+      }
+    }
   }
 }
