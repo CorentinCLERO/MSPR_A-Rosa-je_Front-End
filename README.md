@@ -1,6 +1,6 @@
-démarrer build android : npx expo run:android
 npx expo-doctor
 npx expo prebuild --clean
+démarrer build android : npx expo run:android
 pour build en production : eas build --platform android
 pour faire un build de test : eas build -p android --profile preview
 Création de keystore : keytool -genkey -v -keystore msprarosajekey.keystore -alias msprarosaje -keyalg RSA -keysize 2048 -validity 10000
