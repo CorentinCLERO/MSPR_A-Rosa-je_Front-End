@@ -37,7 +37,7 @@ const SettingPage = () => {
               },
               { 
                 label: "Botaniste", 
-                value: "botanist",
+                value: "botanist" || "admin",
                 disabled: userRoleLevel < 4,
                 checkedColor: colors.botanist,
                 icon: (...props) => <BotanisteSVG fill={props[0].color} width="24" height="24" />,
