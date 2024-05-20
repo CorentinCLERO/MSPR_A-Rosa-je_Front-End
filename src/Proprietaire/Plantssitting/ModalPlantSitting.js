@@ -1,46 +1,55 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Alert, ScrollView, StyleSheet, Text, View, Platform } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { colors } from "../../functions/colors";
 import { Button, Modal, TextInput } from "react-native-paper";
 import DropdownSelect from "react-native-input-select";
 import MyContext from "../../Context/MyContext";
+import RNDateTimePicker from "@react-native-community/datetimepicker";
 
 const ModalPlantSitting = (props) => {
   const { setVisible, visible } = props;
   const { plants, addPlantSitting, addresses } = useContext(MyContext);
-  const [plantData, setPlantData] = useState([]);
-  const [isTypeEnd, setIsTypeEnd] = useState(true);
+  const [plantData, setPlantData] = useState({});
+  const [showBeginDatePicker, setShowBeginDatePicker] = useState(false);
+  const [showEndDatePicker, setShowEndDatePicker] = useState(false);
   const minDate = new Date();
 
   useEffect(() => {
     if (visible) {
-      setPlantData([]);
+      setPlantData({});
     }
   }, [visible]);
 
   const handleAddPlantSitting = () => {
-    if (plantData.description === undefined || plantData.reason === undefined || plantData.plants === undefined || plantData.begin_date === undefined || plantData.end_date === undefined || plantData.adress === undefined) {
+    if (
+      plantData.description === undefined ||
+      plantData.reason === undefined ||
+      plantData.plants === undefined ||
+      plantData.begin_date === undefined ||
+      plantData.end_date === undefined ||
+      plantData.adress === undefined
+    ) {
       Alert.alert("Erreur", "Veuillez remplir tous les champs requis.");
       return;
     }
-    addPlantSitting({ ...plantData }).then(() =>
-      setVisible(false)
-    ).catch(err=> console.log("Erreur lors de l'ajout de la requête", err));
+    addPlantSitting({ ...plantData })
+      .then(() => setVisible(false))
+      .catch((err) => console.log("Erreur lors de l'ajout de la requête", err));
   };
 
-
-  const onDateChange = (date, type) => {
-    if (type === "END_DATE" && isTypeEnd) {
-      setPlantData({ ...plantData, end_date: date });
-      setIsTypeEnd(false);
+  const onDateChange = (event, selectedDate, type) => {
+    const currentDate = selectedDate || (type === "begin" ? plantData.begin_date : plantData.end_date);
+    if (type === "begin") {
+      setShowBeginDatePicker(Platform.OS === "ios");
+      setPlantData({ ...plantData, begin_date: currentDate });
     } else {
-      setPlantData({ ...plantData, begin_date: date });
-      setIsTypeEnd(true);
+      setShowEndDatePicker(Platform.OS === "ios");
+      setPlantData({ ...plantData, end_date: currentDate });
     }
   };
 
-  const plantsWithNoPkantSitting = plants ? plants.filter(plant => plant.request_id === null) : [];
+  const plantsWithNoPlantSitting = plants ? plants.filter((plant) => plant.request_id === null) : [];
 
   return (
     <Modal
@@ -52,44 +61,37 @@ const ModalPlantSitting = (props) => {
         <View style={styles.modalContent}>
           <Text>Demande de plant-sitting :</Text>
           <View style={styles.modalCalendar}>
-            <View style={styles.container}>
-              {/* <CalendarPicker
-                startFromMonday={true}
-                allowRangeSelection={true}
-                minDate={minDate}
-                weekdays={["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"]}
-                months={[
-                  "Janvier",
-                  "Février",
-                  "Mars",
-                  "Avril",
-                  "Mai",
-                  "Juin",
-                  "Juillet",
-                  "Août",
-                  "Septembre",
-                  "Octobre",
-                  "Novembre",
-                  "Décembre",
-                ]}
-                previousTitle="Précédent"
-                nextTitle="Suivant"
-                selectedStartDate={plantData.begin_date ? plantData.begin_date : null}
-                selectedEndDate={plantData.end_date ? plantData.end_date : null}
-                todayBackgroundColor="#99ff99"
-                selectedDayColor={colors.success}
-                selectedDayTextColor="#FFFFFF"
-                onDateChange={onDateChange}
-                width={300}
-              /> */}
+            <View style={styles.datePickerContainer}>
+              <Button onPress={() => setShowBeginDatePicker(true)}>{plantData?.begin_date ? plantData.begin_date.toLocaleDateString() : "Sélectionner la date de début"}</Button>
+              {showBeginDatePicker && (
+                <RNDateTimePicker
+                  value={plantData.begin_date || new Date()}
+                  mode="date"
+                  display="default"
+                  minimumDate={minDate}
+                  onChange={(event, date) => onDateChange(event, date, "begin")}
+                />
+              )}
+            </View>
+            <View style={styles.datePickerContainer}>
+              <Button onPress={() => setShowEndDatePicker(true)}>{plantData?.end_date ? plantData.end_date.toLocaleDateString() : "Sélectionner la date de fin"}</Button>
+              {showEndDatePicker && (
+                <RNDateTimePicker
+                  value={plantData.end_date || new Date()}
+                  mode="date"
+                  display="default"
+                  minimumDate={minDate}
+                  onChange={(event, date) => onDateChange(event, date, "end")}
+                />
+              )}
             </View>
             <DropdownSelect
               placeholder="Plantes à garder"
-              options={plantsWithNoPkantSitting?.map(plant => ({
+              options={plantsWithNoPlantSitting?.map((plant) => ({
                 label: plant.variety,
                 value: plant,
               }))}
-              selectedValue={plantData.plants ? plantData.plants : null}
+              selectedValue={plantData.plants || null}
               onValueChange={(itemValue) => setPlantData({ ...plantData, plants: itemValue })}
               isMultiple
               isSearchable
@@ -97,35 +99,33 @@ const ModalPlantSitting = (props) => {
             />
             <DropdownSelect
               placeholder="Adresse des plantes"
-              options={addresses?.map(adress => ({
-                label: adress.number + " " + adress.street + " " + adress.city,
-                value: adress,
+              options={addresses?.map((address) => ({
+                label: address.number + " " + address.street + " " + address.city,
+                value: address,
               }))}
-              selectedValue={plantData.adress ? plantData.adress : null}
+              selectedValue={plantData.adress || null}
               onValueChange={(itemValue) => setPlantData({ ...plantData, adress: itemValue })}
               isSearchable
               modalControls={{ modalOptionsContainerStyle: { paddingBottom: 20 } }}
             />
             <TextInput
               label="Description de vos plantes :"
-              value={plantData.description ? plantData.description : ""}
-              onChangeText={description => setPlantData({ ...plantData, description })}
+              value={plantData.description || ""}
+              onChangeText={(description) => setPlantData({ ...plantData, description })}
               multiline
             />
             <TextInput
               label="Raison de votre demande :"
-              value={plantData.reason ? plantData.reason : ""}
-              onChangeText={reason => setPlantData({ ...plantData, reason })}
+              value={plantData.reason || ""}
+              onChangeText={(reason) => setPlantData({ ...plantData, reason })}
               multiline
             />
             <Button
-              onPress={() => handleAddPlantSitting()}
+              onPress={handleAddPlantSitting}
               buttonColor={colors.success}
               textColor={colors.black}
             >
-              <Text>
-                Add Plant
-              </Text>
+              <Text>Ajouter</Text>
             </Button>
           </View>
           <Icon
@@ -151,6 +151,9 @@ const styles = StyleSheet.create({
   modalCalendar: {
     marginHorizontal: 20,
     flex: 1,
+  },
+  datePickerContainer: {
+    marginVertical: 20,
   },
   modalContent: {
     margin: 20,

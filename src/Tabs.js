@@ -12,10 +12,12 @@ import { ActivityIndicator, StyleSheet, View } from "react-native";
 import MyContext from "./Context/MyContext";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import SignInScreen from "./components/SignInScreen/SignInScreen";
+import FirstConnection from "./FirstConnection/FirstConnection";
+import PrivacyPolicy from "./FirstConnection/PrivacyPolicy";
 
 const Tabs = () => {
   const Tab = createMaterialBottomTabNavigator();
-  const { isLoading, isError, pageDisplayed, isLogged } = useContext(MyContext);
+  const { isLoading, isError, pageDisplayed, isLogged, firstConnection, user } = useContext(MyContext);
 
   if (!isLogged) return (
     <SignInScreen />
@@ -32,6 +34,18 @@ const Tabs = () => {
       <ActivityIndicator size="large" color="#1A98F2"/>
     </View>
   );
+
+  if (firstConnection) {
+    return (
+      <FirstConnection/>
+    );
+  }
+
+  if (!user.validatePrivacyPolicy) {
+    return (
+      <PrivacyPolicy/>
+    );
+  }
 
   if (pageDisplayed === "owner") {
     return (

@@ -4,10 +4,11 @@ import MyContext from "./MyContext";
 import { Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as SecureStore from "expo-secure-store";
-import { isTokenValid, saveToken } from "../functions/SecureToken";
+import { getToken, saveToken } from "../functions/SecureToken";
 
 export const MyProvider = ({ children }) => {
   const [plantsSOS, setPlantsSOS] = useState(null);
+  const [userPlantsSOS, setUserPlantsSOS] = useState(null);
   const [plantSittings, setPlantSittings] = useState(null);
   const [userPlantSittings, setUserPlantSittings] = useState(null);
   const [plants, setPlants] = useState(null);
@@ -18,7 +19,9 @@ export const MyProvider = ({ children }) => {
   const [userRole, setUserRole] = useState(undefined);
   const [pageDisplayed, setPageDisplayed] = useState(undefined);
   const [userToken, setUserToken] = useState(false);
+  const [firstConnection, setFirstConnection] = useState(false);
   const [userRoleLevel, setUserRoleLevel] = useState(0);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const roleToLevel = {
@@ -185,6 +188,19 @@ export const MyProvider = ({ children }) => {
     return new Promise((resolve, reject) => {
       API.get(`/plantsos/${id}`)
         .then((response) => {
+          setUserPlantsSOS(response.data);
+          resolve(response);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
+
+  const getAllPlantSOS = () => {
+    return new Promise((resolve, reject) => {
+      API.get("/plantsos")
+        .then((response) => {
           setPlantsSOS(response.data);
           resolve(response);
         })
@@ -204,6 +220,8 @@ export const MyProvider = ({ children }) => {
     setPlantSittings([]);
     setAddresses([]);
     setPlantsSOS([]);
+    setUserPlantSittings([]);
+    setUserPlantsSOS([]);
     setIsLogged(false);
     setUserToken(false);
     SecureStore.deleteItemAsync("userToken");
@@ -215,17 +233,51 @@ export const MyProvider = ({ children }) => {
 
   const handleSignIn = (userInfo) => {
     API.post("/login_user", {
-      idToken: userInfo.idToken,
+      ...userInfo
     })
       .then((response) => {
+        AsyncStorage.setItem("role", response.data.role);
+        AsyncStorage.setItem("id", response.data.id.toString());
+        setUser(response.data.user);
         saveToken(response.data.token);
         setUserToken(true);
         setIsLogged(true);
-        AsyncStorage.setItem("role", response.data.role);
-        AsyncStorage.setItem("id", response.data.id.toString());
+        setFirstConnection(response.data.user?.firstLogin);
       })
       .catch((error) => {
-        console.log(error);
+        Alert.alert("Echec", `Connexion échouée : ${error}`);
+      });
+  };
+
+  const updateUser = (data) => {
+    API.patch(`/user/${user.id}`, {...data})
+      .then((res) => {
+        setUser(res.data);
+        setFirstConnection(res.data.firstLogin);
+      }).catch(err => {
+        Alert.alert("Echec", `Modifications échouées : ${err}`);
+      });
+  };
+
+  const addAddress = (data) => {
+    API.post(`/adresse/${user.id}`, data)
+      .then((res) => {
+        setAddresses((prevAddresses) => [...prevAddresses, res.data]);
+      })
+      .catch((err) => {
+        Alert.alert("Echec", `Ajout de l'adresse échoué : ${err}`);
+      });
+  };
+
+  const deleteAddress = (id) => {
+    API.delete(`/adresse/${id}`)
+      .then(() => {
+        setAddresses((prevAddresses) =>
+          prevAddresses.filter((address) => address.id !== id)
+        );
+      })
+      .catch((err) => {
+        Alert.alert("Echec", `Suppression de l'adresse échouée : ${err}`);
       });
   };
 
@@ -260,11 +312,11 @@ export const MyProvider = ({ children }) => {
             ]);
           }
 
-          // await Promise.all([
-          //   getPlantFromUser(),
-          //   getPlantSittingFromUser(),
-          //   getAdressesFromUser(),
-          // ]);
+          if (userLevels[role] > 2 && id) {
+            await Promise.all([
+              getAllPlantSOS(),
+            ]);
+          }
 
           setIsLoading(false);
         } catch (error) {
@@ -284,10 +336,31 @@ export const MyProvider = ({ children }) => {
       setIsLogged(userValidity);
     }
     checkToken();
+
+    async function isTokenValid() {
+      const token = await getToken();
+    
+      if (token) {
+        try {
+          await API.post("/verify_token", { token: token })
+            .then(res => {
+              setFirstConnection(res.data.user?.firstLogin);
+              setUser(res.data.user);
+              AsyncStorage.setItem("role", res.data.role);
+              AsyncStorage.setItem("id", res.data.userId.toString());
+            });
+          return true;
+        } catch (error) {
+          return false;
+        }
+      }
+      return false;
+    }
   }, []);
 
   const value = useMemo(() => ({
     plantsSOS,
+    userPlantsSOS,
     addPlantSOS,
     removePlantSOS,
     plantSittings,
@@ -312,7 +385,13 @@ export const MyProvider = ({ children }) => {
     userRole,
     userRoleLevel,
     userPlantSittings,
-  }), [plantsSOS, plantSittings, plants, userPlantSittings, addresses, isLoading, isError, pageDisplayed, isLogged]);
+    firstConnection,
+    setFirstConnection,
+    user,
+    updateUser,
+    addAddress, 
+    deleteAddress,
+  }), [plantsSOS, plantSittings, plants, userPlantSittings, addresses, isLoading, isError, pageDisplayed, isLogged, firstConnection, user]);
 
   return (
     <MyContext.Provider value={value}>
