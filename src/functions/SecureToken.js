@@ -15,26 +15,6 @@ export async function getToken() {
   }
 }
 
-
-export async function isTokenValid() {
-  const token = await getToken();
-
-  if (token) {
-    try {
-      await API.post("/verify_token", { token: token })
-        .then(res => {
-          AsyncStorage.setItem("role", res.data.role);
-          AsyncStorage.setItem("id", res.data.userId.toString());
-        });
-      return true;
-    } catch (error) {
-      return false;
-    }
-  }
-  return false;
-}
-
-
 export async function deleteToken() {
   return await SecureStore.deleteItemAsync("userToken");
 }

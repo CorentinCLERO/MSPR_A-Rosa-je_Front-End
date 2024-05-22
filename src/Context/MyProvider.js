@@ -1,10 +1,11 @@
 import React, { useState, useMemo, useEffect } from "react";
-import API from "../functions/api";
 import MyContext from "./MyContext";
 import { Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as SecureStore from "expo-secure-store";
 import { getToken, saveToken } from "../functions/SecureToken";
+import API from "../functions/api";
+import APIC from "../functions/apiConnection";
 
 export const MyProvider = ({ children }) => {
   const [plantsSOS, setPlantsSOS] = useState(null);
@@ -135,7 +136,6 @@ export const MyProvider = ({ children }) => {
           resolve(response);
         })
         .catch((error) => {
-          console.log("Erreur lors de la récupération des plantes:", error.response.data);
           if (error.response && error.response.status === 418) {
             deconnection();
           }
@@ -165,7 +165,6 @@ export const MyProvider = ({ children }) => {
           resolve(response);
         })
         .catch((error) => {
-          console.error("Erreur lors de la récupération des plantes requests:", error);
           reject(error);
         });
     });
@@ -232,7 +231,7 @@ export const MyProvider = ({ children }) => {
   };
 
   const handleSignIn = (userInfo) => {
-    API.post("/login_user", {
+    APIC.post("/login_user", {
       ...userInfo
     })
       .then((response) => {
@@ -320,7 +319,6 @@ export const MyProvider = ({ children }) => {
 
           setIsLoading(false);
         } catch (error) {
-          console.error("An error occurred:", error);
           setIsError(true);
         }
       }
@@ -342,7 +340,7 @@ export const MyProvider = ({ children }) => {
     
       if (token) {
         try {
-          await API.post("/verify_token", { token: token })
+          await APIC.post("/verify_token", { token: token })
             .then(res => {
               setFirstConnection(res.data.user?.firstLogin);
               setUser(res.data.user);

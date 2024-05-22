@@ -35,7 +35,7 @@ const ModalPlantSitting = (props) => {
     }
     addPlantSitting({ ...plantData })
       .then(() => setVisible(false))
-      .catch((err) => console.log("Erreur lors de l'ajout de la requête", err));
+      .catch(() => Alert.alert("Erreur", "Erreur lors de l'ajout de la plante"));
   };
 
   const onDateChange = (event, selectedDate, type) => {

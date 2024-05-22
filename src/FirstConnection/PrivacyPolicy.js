@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Button, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Button, ScrollView, StyleSheet, Text } from "react-native";
 import MyContext from "../Context/MyContext";
 
 const PrivacyPolicy = () => {

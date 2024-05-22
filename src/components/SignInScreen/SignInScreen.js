@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { View, StyleSheet, Image, Text, Alert, KeyboardAvoidingView, ScrollView, Platform } from "react-native";
+import { StyleSheet, Image, Text, Alert, KeyboardAvoidingView, ScrollView, Platform } from "react-native";
 import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import MyContext from "../../Context/MyContext";
@@ -12,13 +12,14 @@ export default function SignInScreen() {
   const [webClientId, setWebClientId] = useState("990680309932-lh449a7erf1ffkl3mdo88kvftj86tj09.apps.googleusercontent.com");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [devButtonIsVisible, setDevButtonIsVisible] = useState(false);
 
   const isValidEmail = () => {
     const re = /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
   };
 
-  const signInWithEmail = () => {
+  const signInWithEmail = async () => {
     setIsInProgress(true);
     if (!isValidEmail(email)) {
       setIsInProgress(false);
@@ -30,13 +31,14 @@ export default function SignInScreen() {
       Alert.alert("Erreur", "Le mot de passe doit contenir au moins 6 caractères.");
       return;
     }
-    handleSignIn({email: email, password: password});
+    await handleSignIn({email: email, password: password});
     setIsInProgress(false);
   };
 
   const signIn = async () => {
-    // setIsInProgress(true);
+    setIsInProgress(true);
     try {
+      setIsInProgress(false);
       GoogleSignin.configure({
         webClientId:
           // `${process.env.EXPO_PUBLIC_WEB_CLIENT_ID}`
@@ -46,6 +48,7 @@ export default function SignInScreen() {
       const userInfo = await GoogleSignin.signIn();
       handleSignIn(userInfo);
     } catch (error) {
+      setIsInProgress(false);
       Alert.alert("Erreur", `La connexion avec Google a échoué : ${error.message}`, [
         {
           text: "Réessayer",
@@ -62,8 +65,8 @@ export default function SignInScreen() {
       keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
     >
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Text style={styles.text}>Connecte toi !</Text>
-        <SegmentedButtons
+        <Text style={styles.text} onPress={() => setDevButtonIsVisible(prev => !prev)}>Connecte toi !</Text>
+        {devButtonIsVisible && <SegmentedButtons
           value={webClientId}
           onValueChange={setWebClientId}
           buttons={[
@@ -88,7 +91,7 @@ export default function SignInScreen() {
               value: "990680309932-lh449a7erf1ffkl3mdo88kvftj86tj09.apps.googleusercontent.com",
             },
           ]}
-        />
+        />}
         <Image
           source={require("../../../assets/logos/logo-removebg.png")}
           style={styles.logo}

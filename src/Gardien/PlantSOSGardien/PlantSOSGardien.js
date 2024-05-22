@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-native/no-inline-styles */
 import React, { useState, useContext } from "react";
 import { Text, View, ScrollView, StyleSheet, TextInput, Alert, Keyboard } from "react-native";
 import MyContext from "../../Context/MyContext";
@@ -62,7 +60,6 @@ const PlantSOSGardien = () => {
   };
 
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -76,18 +73,18 @@ const PlantSOSGardien = () => {
   };
 
   return (
-    <View style={{ backgroundColor: colors.background }}>
+    <View style={styles.container}>
       <Text style={styles.title}>PlantSOS</Text>
-      <View style={{ margin: 20, backgroundColor: colors.primary, padding: 20, borderRadius: 10, gap: 5 , maxHeight:"55%"}}>
-        <Text style={{ fontWeight: "bold", textAlign: "center" }}>Vous avez un problème avec une plante ?</Text>
-        <Text style={{ fontWeight: "bold", marginBottom: 10, textAlign: "center" }}>Demandez conseil à nos botanistes expert !</Text>
-        <Text style={{ marginBottom: 5 }}>Quel est le nom de la plante ?</Text>
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputPrompt}>Vous avez un problème avec une plante ?</Text>
+        <Text style={styles.inputPrompt}>Demandez conseil à nos botanistes expert !</Text>
+        <Text style={styles.inputLabel}>Quel est le nom de la plante ?</Text>
         <TextInput
           value={plantData.title ? plantData.title : ""}
           onChangeText={title => setPlantData({ ...plantData, title })}
           style={styles.input}
         />
-        <Text style={{ marginTop: 5 }}>Quel est le problème de la plante ?</Text>
+        <Text style={styles.inputLabel}>Quel est le problème de la plante ?</Text>
         <TextInput
           value={plantData.description ? plantData.description : ""}
           onChangeText={description => setPlantData({ ...plantData, description })}
@@ -95,62 +92,103 @@ const PlantSOSGardien = () => {
           numberOfLines={3}
           style={styles.input}
         />
-        <View style={{ display: "flex", flexDirection: "row", justifyContent: "center", marginLeft: 10 }}>
-          <Button labelStyle={{ marginTop: "17%", borderWidth: 1, borderRadius: 20, color: colors.black, fontSize: 15, paddingHorizontal: "5%", backgroundColor: colors.white , maxHeight:"100%"}} onPress={() => handleAddPlantSOS()}>
+        <View style={styles.buttonContainer}>
+          <Button
+            labelStyle={styles.buttonLabel}
+            onPress={handleAddPlantSOS}
+            style={styles.button}
+          >
             <Text>Poster</Text>
           </Button>
           <Button
-            labelStyle={{marginTop: "11.5%", borderWidth: 1, borderRadius: 20, color: colors.black, fontSize: 15, paddingHorizontal: "5%", backgroundColor: colors.white , maxHeight:"100%"}}
-            onPress={() => pickImageOrTakePhoto()}
+            labelStyle={styles.buttonLabel}
+            onPress={pickImageOrTakePhoto}
+            style={styles.button}
           >
             <Text>Ajout d&apos;image</Text>
           </Button>
         </View>
       </View>
       <ScrollView>
-        {
-          plantsSOS && plantsSOS?.map((plantSOS, index) => {
-            return (
-              <CardPhotoContainer
-                key={index} plants={[plantSOS]}
-                onPress={() => {setVisible(true) ; setSelectPlant(plantSOS) ; }}
-                cardStyles={[styles.card, index === plantsSOS.length - 1 ? styles.lastCard : {}]}
-                imageHeight={13}
-                imageWidth={28}
-              >
-                <View style={styles.cardTitle}>
-                  <Text>{plantSOS.title}</Text>
-                  <Text style={styles.cardTreated}>{plantSOS.treated ? "Traitée" : "Non traitée"}</Text>
-                </View>
-                <Text numberOfLines={2} ellipsizeMode="tail">{plantSOS.description}</Text>
-              </CardPhotoContainer>
-            );
-          })
-        }
+        {plantsSOS && plantsSOS.map((plantSOS, index) => {
+          return (
+            <CardPhotoContainer
+              key={index}
+              plants={[plantSOS]}
+              onPress={() => { setVisible(true); setSelectPlant(plantSOS); }}
+              cardStyles={[styles.card, index === plantsSOS.length - 1 ? styles.lastCard : {}]}
+              imageHeight={13}
+              imageWidth={28}
+            >
+              <View style={styles.cardTitle}>
+                <Text>{plantSOS.title}</Text>
+                <Text style={styles.cardTreated}>{plantSOS.treated ? "Traitée" : "Non traitée"}</Text>
+              </View>
+              <Text numberOfLines={2} ellipsizeMode="tail">{plantSOS.description}</Text>
+            </CardPhotoContainer>
+          );
+        })}
       </ScrollView>
-      <ModalSOS {...{ setVisible, visible , selectPlant , setSelectPlant , roleBotaniste }} />
+      <ModalSOS {...{ setVisible, visible, selectPlant, setSelectPlant, roleBotaniste }} />
     </View>
   );
 };
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.background,
+  },
   title: {
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
     textAlign: "center",
-    marginVertical: 20
+    marginVertical: 20,
+  },
+  inputContainer: {
+    margin: 20,
+    backgroundColor: colors.primary,
+    padding: 20,
+    borderRadius: 10,
+    gap: 5,
+    maxHeight: "55%",
+  },
+  inputPrompt: {
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  inputLabel: {
+    marginTop: 5,
+    marginBottom: 5,
   },
   input: {
     backgroundColor: colors.white,
     borderWidth: 1,
     borderRadius: 5,
     padding: 5,
-    marginHorizontal: 20
+    marginHorizontal: 20,
+  },
+  buttonContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    marginLeft: 10,
+  },
+  button: {
+    marginTop: "17%",
+    borderWidth: 1,
+    borderRadius: 20,
+    paddingHorizontal: "5%",
+    backgroundColor: colors.white,
+    maxHeight: "100%",
+  },
+  buttonLabel: {
+    color: colors.black,
+    fontSize: 15,
   },
   card: {
     marginVertical: 20,
-    marginHorizontal: 40
+    marginHorizontal: 40,
   },
   lastCard: {
     marginBottom: 420,
@@ -158,7 +196,7 @@ export const styles = StyleSheet.create({
   cardTitle: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 10
+    marginBottom: 10,
   },
   cardTreated: {
     backgroundColor: colors.primary,
