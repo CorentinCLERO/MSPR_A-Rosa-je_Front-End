@@ -17,14 +17,14 @@ const PrivacyPolicy = () => {
       <Text style={styles.title}>Politique de confidentialité</Text>
       
       <Text style={styles.sectionTitle}>Introduction</Text>
-      <Text style={styles.text}>Bienvenue sur l&apos;application &quot;A’rosa-je&quot;. Nous nous engageons à protéger votre vie privée et à respecter vos droits en matière de protection des données personnelles. Cette charte explique comment nous collectons, utilisons et protégeons vos données lorsque vous utilisez notre application.</Text>
+      <Text style={styles.text}>Bienvenue sur l&apos;application &quot;A&rsquo;rosa-je&quot;. Nous nous engageons à protéger votre vie privée et à respecter vos droits en matière de protection des données personnelles. Cette charte explique comment nous collectons, utilisons et protégeons vos données lorsque vous utilisez notre application.</Text>
       
       <Text style={styles.sectionTitle}>Contexte de l&apos;Entreprise</Text>
-      <Text style={styles.text}>A’rosa-je est une entreprise française fondée en 1984, spécialisée dans le plant-sitting. Notre mission est d&apos;aider les particuliers à prendre soin de leurs plantes grâce à une communauté de plus de 1500 botanistes répartis dans toute la France. Nos services incluent la garde de plantes en l&apos;absence des propriétaires et des conseils d&apos;entretien pour améliorer leurs soins.</Text>
+      <Text style={styles.text}>A&rsquo;rosa-je est une entreprise française fondée en 1984, spécialisée dans le plant-sitting. Notre mission est d&apos;aider les particuliers à prendre soin de leurs plantes grâce à une communauté de plus de 1500 botanistes répartis dans toute la France. Nos services incluent la garde de plantes en l&apos;absence des propriétaires et des conseils d&apos;entretien pour améliorer leurs soins.</Text>
       
       <Text style={styles.sectionTitle}>Données Collectées</Text>
       <Text style={styles.subSectionTitle}>Informations personnelles :</Text>
-      <Text style={styles.text}>Email : Utilisé pour l&apos;authentification et la communication. [Données sensibles, politique de confidentialité]</Text>
+      <Text style={styles.text}>Email : Utilisé pour l&apos;authentification et la communication. [Consentement explicite, stockage sécurisé]</Text>
       <Text style={styles.text}>Mot de passe : Stocké sous forme cryptée pour sécuriser l&apos;accès au compte utilisateur. [Hashage des mots de passe]</Text>
       <Text style={styles.text}>Pseudo : Utilisé pour l&apos;affichage sur le site sans révéler le vrai nom. [Choix de l&apos;utilisateur]</Text>
       <Text style={styles.text}>Prénom et Nom de famille : Utilisés pour personnaliser l&apos;expérience utilisateur. [Consentement explicite, stockage sécurisé]</Text>
@@ -49,8 +49,8 @@ const PrivacyPolicy = () => {
       
       <Text style={styles.sectionTitle}>Durée de Conservation</Text>
       <Text style={styles.text}>Vos données seront conservées aussi longtemps que nécessaire pour fournir nos services et pour satisfaire aux exigences légales. Les durées spécifiques sont définies selon les types de données :</Text>
-      <Text style={styles.text}>Informations personnelles : Conservées tant que le compte utilisateur est actif.</Text>
-      <Text style={styles.text}>Données de localisation et de service : Conservées pendant la durée de la prestation et archivées ensuite conformément aux obligations légales.</Text>
+      <Text style={styles.text}>Informations personnelles : Conservées tant que le compte utilisateur est actif et 2 ans en cas d&rsquo;inactivité.</Text>
+      <Text style={styles.text}>Données de localisation et de service : Conservées pendant la durée de la prestation et archivées ensuite conformément aux obligations légales pour une durée d&rsquo;un an.</Text>
       
       <Text style={styles.sectionTitle}>Partage des Données</Text>
       <Text style={styles.text}>Nous partageons vos données uniquement avec les parties suivantes, et dans le cadre de leurs fonctions spécifiques :</Text>

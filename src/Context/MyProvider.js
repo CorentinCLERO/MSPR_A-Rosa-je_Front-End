@@ -116,6 +116,19 @@ export const MyProvider = ({ children }) => {
     });
   };
 
+  const deleteUser = () => {
+    return new Promise((resolve, reject) => {
+      API.delete(`/user/${user.id}`)
+        .then(() => {
+          deconnection();
+        })
+        .catch((error) => {
+          Alert.alert("Erreur", "Une erreur est survenue lors de la suppression de votre compte.");
+          reject(error);
+        });
+    });
+  };
+
   const updateStatePlantSitting = (id, state) => {
     setPlantSittings(plantSittings.map((plantSitting) => (plantSitting.id === id ? { ...plantSitting, status: state } : plantSitting)));
   };
@@ -389,6 +402,7 @@ export const MyProvider = ({ children }) => {
     updateUser,
     addAddress, 
     deleteAddress,
+    deleteUser,
   }), [plantsSOS, plantSittings, plants, userPlantSittings, addresses, isLoading, isError, pageDisplayed, isLogged, firstConnection, user]);
 
   return (
