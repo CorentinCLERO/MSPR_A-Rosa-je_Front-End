@@ -42,7 +42,7 @@ const CardPhotoContainer = (props) => {
 
     return () => clearInterval(interval);
   }, [currentIndex]);
-  console.log("plants", plants)
+  // console.log("plants", plants)
   return (
     <Card style={[styles.card, cardStyles]} onPress={() => onPress()}>
       <View style={[styles.cardLayout, cardLayoutStyles]}>

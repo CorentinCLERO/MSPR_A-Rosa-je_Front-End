@@ -8,7 +8,7 @@ import CardPhotoContainer from "../../components/CardPhotoContainer/CardPhotoCon
 
 
 const PlantSOS = () => {
-  const {plantsSOS } = useContext(MyContext);
+  const { plantsSOS } = useContext(MyContext);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredPlants, setFilteredPlants] = useState([]);
   const [visible, setVisible] = useState(false);
@@ -24,8 +24,7 @@ const PlantSOS = () => {
   }, [searchQuery, plantsSOS]);
 
   return (
-    <View style={{ backgroundColor : colors.background }}>
-
+    <View style={styles.container}>
       <Text style={styles.header}>PlantSOS</Text>
       <Searchbar
         placeholder="Rechercher une plante"
@@ -33,10 +32,7 @@ const PlantSOS = () => {
         value={searchQuery}
         style={styles.search}
       />
-
-      
       <FlatList data={filteredPlants} renderItem={({item, index}) => (
-
         <CardPhotoContainer
           plants={[item]} key={index} 
           onPress={() => {setVisible(true) ; setSelectPlant(item) ; }}
@@ -44,7 +40,6 @@ const PlantSOS = () => {
           imageHeight={19}
           imageWidth={28}
         >
-
           <View style={styles.content}>
             <Text style={styles.text}>{item.pseudo}</Text>
             <Text style={styles.text}>{item.title}</Text>
@@ -53,18 +48,17 @@ const PlantSOS = () => {
           </View>  
         </CardPhotoContainer> )}
       />
-        
-           
-      
       <ModalSOS {...{ setVisible, visible , selectPlant , setSelectPlant , roleBotaniste }} />
     </View>
-    
-
   );
 };
 
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
   header : {
     marginBottom : 20 ,
     fontSize : 27 , 
@@ -98,9 +92,6 @@ const styles = StyleSheet.create({
   text : {
     marginTop : 5 ,
   }
-  
-
-
 });
 
 export default PlantSOS;

@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, { useContext } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
@@ -19,15 +18,15 @@ const Mission = () => {
   const missions = plantSittings ? plantSittings.filter(plantSitting => plantSitting.status === "mission") : [];
 
   return (
-    <View style={{backgroundColor: colors.background , marginBottom : 50, height: "100%"}}>
-      <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 10, textAlign: "center", marginVertical: 20 }}>Mes gardes :</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Mes gardes :</Text>
       <ScrollView>
         {missions && missions.map((mission, index) => (
           <CardPhotoContainer
             key={index}
             plants={mission.plants}
             pagination={mission.plants.length > 1}
-            cardStyles={{marginVertical: 20, marginHorizontal: 40}}
+            cardStyles={styles.card}
             imageCarouselStyles
             imageWidth={29}
             imageHeight={23}
@@ -50,20 +49,36 @@ const Mission = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.background,
+    marginBottom: 50,
+    height: "100%",
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+    textAlign: "center",
+    marginVertical: 20,
+  },
+  card: {
+    marginVertical: 20,
+    marginHorizontal: 40,
+  },
   bottomContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginTop:10 , 
+    marginTop: 10,
   },
   deleteButton: {
     position: "absolute",
     width: "100%",
     alignItems: "flex-end",
-    left:"12%"
+    left: "12%",
   },
   text: {
-    textAlign: "center"
+    textAlign: "center",
   },
   text2: {
     backgroundColor: colors.primary,

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { AppRegistry, SafeAreaView, StyleSheet, Platform } from "react-native";
 import { PaperProvider } from "react-native-paper";
 import { name as appName } from "./app.json";
