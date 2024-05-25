@@ -93,8 +93,8 @@ export const MyProvider = ({ children }) => {
       )
         .then((response) => {
           const datatToInsert = { ...data, status: "slot", id: response.data.requestId };
-          const updatedPlantSittings = plantSittings ? [datatToInsert, ...plantSittings] : [datatToInsert];
-          setPlantSittings(updatedPlantSittings);
+          const updatedUserPlantSittings = userPlantSittings ? [datatToInsert, ...userPlantSittings] : [datatToInsert];
+          setUserPlantSittings(updatedUserPlantSittings);
           resolve(response);
         })
         .catch((error) => {
@@ -107,7 +107,7 @@ export const MyProvider = ({ children }) => {
     return new Promise((resolve, reject) => {
       API.delete(`/request/${id}`)
         .then((response) => {
-          setPlantSittings(plantSittings.filter((plant) => plant.id !== id));
+          setUserPlantSittings(userPlantSittings.filter((plant) => plant.id !== id));
           resolve(response);
         })
         .catch((error) => {
