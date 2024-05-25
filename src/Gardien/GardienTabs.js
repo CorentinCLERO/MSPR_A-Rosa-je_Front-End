@@ -9,13 +9,15 @@ import { MissionSVG } from "../../assets/iconesTabs/Mission";
 import { PlantSOSSVG } from "../../assets/iconesTabs/PlantSOS";
 import { StyleSheet, View } from "react-native";
 import { colors } from "../functions/colors";
+import SettingPage from "../SettingPage/SettingPage";
+import { SettingSVG } from "../../assets/iconesTabs/Setting";
 
 
 const GardienTabs = () => {
   const Tab = createMaterialBottomTabNavigator();
 
   return (
-    <View style={{ backgroundColor: colors.background, flex: 1, marginBottom: -20 }}>
+    <View style={styles.container}>
       <NavigationContainer independent={true}>
         <Tab.Navigator
           barStyle={styles.navigator}
@@ -49,6 +51,15 @@ const GardienTabs = () => {
               ),
             }}
           />
+          <Tab.Screen
+            name="Settings"
+            component={SettingPage}
+            options={{
+              tabBarIcon: ({ color }) => (
+                <SettingSVG fill={color} width="24" height="24" />
+              ),
+            }}
+          />
         </Tab.Navigator>
       </NavigationContainer>
     </View>
@@ -62,8 +73,12 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 40,
     overflow: "hidden",
     marginBottom: 10,
-    marginHorizontal: 20,
-  }
+  },
+  container: {
+    flex: 1,
+    backgroundColor: colors.paleGreen,
+    marginBottom: -20
+  },
 });
 
 export default GardienTabs;

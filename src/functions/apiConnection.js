@@ -10,16 +10,16 @@ function isValidURL(url) {
   }
 }
 
-const baseURL = `${process.env.EXPO_PUBLIC_API_URL}/api/mobile`;
+const baseURL = `${process.env.EXPO_PUBLIC_API_URL}/api`;
 if (!isValidURL(baseURL)) {
   throw new Error("Invalid baseURL");
 }
 
-const API = axios.create({
+const APIC = axios.create({
   baseURL
 });
 
-API.interceptors.request.use(
+APIC.interceptors.request.use(
   async (config) => {
     const token = await SecureStore.getItemAsync("userToken");
     if (token) {
@@ -32,4 +32,4 @@ API.interceptors.request.use(
   }
 );
 
-export default API;
+export default APIC;

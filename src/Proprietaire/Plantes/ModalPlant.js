@@ -25,27 +25,22 @@ const ModalPlant = (props) => {
       return;
     }
     const data = new FormData();
-    // Ajouter l'image à l'objet FormData
     data.append("photo", {
       name: imageInfo.name,
       type: imageInfo.type,
       uri: imageInfo.uri,
     });
-    // Ajouter les autres données du formulaire à l'objet FormData
     Object.keys(plantData).forEach(key => {
       data.append(key, plantData[key]);
     });
-    // Ajout d'infos qui ne sont pas géré pour la version de POC
     data.append("userId", 1);
     data.append("adress_id", 1);
     setIsFetching(true);
     addPlant(data)
-      .then(response => {
-        console.log("Réponse du serveur:", response);
+      .then(() => {
         setVisible(false);
         setIsFetching(false);
-      }).catch(error => {
-        console.error("Erreur lors de l'ajout de la plante:", error);
+      }).catch(() => {
         setIsFetching(false);
         Alert.alert("Erreur", "Nous n'avons pas réussi à enregistrer votre plante, veuillez réessayer plus tard.");
       });
@@ -88,7 +83,6 @@ const ModalPlant = (props) => {
   };
 
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -103,11 +97,9 @@ const ModalPlant = (props) => {
   };
 
   const createFormData = (photoUri) => {
-    console.log("photoUri", photoUri);
-    // Ici, "photo" est le nom du champ attendu par votre back-end/api Cloudinary.
     setImageInfo({
-      name: `coco_${Date.now()}.jpg`, // Vous pouvez donner un nom dynamique basé sur l"heure actuelle pour éviter les doublons.
-      type: "image/jpeg", // Assurez-vous que le type correspond au type de fichier que vous envoyez.
+      name: `coco_${Date.now()}.jpg`,
+      type: "image/jpeg",
       uri: Platform.OS === "ios" ? photoUri.replace("file://", "") : photoUri,
     });
   };
