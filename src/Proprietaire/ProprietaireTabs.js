@@ -9,6 +9,7 @@ import { PlantSVG } from "../../assets/iconesTabs/Plant";
 import { colors } from "../functions/colors";
 import { StyleSheet, View } from "react-native";
 import SettingPage from "../SettingPage/SettingPage";
+import Messaging from "../Chat/Messaging";
 
 
 const ClientTabs = () => {
@@ -38,6 +39,15 @@ const ClientTabs = () => {
             options={{
               tabBarIcon: ({ color }) => (
                 <PlantSittingSVG fill={color} width="24" height="24" />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Messaging"
+            component={Messaging}
+            options={{
+              tabBarIcon: ({ color }) => (
+                <SettingSVG fill={color} width="24" height="24" />
               ),
             }}
           />

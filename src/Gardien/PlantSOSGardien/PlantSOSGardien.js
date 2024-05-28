@@ -114,16 +114,16 @@ const PlantSOSGardien = () => {
           return (
             <CardPhotoContainer
               key={index}
-              plants={[plantSOS]}
+              plants={[{...plantSOS, url: "https://www.jardindeco.com/data/img/content/entomosporiose-02.jpg"}]}
               onPress={() => { setVisible(true); setSelectPlant(plantSOS); }}
               cardStyles={[styles.card, index === plantsSOS.length - 1 ? styles.lastCard : {}]}
-              imageHeight={13}
+              imageHeight={16}
               imageWidth={28}
             >
               <View style={styles.cardTitle}>
                 <Text>{plantSOS.title}</Text>
-                <Text style={styles.cardTreated}>{plantSOS.treated ? "Traitée" : "Non traitée"}</Text>
               </View>
+              <Text style={styles.cardTreated}>{plantSOS.treated ? "Traitée" : "Non traitée"}</Text>
               <Text numberOfLines={2} ellipsizeMode="tail">{plantSOS.description}</Text>
             </CardPhotoContainer>
           );

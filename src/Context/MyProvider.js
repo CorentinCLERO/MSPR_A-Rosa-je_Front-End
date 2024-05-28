@@ -6,6 +6,7 @@ import * as SecureStore from "expo-secure-store";
 import { getToken, saveToken } from "../functions/SecureToken";
 import API from "../functions/api";
 import APIC from "../functions/apiConnection";
+import { io } from "socket.io-client";
 
 export const MyProvider = ({ children }) => {
   const [plantsSOS, setPlantsSOS] = useState(null);
@@ -23,6 +24,7 @@ export const MyProvider = ({ children }) => {
   const [firstConnection, setFirstConnection] = useState(false);
   const [userRoleLevel, setUserRoleLevel] = useState(0);
   const [user, setUser] = useState(null);
+  let socket;
 
   useEffect(() => {
     const roleToLevel = {
@@ -264,7 +266,7 @@ export const MyProvider = ({ children }) => {
   const updateUser = (data) => {
     API.patch(`/user/${user.id}`, {...data})
       .then((res) => {
-        setUser(res.data);
+        setUser(res.data.user);
         setFirstConnection(res.data.firstLogin);
       }).catch(err => {
         Alert.alert("Echec", `Modifications échouées : ${err}`);
@@ -291,6 +293,33 @@ export const MyProvider = ({ children }) => {
       .catch((err) => {
         Alert.alert("Echec", `Suppression de l'adresse échouée : ${err}`);
       });
+  };
+
+  const getChats = async () => {
+    try {
+      const res = await API.get(`/all_messages/${user.id}`);
+      return res.data;
+    } catch (err) {
+      Alert.alert("Echec", `Recherche des discussions échouée : ${err}`);
+    }
+  };
+
+  const getMessages = async (id) => {
+    try {
+      const res = await API.get(`/messages/${user.id}/${id}`);
+      return res.data;
+    } catch (err) {
+      Alert.alert("Echec", `Recherche des messages échouée : ${err}`);
+    }
+  };
+
+  const addMessages = async (data) => {
+    try {
+      const res = await API.post("/message", data);
+      return res.data;
+    } catch (err) {
+      Alert.alert("Echec", `Recherche des messages échouée : ${err}`);
+    }
   };
 
   useEffect(() => {
@@ -367,6 +396,8 @@ export const MyProvider = ({ children }) => {
       }
       return false;
     }
+
+    socket = io(process.env.EXPO_PUBLIC_API_URL);
   }, []);
 
   const value = useMemo(() => ({
@@ -403,6 +434,10 @@ export const MyProvider = ({ children }) => {
     addAddress, 
     deleteAddress,
     deleteUser,
+    socket,
+    getChats,
+    getMessages,
+    addMessages,
   }), [plantsSOS, plantSittings, plants, userPlantSittings, addresses, isLoading, isError, pageDisplayed, isLogged, firstConnection, user]);
 
   return (
