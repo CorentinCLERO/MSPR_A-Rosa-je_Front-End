@@ -264,7 +264,7 @@ export const MyProvider = ({ children }) => {
   const updateUser = (data) => {
     API.patch(`/user/${user.id}`, {...data})
       .then((res) => {
-        setUser(res.data);
+        setUser(res.data.user);
         setFirstConnection(res.data.firstLogin);
       }).catch(err => {
         Alert.alert("Echec", `Modifications échouées : ${err}`);
