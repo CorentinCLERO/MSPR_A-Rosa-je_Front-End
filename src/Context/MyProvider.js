@@ -24,7 +24,7 @@ export const MyProvider = ({ children }) => {
   const [firstConnection, setFirstConnection] = useState(false);
   const [userRoleLevel, setUserRoleLevel] = useState(0);
   const [user, setUser] = useState(null);
-  let socket;
+  const [socket, setSocket] = useState(null); 
 
   useEffect(() => {
     const roleToLevel = {
@@ -316,7 +316,7 @@ export const MyProvider = ({ children }) => {
   const addMessages = async (data) => {
     try {
       const res = await API.post("/message", data);
-      return res.data;
+      return {...res.data, pseudo: user.pseudo};
     } catch (err) {
       Alert.alert("Echec", `Recherche des messages échouée : ${err}`);
     }
@@ -397,7 +397,15 @@ export const MyProvider = ({ children }) => {
       return false;
     }
 
-    socket = io(process.env.EXPO_PUBLIC_API_URL);
+    const newSocket = io(process.env.EXPO_PUBLIC_API_URL, {
+      transports: ["websocket"],
+    });
+
+    setSocket(newSocket);
+
+    return () => {
+      newSocket.close();
+    };
   }, []);
 
   const value = useMemo(() => ({
@@ -438,7 +446,7 @@ export const MyProvider = ({ children }) => {
     getChats,
     getMessages,
     addMessages,
-  }), [plantsSOS, plantSittings, plants, userPlantSittings, addresses, isLoading, isError, pageDisplayed, isLogged, firstConnection, user]);
+  }), [plantsSOS, plantSittings, plants, userPlantSittings, addresses, isLoading, isError, pageDisplayed, isLogged, firstConnection, user, socket]);
 
   return (
     <MyContext.Provider value={value}>

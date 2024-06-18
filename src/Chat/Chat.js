@@ -1,24 +1,32 @@
-import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, Alert, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import Message from "../components/Message/Message";
 import NewMessage from "./NewMessage";
 import MyContext from "../Context/MyContext";
-import { Button } from "react-native-paper";
-import { set } from "date-fns";
 
 export default function Chat({userSelected, setUserSelected}) {
-  const { socket, getMessages } = useContext(MyContext);
+  const { socket, getMessages, user } = useContext(MyContext);
   const [messages, setMessages] = useState(null);
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
     const joinChat = async () => {
-      socket.emit("join_chat", userSelected?.pseudo);
+      // console.log("Attempting to join chat");
 
-      socket.on("new_message", (message) => {
-        console.log(message);
-        setMessages((prevMessages) => [...prevMessages, message]);
-      });
+      if (socket && user?.id) {
+        socket.emit("join_chat", user.id);
+
+        socket.on("new_message", (message) => {
+          setMessages((prevMessages) => [message, ...prevMessages]);
+        });
+
+        socket.on("connect", () => {
+          socket.emit("join_chat", user.id);
+        });
+
+      } else {
+        Alert.alert("Socket or User ID is not defined");
+      }
     };
 
     joinChat();

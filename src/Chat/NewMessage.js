@@ -18,7 +18,7 @@ export default function NewMessage({userSelected, setMessages}) {
       receiverId: userSelected.id
     };
     const newMessage = await addMessages(message);
-    setMessages(prevMessages =>[...prevMessages, newMessage]);
+    setMessages(prevMessages =>[newMessage, ...prevMessages]);
     setcontent("");
     setloading(false);
   };
