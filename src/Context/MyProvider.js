@@ -185,7 +185,7 @@ export const MyProvider = ({ children }) => {
 
   const getAllPlantSitting = () => {
     return new Promise((resolve, reject) => {
-      API.get("/requests")
+      API.get(`/allUsersRequests/${user.id}`)
         .then((response) => {
           setPlantSittings(response.data);
           resolve(response);

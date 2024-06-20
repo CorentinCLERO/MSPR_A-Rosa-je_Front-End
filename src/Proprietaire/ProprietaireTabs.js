@@ -10,6 +10,7 @@ import { colors } from "../functions/colors";
 import { StyleSheet, View } from "react-native";
 import SettingPage from "../SettingPage/SettingPage";
 import Messaging from "../Chat/Messaging";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 
 const ClientTabs = () => {
@@ -47,7 +48,7 @@ const ClientTabs = () => {
             component={Messaging}
             options={{
               tabBarIcon: ({ color }) => (
-                <SettingSVG fill={color} width="24" height="24" />
+                <MaterialCommunityIcons name="chat" color={color} size={24} />
               ),
             }}
           />
