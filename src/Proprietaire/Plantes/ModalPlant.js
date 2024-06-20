@@ -8,7 +8,7 @@ import MyContext from "../../Context/MyContext";
 
 const ModalPlant = (props) => {
   const { setVisible, visible } = props;
-  const { addPlant } = useContext(MyContext);
+  const { addPlant, user } = useContext(MyContext);
   const [plantData, setPlantData] = useState({});
   const [imageInfo, setImageInfo] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
@@ -33,8 +33,7 @@ const ModalPlant = (props) => {
     Object.keys(plantData).forEach(key => {
       data.append(key, plantData[key]);
     });
-    data.append("userId", 1);
-    data.append("adress_id", 1);
+    data.append("userId", user.id);
     setIsFetching(true);
     addPlant(data)
       .then(() => {

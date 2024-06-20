@@ -121,8 +121,9 @@ export const MyProvider = ({ children }) => {
   const deleteUser = () => {
     return new Promise((resolve, reject) => {
       API.delete(`/user/${user.id}`)
-        .then(() => {
+        .then((response) => {
           deconnection();
+          resolve(response);
         })
         .catch((error) => {
           Alert.alert("Erreur", "Une erreur est survenue lors de la suppression de votre compte.");
@@ -131,8 +132,18 @@ export const MyProvider = ({ children }) => {
     });
   };
 
-  const updateStatePlantSitting = (id, state) => {
-    setPlantSittings(plantSittings.map((plantSitting) => (plantSitting.id === id ? { ...plantSitting, status: state } : plantSitting)));
+  const updateStatePlantSitting = (plantId, status) => {
+    return new Promise((resolve, reject) => {
+      API.put(`/request/${plantId}`, {status})
+        .then(response => {
+          setPlantSittings(plantSittings.map((plantSitting) => (plantSitting.id === plantId ? { ...plantSitting, status: status } : plantSitting)));
+          resolve(response);
+        })
+        .catch(error => {
+          Alert.alert("Erreur", "Une erreur est survenue lors de la suppression de votre compte.");
+          reject(error);
+        });
+    });
   };
 
   const addPlantSOS = (plant) => {

@@ -8,11 +8,10 @@ import MyContext from "../../Context/MyContext";
 import CardPhotoContainer from "../../components/CardPhotoContainer/CardPhotoContainer";
 
 const Mission = () => {
-  const { plantSittings, updateStatePlantSitting, addPlantSitting } = useContext(MyContext);
+  const { plantSittings, updateStatePlantSitting } = useContext(MyContext);
 
   const deleteMission = (plant) => {
     updateStatePlantSitting(plant.id, "slot");
-    if (plant?.plant) addPlantSitting(plant.plant);
   };
 
   const missions = plantSittings ? plantSittings.filter(plantSitting => plantSitting.status === "mission") : [];
@@ -39,7 +38,7 @@ const Mission = () => {
             </View>
             <Text numberOfLines={1} ellipsizeMode="tail">{mission.adress.number + " " + mission.adress.street + " " + mission.adress.city}</Text>
             <Text numberOfLines={1} ellipsizeMode="tail">{mission.reason}</Text>
-            <Text style={styles.text}>{format(mission.begin_date, "MM/dd/yy") + " - " + format(mission.end_date, "MM/dd/yy")}</Text>
+            <Text style={styles.text}>{format(mission.begin_date, "dd/MM/yy") + " - " + format(mission.end_date, "dd/MM/yy")}</Text>
             <Text style={[styles.text, styles.text2]}>{mission.status}</Text>
           </CardPhotoContainer>
         ))}
