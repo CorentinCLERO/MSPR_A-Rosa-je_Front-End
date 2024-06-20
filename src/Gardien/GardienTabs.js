@@ -11,6 +11,8 @@ import { StyleSheet, View } from "react-native";
 import { colors } from "../functions/colors";
 import SettingPage from "../SettingPage/SettingPage";
 import { SettingSVG } from "../../assets/iconesTabs/Setting";
+import Messaging from "../Chat/Messaging";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 
 const GardienTabs = () => {
@@ -48,6 +50,15 @@ const GardienTabs = () => {
             options={{
               tabBarIcon: ({ color }) => (
                 <PlantSOSSVG fill={color} width="24" height="24" />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Messaging"
+            component={Messaging}
+            options={{
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="chat" color={color} size={24} />
               ),
             }}
           />
