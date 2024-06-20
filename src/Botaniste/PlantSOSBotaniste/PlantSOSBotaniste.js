@@ -15,7 +15,6 @@ const PlantSOS = () => {
   const [selectPlant , setSelectPlant] = useState(0);
   const roleBotaniste  = false;
 
-
   useEffect(() => {
     const filteredPlantsEval = plantsSOS.filter(plantsSOSEval =>
       plantsSOSEval && plantsSOSEval.title ? plantsSOSEval.title.toLowerCase().includes(searchQuery.toLowerCase()) : undefined
@@ -34,7 +33,7 @@ const PlantSOS = () => {
       />
       <FlatList data={filteredPlants} renderItem={({item, index}) => (
         <CardPhotoContainer
-          plants={[item]} key={index} 
+          plants={[{...item, url: "https://www.jardindeco.com/data/img/content/entomosporiose-02.jpg"}]} key={index} 
           onPress={() => {setVisible(true) ; setSelectPlant(item) ; }}
           cardStyles={[styles.card, index === plantsSOS.length - 1 ? styles.lastCard : {}]}
           imageHeight={19}

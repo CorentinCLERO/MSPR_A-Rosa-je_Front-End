@@ -10,11 +10,12 @@ const ListAdresses = () => {
     street: "",
     city: "",
     country: "",
+    cp: "",
   });
 
   const handleAddAddress = () => {
     addAddress(newAddress);
-    setNewAddress({ number: "", street: "", city: "", country: "" });
+    setNewAddress({ number: "", street: "", city: "", country: "", cp: "" });
   };
 
   const handleDeleteAddress = (id) => {
@@ -48,6 +49,12 @@ const ListAdresses = () => {
         placeholder="Ville"
         value={newAddress.city}
         onChangeText={(text) => setNewAddress({ ...newAddress, city: text })}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Code postal"
+        value={newAddress.cp}
+        onChangeText={(text) => setNewAddress({ ...newAddress, cp: text })}
       />
       <TextInput
         style={styles.input}
