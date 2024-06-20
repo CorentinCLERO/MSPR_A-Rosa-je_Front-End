@@ -91,7 +91,7 @@ export const MyProvider = ({ children }) => {
   const addPlantSitting = (data) => {
     return new Promise((resolve, reject) => {
       API.post("/request",
-        { ...data, userId: 1 },
+        { ...data, userId: user.id },
       )
         .then((response) => {
           const datatToInsert = { ...data, status: "slot", id: response.data.requestId };
@@ -132,11 +132,11 @@ export const MyProvider = ({ children }) => {
     });
   };
 
-  const updateStatePlantSitting = (plantId, status) => {
+  const updateStatePlantSitting = (plantId, status, guard_id = null) => {
     return new Promise((resolve, reject) => {
-      API.put(`/request/${plantId}`, {status})
+      API.put(`/request/${plantId}`, {status, guard_id})
         .then(response => {
-          setPlantSittings(plantSittings.map((plantSitting) => (plantSitting.id === plantId ? { ...plantSitting, status: status } : plantSitting)));
+          setPlantSittings(plantSittings.map((plantSitting) => (plantSitting.id === plantId ? { ...plantSitting, status, guard_id } : plantSitting)));
           resolve(response);
         })
         .catch(error => {

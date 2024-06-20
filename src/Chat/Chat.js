@@ -68,6 +68,6 @@ export default function Chat({userSelected, setUserSelected}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginBottom: 20
+    marginVertical: 20
   },
 });

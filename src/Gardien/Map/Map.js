@@ -14,7 +14,7 @@ const Map = () => {
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
   const [transportability, setTransportability] = useState(null);
-  const { updateStatePlantSitting, plantSittings } = useContext(MyContext);
+  const { updateStatePlantSitting, plantSittings, user } = useContext(MyContext);
   const mapViewRef = useRef(null);
   const plantSittingRequests = plantSittings ? plantSittings.filter((plant) => plant.status === "slot"): [];
 
@@ -63,7 +63,7 @@ const Map = () => {
   };
 
   const handleKeppPlant = (plant) => {
-    updateStatePlantSitting(plant.id, "mission");
+    updateStatePlantSitting(plant.id, "mission", user.id);
     setSelectedMarker(null);
   };
 
